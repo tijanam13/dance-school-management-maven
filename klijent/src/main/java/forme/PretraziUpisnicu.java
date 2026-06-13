@@ -1,0 +1,431 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ */
+package forme;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionListener;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.table.DefaultTableCellRenderer;
+
+/**
+ *
+ * @author Tijana
+ */
+public class PretraziUpisnicu extends javax.swing.JDialog {
+
+    private GlavnaForma gf;
+
+    public JTable getjTableUpisnice() {
+        return jTableUpisnice;
+    }
+
+    public void setjTableUpisnice(JTable jTableUpisnice) {
+        this.jTableUpisnice = jTableUpisnice;
+    }
+
+    public JTextField getjTextFieldID() {
+        return jTextFieldID;
+    }
+
+    public void setjTextFieldID(JTextField jTextFieldID) {
+        this.jTextFieldID = jTextFieldID;
+    }
+
+    public JTextField getjTextFieldInstruktor() {
+        return jTextFieldInstruktor;
+    }
+
+    public void setjTextFieldInstruktor(JTextField jTextFieldInstruktor) {
+        this.jTextFieldInstruktor = jTextFieldInstruktor;
+    }
+
+    public JTextField getjTextFieldKategorija() {
+        return jTextFieldKategorija;
+    }
+
+    public void setjTextFieldKategorija(JTextField jTextFieldKategorija) {
+        this.jTextFieldKategorija = jTextFieldKategorija;
+    }
+
+    public JTextField getjTextFieldNaziv() {
+        return jTextFieldNaziv;
+    }
+
+    public void setjTextFieldNaziv(JTextField jTextFieldNaziv) {
+        this.jTextFieldNaziv = jTextFieldNaziv;
+    }
+
+    public JTextField getjTextFieldPolaznik() {
+        return jTextFieldPolaznik;
+    }
+
+    public void setjTextFieldPolaznik(JTextField jTextFieldPolaznik) {
+        this.jTextFieldPolaznik = jTextFieldPolaznik;
+    }
+
+    public JRadioButton getjRadioButtonID() {
+        return jRadioButtonID;
+    }
+
+    public void setjRadioButtonID(JRadioButton jRadioButtonID) {
+        this.jRadioButtonID = jRadioButtonID;
+    }
+
+    public JRadioButton getjRadioButtonInstruktor() {
+        return jRadioButtonInstruktor;
+    }
+
+    public void setjRadioButtonInstruktor(JRadioButton jRadioButtonInstruktor) {
+        this.jRadioButtonInstruktor = jRadioButtonInstruktor;
+    }
+
+    public JRadioButton getjRadioButtonPolaznik() {
+        return jRadioButtonPolaznik;
+    }
+
+    public void setjRadioButtonPolaznik(JRadioButton jRadioButtonPolaznik) {
+        this.jRadioButtonPolaznik = jRadioButtonPolaznik;
+    }
+
+    public JRadioButton getjRadioButtonVrstaPlesa() {
+        return jRadioButtonVrstaPlesa;
+    }
+
+    public void setjRadioButtonVrstaPlesa(JRadioButton jRadioButtonVrstaPlesa) {
+        this.jRadioButtonVrstaPlesa = jRadioButtonVrstaPlesa;
+    }
+
+    /**
+     * Creates new form PretraziUpisnicu
+     * @param parent
+     * @param modal
+     */
+    public PretraziUpisnicu(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ex) {
+            System.err.println("Greška prilikom postavljanja Nimbus dizajna: " + ex.getMessage());
+        }
+        initComponents();
+        this.setSize(757, 690);
+        this.setLocationRelativeTo(null);
+
+        setResizable(false);
+
+        this.setTitle("Pretraži upisnicu");
+        this.gf = (GlavnaForma) parent;
+
+        jTableUpisnice.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (!isSelected) {
+                    if (row % 2 == 0) {
+                        cell.setBackground(Color.WHITE);
+                    } else {
+                        cell.setBackground(new Color(204, 255, 255));
+                    }
+                }
+                if (isSelected) {
+                    cell.setBackground(new Color(204, 204, 204));
+                }
+
+                cell.setForeground(new Color(0, 102, 153));
+
+                return cell;
+            }
+        });
+
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableUpisnice = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jButtonPrikaziUpisnicu = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jTextFieldPolaznik = new javax.swing.JTextField();
+        jTextFieldInstruktor = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jButtonPretraziSve = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jRadioButtonPolaznik = new javax.swing.JRadioButton();
+        jRadioButtonVrstaPlesa = new javax.swing.JRadioButton();
+        jRadioButtonInstruktor = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldID = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jRadioButtonID = new javax.swing.JRadioButton();
+        jButtonPretrazi = new javax.swing.JButton();
+        jTextFieldNaziv = new javax.swing.JTextField();
+        jTextFieldKategorija = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTableUpisnice.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTableUpisnice.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTableUpisnice.setRowHeight(25);
+        jTableUpisnice.setRowSelectionAllowed(true);
+        jTableUpisnice.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableUpisnice.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableUpisnice.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTableUpisnice);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 690, 232));
+
+        jPanel1.setBackground(new java.awt.Color(0, 102, 153));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("UPISNICE");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 119, 60));
+
+        jButtonPrikaziUpisnicu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonPrikaziUpisnicu.setForeground(new java.awt.Color(0, 102, 153));
+        jButtonPrikaziUpisnicu.setText("Prikaži upisnicu");
+        jButtonPrikaziUpisnicu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPrikaziUpisnicuActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonPrikaziUpisnicu, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 603, 139, 30));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Pronađene upisnice");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 200, -1));
+        jPanel1.add(jTextFieldPolaznik, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 250, -1));
+
+        jTextFieldInstruktor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldInstruktorActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextFieldInstruktor, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 250, -1));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Prikaži sve upisnice:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 200, -1));
+
+        jButtonPretraziSve.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonPretraziSve.setForeground(new java.awt.Color(0, 102, 153));
+        jButtonPretraziSve.setText("Prikaži");
+        jButtonPretraziSve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPretraziSveActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonPretraziSve, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 139, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Filtriraj po instruktoru:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 224, -1));
+
+        jRadioButtonPolaznik.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonPolaznikActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jRadioButtonPolaznik, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+
+        jRadioButtonVrstaPlesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonVrstaPlesaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jRadioButtonVrstaPlesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
+
+        jRadioButtonInstruktor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonInstruktorActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jRadioButtonInstruktor, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Filtriraj upisnice po vrsti plesa:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 224, -1));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Filtriraj upisnice po polazniku:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 224, -1));
+        jPanel1.add(jTextFieldID, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 250, -1));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Filtriraj upisnice po ID-u:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 224, -1));
+
+        jRadioButtonID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonIDActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jRadioButtonID, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+
+        jButtonPretrazi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonPretrazi.setForeground(new java.awt.Color(0, 102, 153));
+        jButtonPretrazi.setText("Pretraži");
+        jButtonPretrazi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPretraziActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonPretrazi, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 260, 140, -1));
+        jPanel1.add(jTextFieldNaziv, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 120, -1));
+        jPanel1.add(jTextFieldKategorija, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 120, -1));
+
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Naziv:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, -1, -1));
+
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Kategorija:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 240, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 660));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPretraziActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jButtonPretraziActionPerformed
+
+    private void jButtonPrikaziUpisnicuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrikaziUpisnicuActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jButtonPrikaziUpisnicuActionPerformed
+
+    private void jRadioButtonInstruktorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonInstruktorActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jRadioButtonInstruktorActionPerformed
+
+    private void jRadioButtonIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonIDActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jRadioButtonIDActionPerformed
+
+    private void jRadioButtonPolaznikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPolaznikActionPerformed
+        // TODO add your handling code here:        
+
+    }//GEN-LAST:event_jRadioButtonPolaznikActionPerformed
+
+    private void jRadioButtonVrstaPlesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonVrstaPlesaActionPerformed
+        // TODO add your handling code here:   
+
+    }//GEN-LAST:event_jRadioButtonVrstaPlesaActionPerformed
+
+    private void jButtonPretraziSveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPretraziSveActionPerformed
+        // TODO add your handling code here:      
+    }//GEN-LAST:event_jButtonPretraziSveActionPerformed
+
+    private void jTextFieldInstruktorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldInstruktorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldInstruktorActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButtonPretrazi;
+    private javax.swing.JButton jButtonPretraziSve;
+    private javax.swing.JButton jButtonPrikaziUpisnicu;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRadioButtonID;
+    private javax.swing.JRadioButton jRadioButtonInstruktor;
+    private javax.swing.JRadioButton jRadioButtonPolaznik;
+    private javax.swing.JRadioButton jRadioButtonVrstaPlesa;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableUpisnice;
+    private javax.swing.JTextField jTextFieldID;
+    private javax.swing.JTextField jTextFieldInstruktor;
+    private javax.swing.JTextField jTextFieldKategorija;
+    private javax.swing.JTextField jTextFieldNaziv;
+    private javax.swing.JTextField jTextFieldPolaznik;
+    // End of variables declaration//GEN-END:variables
+
+    public void VratiListuSvihUpisnicaAddActionListeners(ActionListener actionListener) {
+        jButtonPretraziSve.addActionListener(actionListener);
+    }
+
+    public void VratiListuUpisnicaSaUslovomAddActionListeners(ActionListener actionListener) {
+        jButtonPretrazi.addActionListener(actionListener);
+    }
+
+    public void PrikaziUpisnicuAddActionListeners(ActionListener actionListener) {
+        jButtonPrikaziUpisnicu.addActionListener(actionListener);
+    }
+
+    public void RadioVrstaPlesaAddActionListeners(ActionListener actionListener) {
+        jRadioButtonVrstaPlesa.addActionListener(actionListener);
+    }
+
+    public void RadioPolaznikAddActionListeners(ActionListener actionListener) {
+        jRadioButtonPolaznik.addActionListener(actionListener);
+    }
+
+    public void RadioInstruktorAddActionListeners(ActionListener actionListener) {
+        jRadioButtonInstruktor.addActionListener(actionListener);
+    }
+
+    public void RadioIDAddActionListeners(ActionListener actionListener) {
+        jRadioButtonID.addActionListener(actionListener);
+    }
+
+}
