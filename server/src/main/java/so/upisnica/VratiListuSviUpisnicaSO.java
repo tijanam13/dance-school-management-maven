@@ -8,6 +8,7 @@ import java.util.List;
 import model.StavkaUpisnice;
 import model.Upisnica;
 import so.OpstaSO;
+import model.JsonServis;
 
 /**
  *
@@ -41,5 +42,8 @@ public class VratiListuSviUpisnicaSO extends OpstaSO {
         }
 
         this.lista = lista;
+        
+        JsonServis jsonServis = new JsonServis();
+        jsonServis.serijalizujUpisnice(lista, "upisnice.json");
     }
 }

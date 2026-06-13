@@ -26,4 +26,36 @@ public class JsonServis {
         reader.close();
         return instruktori;
     }
+    
+    public void serijalizujPolaznike(List<Polaznik> polaznici, String putanja) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
+        FileWriter writer = new FileWriter(putanja);
+        writer.write(gson.toJson(polaznici));
+        writer.close();
+    }
+
+    public List<Polaznik> deserijalizujPolaznike(String putanja) throws IOException {
+        Gson gson = new GsonBuilder().create();
+        FileReader reader = new FileReader(putanja);
+        Type listType = new TypeToken<List<Polaznik>>(){}.getType();
+        List<Polaznik> polaznici = gson.fromJson(reader, listType);
+        reader.close();
+        return polaznici;
+    }
+
+    public void serijalizujUpisnice(List<Upisnica> upisnice, String putanja) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
+        FileWriter writer = new FileWriter(putanja);
+        writer.write(gson.toJson(upisnice));
+        writer.close();
+    }
+
+    public List<Upisnica> deserijalizujUpisnice(String putanja) throws IOException {
+        Gson gson = new GsonBuilder().create();
+        FileReader reader = new FileReader(putanja);
+        Type listType = new TypeToken<List<Upisnica>>(){}.getType();
+        List<Upisnica> upisnice = gson.fromJson(reader, listType);
+        reader.close();
+        return upisnice;
+    }
 }

@@ -7,6 +7,7 @@ package so.polaznik;
 import java.util.List;
 import model.Polaznik;
 import so.OpstaSO;
+import model.JsonServis;
 
 /**
  *
@@ -34,6 +35,9 @@ public class VratiListuSviPolaznikSO extends OpstaSO {
         String upit = " JOIN uzrasna_kategorija ON polaznik.idUzrast = uzrasna_kategorija.idUzrast";
         List<Polaznik> lista = broker.vratiSve((Polaznik) parametar, upit);
         this.lista = lista;
+        
+        JsonServis jsonServis = new JsonServis();
+        jsonServis.serijalizujPolaznike(lista, "polaznici.json");
     }
 
 }
