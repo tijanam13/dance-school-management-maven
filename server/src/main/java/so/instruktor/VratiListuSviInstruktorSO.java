@@ -7,6 +7,7 @@ package so.instruktor;
 import java.util.List;
 import model.Instruktor;
 import so.OpstaSO;
+import model.JsonServis;
 
 /**
  *
@@ -31,5 +32,8 @@ public class VratiListuSviInstruktorSO extends OpstaSO {
     protected void izvrsi(Object parametar, Object uslov) throws Exception {
         List<Instruktor> lista = broker.vratiSve((Instruktor) parametar);
         this.lista = lista;
+        
+        JsonServis jsonServis = new JsonServis();
+        jsonServis.serijalizujInstruktore(lista, "instruktori.json");
     }
 }
