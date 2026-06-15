@@ -7,7 +7,7 @@ package so.instruktor;
 import java.util.List;
 import model.Instruktor;
 import so.OpstaSO;
-import model.JsonServis;
+import servis.JsonServis;
 
 /**
  *

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package kontroleri;
 
 import forme.KreirajVrstuPlesa;
@@ -15,6 +11,7 @@ import komunikacija.Komunikacija;
 import kontrolerGlavni.KontrolerGlavni;
 import model.ModelTabeleVrstePlesa;
 import model.VrstaPlesa;
+import servis.JsonServis;
 
 /**
  *
@@ -480,7 +477,16 @@ public class VrstaPlesaKontroler {
             kvp.getjTextFieldCenaCasa().setEditable(false);
             kvp.getjTextFieldKategorija().setEditable(false);
             kvp.getjTextFieldNaziv().setEditable(false);
-            JOptionPane.showMessageDialog(kvp, "Sistem je našao vrstu plesa.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+
+            try {
+                JsonServis js = new JsonServis();
+                double cenaEur = js.konvertujUEvre(vrstaPlesa.getCenaCasa());
+                String poruka = String.format("Sistem je našao vrstu plesa.\nCena časa: %.2f RSD (%.2f EUR)",
+                        vrstaPlesa.getCenaCasa(), cenaEur);
+                JOptionPane.showMessageDialog(kvp, poruka, "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(kvp, "Sistem je našao vrstu plesa.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+            }
 
             kvp.setVisible(true);
         }

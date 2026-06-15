@@ -1,15 +1,27 @@
-package model;
+package servis;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+
+import model.Instruktor;
+import model.InstruktorKvalifikacija;
+import model.Polaznik;
+import model.Upisnica;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import com.google.gson.JsonParser;
 
 public class JsonServis {
 
@@ -84,5 +96,28 @@ public class JsonServis {
         try (FileWriter writer = new FileWriter(putanja)) {
             writer.write(new GsonBuilder().setPrettyPrinting().create().toJson(niz));
         }
+    }
+    
+    public double vratiKursRsdEur() throws Exception {
+        URL url = new URL("https://open.er-api.com/v6/latest/RSD");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        JsonObject jsonObject = JsonParser.parseString(response.toString()).getAsJsonObject();
+        JsonObject rates = jsonObject.getAsJsonObject("rates");
+        return rates.get("EUR").getAsDouble();
+    }
+
+    public double konvertujUEvre(double cenaRsd) throws Exception {
+        double kurs = vratiKursRsdEur();
+        return cenaRsd * kurs;
     }
 }

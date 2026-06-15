@@ -7,7 +7,7 @@ package so.polaznik;
 import java.util.List;
 import model.Polaznik;
 import so.OpstaSO;
-import model.JsonServis;
+import servis.JsonServis;
 
 /**
  *

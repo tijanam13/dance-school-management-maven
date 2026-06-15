@@ -24,6 +24,7 @@ import model.Polaznik;
 import model.StavkaUpisnice;
 import model.Upisnica;
 import model.VrstaPlesa;
+import servis.JsonServis;
 
 /**
  *
@@ -849,8 +850,16 @@ public class UpisnicaKontroler {
             ku.getjComboBoxPolaznik().setSelectedItem(upisnica.getPolaznik());
             ku.getjComboBoxVrstaPlesa().setSelectedItem(null);
 
-            JOptionPane.showMessageDialog(ku, "Sistem je našao upisnicu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
-
+            try {
+                JsonServis js = new JsonServis();
+                double clanarinavEur = js.konvertujUEvre(upisnica.getUkupnaClanarina());
+                String poruka = String.format("Sistem je našao upisnicu.\nUkupna članarina: %.2f RSD (%.2f EUR)",
+                        upisnica.getUkupnaClanarina(), clanarinavEur);
+                JOptionPane.showMessageDialog(ku, poruka, "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(ku, "Sistem je našao upisnicu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
             ku.setVisible(true);
 
         }
