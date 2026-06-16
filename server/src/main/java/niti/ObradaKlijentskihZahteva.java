@@ -10,6 +10,7 @@ import java.util.List;
 import model.Instruktor;
 import model.Kvalifikacija;
 import model.Polaznik;
+import model.Sertifikat;
 import model.Upisnica;
 import model.UzrasnaKategorija;
 import model.VrstaPlesa;
@@ -406,6 +407,48 @@ public class ObradaKlijentskihZahteva extends Thread {
                             Kvalifikacija kv = ServerKontroler.getInstance().pretraziKvalifikacija((Kvalifikacija) kz.getParam());
                             so.setOdgovor(kv);
 
+                            posiljalac.posalji(so);
+                            break;
+                            
+                        case KREIRAJ_SERTIFIKAT:
+                            boolean uspesnoSertifikat = ServerKontroler.getInstance().kreirajSertifikat((Sertifikat) kz.getParam());
+                            so.setOdgovor(uspesnoSertifikat);
+                            posiljalac.posalji(so);
+                            break;
+
+                        case OBRISI_SERTIFIKAT:
+                            boolean uspesnoObrisiSertifikat = ServerKontroler.getInstance().obrisiSertifikat((Sertifikat) kz.getParam());
+                            so.setOdgovor(uspesnoObrisiSertifikat);
+                            posiljalac.posalji(so);
+                            break;
+
+                        case PROMENI_SERTIFIKAT:
+                            boolean uspesnoPromeniSertifikat = ServerKontroler.getInstance().promeniSertifikat((Sertifikat) kz.getParam());
+                            so.setOdgovor(uspesnoPromeniSertifikat);
+                            posiljalac.posalji(so);
+                            break;
+
+                        case PRETRAZI_SERTIFIKAT:
+                            Sertifikat sertifikat = ServerKontroler.getInstance().pretraziSertifikat((Sertifikat) kz.getParam());
+                            so.setOdgovor(sertifikat);
+                            posiljalac.posalji(so);
+                            break;
+
+                        case VRATI_LISTU_SVI_SERTIFIKAT:
+                            List<Sertifikat> listaSvihSertifikata = ServerKontroler.getInstance().vratiListuSviSertifikat();
+                            so.setOdgovor(listaSvihSertifikata);
+                            posiljalac.posalji(so);
+                            break;
+
+                        case VRATI_LISTU_SERTIFIKAT_POLAZNIK:
+                            List<Sertifikat> listaSertifikatPolaznik = ServerKontroler.getInstance().vratiListuSertifikatPolaznik((Sertifikat) kz.getParam());
+                            so.setOdgovor(listaSertifikatPolaznik);
+                            posiljalac.posalji(so);
+                            break;
+
+                        case VRATI_LISTU_SERTIFIKAT_VRSTA_PLESA:
+                            List<Sertifikat> listaSertifikatVrstaPlesa = ServerKontroler.getInstance().vratiListuSertifikatVrstaPlesa((Sertifikat) kz.getParam());
+                            so.setOdgovor(listaSertifikatVrstaPlesa);
                             posiljalac.posalji(so);
                             break;
 

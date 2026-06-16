@@ -164,6 +164,15 @@ public class GlavnaForma extends javax.swing.JFrame {
                 jMenuItemPretraziVrstaPlesa.setFont(new Font("Segoe UI", Font.PLAIN, font3));
                 jMenuItemPretraziVrstaPlesa.setForeground(boja);
 
+                jMenu7.setFont(new Font("Segoe UI", Font.BOLD, font3));
+                jMenu7.setForeground(boja);
+                jMenu7.setPreferredSize(new Dimension(getWidth() / 11, jMenuBar1.getHeight()));
+
+                jMenuItemKreirajSertifikat.setFont(new Font("Segoe UI", Font.PLAIN, font3));
+                jMenuItemKreirajSertifikat.setForeground(boja);
+                jMenuItemPretraziSertifikat.setFont(new Font("Segoe UI", Font.PLAIN, font3));
+                jMenuItemPretraziSertifikat.setForeground(boja);
+
                 jButtonOdjaviSe.setFont(new Font("Segoe UI", Font.BOLD, font2));
 
             }
@@ -209,6 +218,9 @@ public class GlavnaForma extends javax.swing.JFrame {
         jMenu11 = new javax.swing.JMenu();
         jMenuItemKreirajUzrast = new javax.swing.JMenuItem();
         jMenuItemPretraziUzrast = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItemKreirajSertifikat = new javax.swing.JMenuItem();
+        jMenuItemPretraziSertifikat = new javax.swing.JMenuItem();
         jMenu18 = new javax.swing.JMenu();
         jMenuItemKonfiguracija = new javax.swing.JMenuItem();
         jMenu19 = new javax.swing.JMenu();
@@ -386,6 +398,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         jMenu4.add(jMenu5);
 
         jMenu6.setText("Kvalifikacija");
+        jMenu6.setFocusCycleRoot(true);
 
         jMenuItemKreirajKvalifikacija.setText("Kreiraj");
         jMenuItemKreirajKvalifikacija.addActionListener(new java.awt.event.ActionListener() {
@@ -424,6 +437,27 @@ public class GlavnaForma extends javax.swing.JFrame {
         jMenu11.add(jMenuItemPretraziUzrast);
 
         jMenu4.add(jMenu11);
+
+        jMenu7.setText("Sertifikat");
+        jMenu7.setPreferredSize(new java.awt.Dimension(150, 22));
+
+        jMenuItemKreirajSertifikat.setText("Kreiraj");
+        jMenuItemKreirajSertifikat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemKreirajSertifikatActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItemKreirajSertifikat);
+
+        jMenuItemPretraziSertifikat.setText("Pretraži");
+        jMenuItemPretraziSertifikat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPretraziSertifikatActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItemPretraziSertifikat);
+
+        jMenu4.add(jMenu7);
 
         jMenuBar1.add(jMenu4);
 
@@ -611,6 +645,24 @@ public class GlavnaForma extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonOdjaviSeActionPerformed
 
+    private void jMenuItemKreirajSertifikatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemKreirajSertifikatActionPerformed
+        // TODO add your handling code here:
+        try {
+            KontrolerGlavni.getInstance().pokreniKreirajSertifikat(null);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Sistem ne može da kreira sertifikat.", "Greška", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenuItemKreirajSertifikatActionPerformed
+
+    private void jMenuItemPretraziSertifikatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPretraziSertifikatActionPerformed
+        // TODO add your handling code here:
+        try {
+            KontrolerGlavni.getInstance().pokreniPretraziSertifikat();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Sistem ne može da prikaže formu za pretraživanje sertifikata.", "Greška", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenuItemPretraziSertifikatActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonOdjaviSe;
@@ -629,6 +681,7 @@ public class GlavnaForma extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItemInformacije;
@@ -636,12 +689,14 @@ public class GlavnaForma extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemKreirajInstruktora;
     private javax.swing.JMenuItem jMenuItemKreirajKvalifikacija;
     private javax.swing.JMenuItem jMenuItemKreirajPolaznik;
+    private javax.swing.JMenuItem jMenuItemKreirajSertifikat;
     private javax.swing.JMenuItem jMenuItemKreirajUpisnica;
     private javax.swing.JMenuItem jMenuItemKreirajUzrast;
     private javax.swing.JMenuItem jMenuItemKreirajVrstaPlesa;
     private javax.swing.JMenuItem jMenuItemPretraziInstruktora;
     private javax.swing.JMenuItem jMenuItemPretraziKvalifikacija;
     private javax.swing.JMenuItem jMenuItemPretraziPolaznik;
+    private javax.swing.JMenuItem jMenuItemPretraziSertifikat;
     private javax.swing.JMenuItem jMenuItemPretraziUpisnica;
     private javax.swing.JMenuItem jMenuItemPretraziUzrast;
     private javax.swing.JMenuItem jMenuItemPretraziVrstaPlesa;

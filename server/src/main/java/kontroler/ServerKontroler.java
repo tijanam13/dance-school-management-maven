@@ -55,6 +55,14 @@ import so.vrstaPlesa.VratiListuVrstaPlesaVrstaPlesaSO;
 import so.vrstaPlesa.VratiListuSviVrstaPlesaSO;
 import so.vrstaPlesa.KreirajVrstaPlesaSO;
 import so.vrstaPlesa.PretraziVrstaPlesaSO;
+import model.Sertifikat;
+import so.sertifikat.KreirajSertifikatSO;
+import so.sertifikat.ObrisiSertifikatSO;
+import so.sertifikat.PromeniSertifikatSO;
+import so.sertifikat.PretraziSertifikatSO;
+import so.sertifikat.VratiListuSviSertifikatSO;
+import so.sertifikat.VratiListuSertifikatPolaznikSO;
+import so.sertifikat.VratiListuSertifikatVrstaPlesaSO;
 
 /**
  *
@@ -389,6 +397,48 @@ public class ServerKontroler {
         PretraziKvalifikacijaSO operacija = new PretraziKvalifikacijaSO();
         operacija.izvrsiOperaciju(kvalifikacija, null);
         return operacija.getKvalifikacija();
+    }
+    
+    public boolean kreirajSertifikat(Sertifikat sertifikat) throws Exception {
+        KreirajSertifikatSO operacija = new KreirajSertifikatSO();
+        operacija.izvrsiOperaciju(sertifikat, null);
+        return operacija.getUspesno();
+    }
+
+    public boolean obrisiSertifikat(Sertifikat sertifikat) throws Exception {
+        ObrisiSertifikatSO operacija = new ObrisiSertifikatSO();
+        operacija.izvrsiOperaciju(sertifikat, null);
+        return operacija.getUspesno();
+    }
+
+    public boolean promeniSertifikat(Sertifikat sertifikat) throws Exception {
+        PromeniSertifikatSO operacija = new PromeniSertifikatSO();
+        operacija.izvrsiOperaciju(sertifikat, null);
+        return operacija.getUspesno();
+    }
+
+    public Sertifikat pretraziSertifikat(Sertifikat sertifikat) throws Exception {
+        PretraziSertifikatSO operacija = new PretraziSertifikatSO();
+        operacija.izvrsiOperaciju(sertifikat, null);
+        return operacija.getSertifikat();
+    }
+
+    public List<Sertifikat> vratiListuSviSertifikat() throws Exception {
+        VratiListuSviSertifikatSO operacija = new VratiListuSviSertifikatSO();
+        operacija.izvrsiOperaciju(new Sertifikat(), null);
+        return operacija.getLista();
+    }
+
+    public List<Sertifikat> vratiListuSertifikatPolaznik(Sertifikat sertifikat) throws Exception {
+        VratiListuSertifikatPolaznikSO operacija = new VratiListuSertifikatPolaznikSO();
+        operacija.izvrsiOperaciju(sertifikat, null);
+        return operacija.getLista();
+    }
+
+    public List<Sertifikat> vratiListuSertifikatVrstaPlesa(Sertifikat sertifikat) throws Exception {
+        VratiListuSertifikatVrstaPlesaSO operacija = new VratiListuSertifikatVrstaPlesaSO();
+        operacija.izvrsiOperaciju(sertifikat, null);
+        return operacija.getLista();
     }
 
 }

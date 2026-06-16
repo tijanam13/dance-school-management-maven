@@ -34,7 +34,10 @@ import model.Polaznik;
 import model.Upisnica;
 import model.UzrasnaKategorija;
 import model.VrstaPlesa;
-
+import forme.KreirajSertifikat;
+import forme.PretraziSertifikat;
+import kontroleri.SertifikatKontroler;
+import model.Sertifikat;
 /**
  *
  * @author Tijana
@@ -52,6 +55,7 @@ public class KontrolerGlavni {
     private VrstaPlesaKontroler vrstaPlesaKontroler;
     private UzrasnaKategorijaKontroler uzrasnaKategorijaKontroler;
     private KreirajKonfiguracijuKontroler kreirajKonfiguracijuKontroler;
+    private SertifikatKontroler sertifikatKontroler;
 
     public Instruktor getPrijavljeni() {
         return prijavljeni;
@@ -152,6 +156,22 @@ public class KontrolerGlavni {
     public void pokreniKreirajKonfiguraciju() {
         kreirajKonfiguracijuKontroler = new KreirajKonfiguracijuKontroler(new KreirajKonfiguraciju(new Prijavljivanje(), true));
         kreirajKonfiguracijuKontroler.prikaziFormu();
+    }
+    
+    public void pokreniKreirajSertifikat(Sertifikat sertifikat) {
+        sertifikatKontroler = new SertifikatKontroler(
+            new KreirajSertifikat(new GlavnaForma(), true, sertifikat),
+            new PretraziSertifikat(new GlavnaForma(), true)
+        );
+        sertifikatKontroler.prikaziFormuKreirajSertifikat(sertifikat);
+    }
+
+    public void pokreniPretraziSertifikat() {
+        sertifikatKontroler = new SertifikatKontroler(
+            new KreirajSertifikat(new GlavnaForma(), true, null),
+            new PretraziSertifikat(new GlavnaForma(), true)
+        );
+        sertifikatKontroler.prikaziFormuPretraziSertifikat();
     }
 
 }

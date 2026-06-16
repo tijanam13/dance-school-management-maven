@@ -14,6 +14,7 @@ import kontrolerGlavni.KontrolerGlavni;
 import model.Instruktor;
 import model.Kvalifikacija;
 import model.Polaznik;
+import model.Sertifikat;
 import model.Upisnica;
 import model.UzrasnaKategorija;
 import model.VrstaPlesa;
@@ -606,6 +607,89 @@ public class Komunikacija {
             return null;
         }
         return (VrstaPlesa) so.getOdgovor();
+    }
+    
+    public boolean kreirajSertifikat(Sertifikat sertifikat) {
+        Zahtev zahtev = new Zahtev(Operacije.KREIRAJ_SERTIFIKAT, sertifikat);
+        posiljalac.posalji(zahtev);
+        Odgovor so = (Odgovor) primalac.primi();
+        if (so == null) {
+            JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        boolean uspesno = (boolean) so.getOdgovor();
+        return uspesno;
+    }
+
+    public boolean obrisiSertifikat(Sertifikat sertifikat) {
+        Zahtev zahtev = new Zahtev(Operacije.OBRISI_SERTIFIKAT, sertifikat);
+        posiljalac.posalji(zahtev);
+        Odgovor so = (Odgovor) primalac.primi();
+        if (so == null) {
+            JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        boolean uspesno = (boolean) so.getOdgovor();
+        return uspesno;
+    }
+
+    public boolean promeniSertifikat(Sertifikat sertifikat) {
+        Zahtev zahtev = new Zahtev(Operacije.PROMENI_SERTIFIKAT, sertifikat);
+        posiljalac.posalji(zahtev);
+        Odgovor so = (Odgovor) primalac.primi();
+        if (so == null) {
+            JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        boolean uspesno = (boolean) so.getOdgovor();
+        return uspesno;
+    }
+
+    public Sertifikat pretraziSertifikat(Sertifikat sertifikat) {
+        Zahtev zahtev = new Zahtev(Operacije.PRETRAZI_SERTIFIKAT, sertifikat);
+        posiljalac.posalji(zahtev);
+        Odgovor so = (Odgovor) primalac.primi();
+        if (so == null) {
+            JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        return (Sertifikat) so.getOdgovor();
+    }
+
+    public List<Sertifikat> vratiListuSviSertifikat() {
+        Zahtev zahtev = new Zahtev(Operacije.VRATI_LISTU_SVI_SERTIFIKAT, null);
+        posiljalac.posalji(zahtev);
+        Odgovor so = (Odgovor) primalac.primi();
+        if (so == null) {
+            JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        List<Sertifikat> lista = (List<Sertifikat>) so.getOdgovor();
+        return lista;
+    }
+
+    public List<Sertifikat> vratiListuSertifikatPolaznik(Sertifikat sertifikat) {
+        Zahtev zahtev = new Zahtev(Operacije.VRATI_LISTU_SERTIFIKAT_POLAZNIK, sertifikat);
+        posiljalac.posalji(zahtev);
+        Odgovor so = (Odgovor) primalac.primi();
+        if (so == null) {
+            JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        List<Sertifikat> lista = (List<Sertifikat>) so.getOdgovor();
+        return lista;
+    }
+
+    public List<Sertifikat> vratiListuSertifikatVrstaPlesa(Sertifikat sertifikat) {
+        Zahtev zahtev = new Zahtev(Operacije.VRATI_LISTU_SERTIFIKAT_VRSTA_PLESA, sertifikat);
+        posiljalac.posalji(zahtev);
+        Odgovor so = (Odgovor) primalac.primi();
+        if (so == null) {
+            JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        List<Sertifikat> lista = (List<Sertifikat>) so.getOdgovor();
+        return lista;
     }
 
 }
