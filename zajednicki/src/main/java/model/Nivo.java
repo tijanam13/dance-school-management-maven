@@ -1,17 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
- */
 package model;
 
 import java.io.Serializable;
 
 /**
+ * Enumeracija koja predstavlja nivo kvalifikacije instruktora.
  *
  * @author Tijana
+ * @version 1.0
+ * @see InstruktorKvalifikacija
  */
 public enum Nivo implements Serializable {
+
+    /** Osnovni nivo kvalifikacije. */
     osnovni,
+
+    /** Srednji nivo kvalifikacije. */
     srednji,
+
+    /** Napredni nivo kvalifikacije. */
     napredni;
 }

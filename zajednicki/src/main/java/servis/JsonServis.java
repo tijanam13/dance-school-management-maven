@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import model.Instruktor;
@@ -11,20 +12,38 @@ import model.InstruktorKvalifikacija;
 import model.Polaznik;
 import model.Upisnica;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.List;
-
-import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import com.google.gson.JsonParser;
+import java.util.List;
 
+/**
+ * Servisna klasa koja pruza funkcionalnosti za rad sa JSON formatom.
+ * Omogucava serijalizaciju i deserijalizaciju domenskih objekata u JSON fajlove,
+ * rucno kreiranje JSON objekata, kao i pozivanje eksternog web servisa
+ * za konverziju valuta.
+ *
+ * @author Tijana
+ * @version 1.0
+ * @see Instruktor
+ * @see Polaznik
+ * @see Upisnica
+ */
 public class JsonServis {
 
+    /**
+     * Serijalizuje listu instruktora u JSON fajl u pretty print formatu.
+     * Null vrednosti atributa se takodje upisuju u fajl.
+     *
+     * @param instruktori lista instruktora koja se serijalizuje
+     * @param putanja putanja do JSON fajla u koji se upisuju podaci
+     * @throws IOException ako dodje do greske pri radu sa fajlom
+     */
     public void serijalizujInstruktore(List<Instruktor> instruktori, String putanja) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
         try (FileWriter writer = new FileWriter(putanja)) {
@@ -32,6 +51,13 @@ public class JsonServis {
         }
     }
 
+    /**
+     * Deserijalizuje listu instruktora iz JSON fajla.
+     *
+     * @param putanja putanja do JSON fajla iz kojeg se ucitavaju podaci
+     * @return lista instruktora ucitana iz fajla
+     * @throws IOException ako dodje do greske pri radu sa fajlom
+     */
     public List<Instruktor> deserijalizujInstruktore(String putanja) throws IOException {
         Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<List<Instruktor>>(){}.getType();
@@ -40,6 +66,14 @@ public class JsonServis {
         }
     }
 
+    /**
+     * Serijalizuje listu polaznika u JSON fajl u pretty print formatu.
+     * Null vrednosti atributa se takodje upisuju u fajl.
+     *
+     * @param polaznici lista polaznika koja se serijalizuje
+     * @param putanja putanja do JSON fajla u koji se upisuju podaci
+     * @throws IOException ako dodje do greske pri radu sa fajlom
+     */
     public void serijalizujPolaznike(List<Polaznik> polaznici, String putanja) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
         try (FileWriter writer = new FileWriter(putanja)) {
@@ -47,6 +81,13 @@ public class JsonServis {
         }
     }
 
+    /**
+     * Deserijalizuje listu polaznika iz JSON fajla.
+     *
+     * @param putanja putanja do JSON fajla iz kojeg se ucitavaju podaci
+     * @return lista polaznika ucitana iz fajla
+     * @throws IOException ako dodje do greske pri radu sa fajlom
+     */
     public List<Polaznik> deserijalizujPolaznike(String putanja) throws IOException {
         Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<List<Polaznik>>(){}.getType();
@@ -55,6 +96,14 @@ public class JsonServis {
         }
     }
 
+    /**
+     * Serijalizuje listu upisnica u JSON fajl u pretty print formatu.
+     * Null vrednosti atributa se takodje upisuju u fajl.
+     *
+     * @param upisnice lista upisnica koja se serijalizuje
+     * @param putanja putanja do JSON fajla u koji se upisuju podaci
+     * @throws IOException ako dodje do greske pri radu sa fajlom
+     */
     public void serijalizujUpisnice(List<Upisnica> upisnice, String putanja) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
         try (FileWriter writer = new FileWriter(putanja)) {
@@ -62,6 +111,13 @@ public class JsonServis {
         }
     }
 
+    /**
+     * Deserijalizuje listu upisnica iz JSON fajla.
+     *
+     * @param putanja putanja do JSON fajla iz kojeg se ucitavaju podaci
+     * @return lista upisnica ucitana iz fajla
+     * @throws IOException ako dodje do greske pri radu sa fajlom
+     */
     public List<Upisnica> deserijalizujUpisnice(String putanja) throws IOException {
         Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<List<Upisnica>>(){}.getType();
@@ -70,6 +126,15 @@ public class JsonServis {
         }
     }
 
+    /**
+     * Serijalizuje listu instruktora u JSON fajl rucnim kreiranjem JSON objekata,
+     * bez automatskog mapiranja ka klasi. Svaki instruktor se upisuje sa imenom,
+     * prezimenom, emailom i listom kvalifikacija.
+     *
+     * @param instruktori lista instruktora koja se serijalizuje
+     * @param putanja putanja do JSON fajla u koji se upisuju podaci
+     * @throws IOException ako dodje do greske pri radu sa fajlom
+     */
     public void serijalizujInstruktoreRucno(List<Instruktor> instruktori, String putanja) throws IOException {
         JsonArray niz = new JsonArray();
 
@@ -97,7 +162,15 @@ public class JsonServis {
             writer.write(new GsonBuilder().setPrettyPrinting().create().toJson(niz));
         }
     }
-    
+
+    /**
+     * Poziva eksterni web servis za kurseve valuta i vraca kurs dinara prema evru.
+     * Koristi ExchangeRate API na adresi https://open.er-api.com/v6/latest/RSD.
+     *
+     * @return kurs RSD prema EUR kao decimalni broj
+     * @throws Exception ako dodje do greske pri pozivu web servisa ili parsiranju odgovora
+     * @see <a href="https://open.er-api.com">ExchangeRate API</a>
+     */
     public double vratiKursRsdEur() throws Exception {
         URL url = new URL("https://open.er-api.com/v6/latest/RSD");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -116,6 +189,14 @@ public class JsonServis {
         return rates.get("EUR").getAsDouble();
     }
 
+    /**
+     * Konvertuje iznos iz dinara u evre koristeci trenutni kurs sa eksternog web servisa.
+     *
+     * @param cenaRsd iznos u dinarima koji se konvertuje
+     * @return iznos konvertovan u evre
+     * @throws Exception ako dodje do greske pri pozivu web servisa
+     * @see #vratiKursRsdEur()
+     */
     public double konvertujUEvre(double cenaRsd) throws Exception {
         double kurs = vratiKursRsdEur();
         return cenaRsd * kurs;

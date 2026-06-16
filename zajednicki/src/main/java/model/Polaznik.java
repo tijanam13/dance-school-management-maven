@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.sql.ResultSet;
@@ -10,20 +6,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Predstavlja polaznika skole plesa.
+ * Polaznik pripada odredjenoj uzrasnoj kategoriji i moze biti upisan na vise kurseva.
  *
  * @author Tijana
+ * @version 1.0
+ * @see UzrasnaKategorija
+ * @see OpstiDomenskiObjekat
  */
 public class Polaznik extends OpstiDomenskiObjekat {
 
+    /** Jedinstveni identifikator polaznika u bazi podataka. */
     private int idPolaznik;
+
+    /** Ime polaznika. */
     private String ime;
+
+    /** Prezime polaznika. */
     private String prezime;
+
+    /** Email adresa polaznika. */
     private String email;
+
+    /** Uzrasna kategorija kojoj polaznik pripada. */
     private UzrasnaKategorija uzrasnaKategorija;
 
+    /**
+     * Podrazumevani konstruktor bez parametara.
+     */
     public Polaznik() {
     }
 
+    /**
+     * Konstruktor koji inicijalizuje sve atribute polaznika ukljucujuci i ID.
+     *
+     * @param idPolaznik jedinstveni identifikator polaznika
+     * @param ime ime polaznika
+     * @param prezime prezime polaznika
+     * @param email email adresa polaznika
+     * @param uzrasnaKategorija uzrasna kategorija kojoj polaznik pripada
+     */
     public Polaznik(int idPolaznik, String ime, String prezime, String email, UzrasnaKategorija uzrasnaKategorija) {
         this.idPolaznik = idPolaznik;
         this.ime = ime;
@@ -32,6 +54,15 @@ public class Polaznik extends OpstiDomenskiObjekat {
         this.uzrasnaKategorija = uzrasnaKategorija;
     }
 
+    /**
+     * Konstruktor koji inicijalizuje atribute polaznika bez ID-a.
+     * Koristi se prilikom kreiranja novog polaznika pre unosa u bazu podataka.
+     *
+     * @param ime ime polaznika
+     * @param prezime prezime polaznika
+     * @param email email adresa polaznika
+     * @param uzrasnaKategorija uzrasna kategorija kojoj polaznik pripada
+     */
     public Polaznik(String ime, String prezime, String email, UzrasnaKategorija uzrasnaKategorija) {
         this.ime = ime;
         this.prezime = prezime;
@@ -39,52 +70,114 @@ public class Polaznik extends OpstiDomenskiObjekat {
         this.uzrasnaKategorija = uzrasnaKategorija;
     }
 
+    /**
+     * Vraca jedinstveni identifikator polaznika.
+     *
+     * @return jedinstveni identifikator polaznika
+     */
     public int getIdPolaznik() {
         return idPolaznik;
     }
 
+    /**
+     * Postavlja jedinstveni identifikator polaznika.
+     *
+     * @param idPolaznik jedinstveni identifikator koji se postavlja
+     */
     public void setIdPolaznik(int idPolaznik) {
         this.idPolaznik = idPolaznik;
     }
 
+    /**
+     * Vraca ime polaznika.
+     *
+     * @return ime polaznika
+     */
     public String getIme() {
         return ime;
     }
 
+    /**
+     * Postavlja ime polaznika.
+     *
+     * @param ime ime koje se postavlja
+     */
     public void setIme(String ime) {
         this.ime = ime;
     }
 
+    /**
+     * Vraca prezime polaznika.
+     *
+     * @return prezime polaznika
+     */
     public String getPrezime() {
         return prezime;
     }
 
+    /**
+     * Postavlja prezime polaznika.
+     *
+     * @param prezime prezime koje se postavlja
+     */
     public void setPrezime(String prezime) {
         this.prezime = prezime;
     }
 
+    /**
+     * Vraca email adresu polaznika.
+     *
+     * @return email adresa polaznika
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Postavlja email adresu polaznika.
+     *
+     * @param email email adresa koja se postavlja
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Vraca uzrasnu kategoriju kojoj polaznik pripada.
+     *
+     * @return uzrasna kategorija polaznika
+     */
     public UzrasnaKategorija getUzrasnaKategorija() {
         return uzrasnaKategorija;
     }
 
+    /**
+     * Postavlja uzrasnu kategoriju kojoj polaznik pripada.
+     *
+     * @param uzrasnaKategorija uzrasna kategorija koja se postavlja
+     */
     public void setUzrasnaKategorija(UzrasnaKategorija uzrasnaKategorija) {
         this.uzrasnaKategorija = uzrasnaKategorija;
     }
 
+    /**
+     * Vraca hash kod objekta.
+     *
+     * @return hash kod
+     */
     @Override
     public int hashCode() {
         int hash = 3;
         return hash;
     }
 
+    /**
+     * Poredi dva polaznika na osnovu jedinstvenog identifikatora.
+     * Dva polaznika su jednaka ako imaju isti ID.
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return true ako su polaznici jednaki, false u svim drugim slucajevima
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -100,22 +193,37 @@ public class Polaznik extends OpstiDomenskiObjekat {
         return this.idPolaznik == other.idPolaznik;
     }
 
+    /**
+     * Vraca tekstualnu reprezentaciju polaznika u obliku ime i prezime.
+     *
+     * @return ime i prezime polaznika
+     */
     @Override
     public String toString() {
         return ime + " " + prezime;
     }
 
+    /**
+     * Vraca naziv tabele u bazi podataka koja odgovara ovoj klasi.
+     *
+     * @return naziv tabele "polaznik"
+     */
     @Override
     public String vratiImeTabele() {
         return "polaznik";
     }
 
+    /**
+     * Vraca listu polaznika kreiranih na osnovu podataka iz ResultSet-a.
+     *
+     * @param rs ResultSet objekat koji sadrzi podatke iz baze
+     * @return lista polaznika ili null ako dodje do greske
+     */
     @Override
     public List<OpstiDomenskiObjekat> vratiListu(ResultSet rs) {
         List<OpstiDomenskiObjekat> lista = new ArrayList<>();
         try {
             while (rs.next()) {
-
                 int idPolaznik = rs.getInt("polaznik.idPolaznik");
                 int idUzrast = rs.getInt("polaznik.idUzrast");
                 String opsegGodina = rs.getString("uzrasna_kategorija.opsegGodina");
@@ -127,41 +235,64 @@ public class Polaznik extends OpstiDomenskiObjekat {
                 Polaznik polaznik = new Polaznik(idPolaznik, ime, prezime, email, uzrast);
                 lista.add(polaznik);
             }
-
             return lista;
-
         } catch (SQLException ex) {
             System.err.println("Greška prilikom obrade podataka iz ResultSet-a kod vraćanja liste polaznika: " + ex.getMessage());
             return null;
         }
     }
 
+    /**
+     * Vraca nazive kolona koje se koriste prilikom ubacivanja polaznika u bazu podataka.
+     *
+     * @return string sa nazivima kolona odvojenim zarezom
+     */
     @Override
     public String vratiKoloneUbaci() {
         return "ime, prezime, email, idUzrast";
     }
 
+    /**
+     * Vraca vrednosti atributa polaznika koje se upisuju u bazu podataka.
+     *
+     * @return string sa vrednostima atributa odvojenim zarezom
+     */
     @Override
     public String vratiVrednostiUbaci() {
         return "'" + ime + "', '" + prezime + "', '" + email + "', " + uzrasnaKategorija.getIdUzrast();
     }
 
+    /**
+     * Vraca uslov WHERE koji se koristi za identifikaciju polaznika u bazi podataka.
+     *
+     * @return string sa WHERE uslovom na osnovu ID-a polaznika
+     */
     @Override
     public String vratiKljucZaWhere() {
         return "polaznik.idPolaznik = " + idPolaznik;
     }
 
+    /**
+     * Vraca string sa vrednostima atributa polaznika za azuriranje u bazi podataka.
+     *
+     * @return string sa parovima kolona i vrednosti za UPDATE upit
+     */
     @Override
     public String vratiVrednostiIzmeni() {
         return "ime = '" + ime + "', prezime = '" + prezime + "', email = '" + email + "', idUzrast = " + uzrasnaKategorija.getIdUzrast();
     }
 
+    /**
+     * Vraca jedan objekat polaznika kreiran na osnovu podataka iz ResultSet-a.
+     *
+     * @param rs ResultSet objekat koji sadrzi podatke iz baze
+     * @return objekat polaznika ili null ako dodje do greske
+     */
     @Override
     public OpstiDomenskiObjekat vratiObjekat(ResultSet rs) {
         Polaznik p = null;
         try {
             while (rs.next()) {
-
                 int idPolaznik = rs.getInt("polaznik.idPolaznik");
                 int idUzrast = rs.getInt("polaznik.idUzrast");
                 String opsegGodina = rs.getString("uzrasna_kategorija.opsegGodina");
@@ -172,13 +303,10 @@ public class Polaznik extends OpstiDomenskiObjekat {
                 UzrasnaKategorija uzrast = new UzrasnaKategorija(idUzrast, opsegGodina, naziv);
                 p = new Polaznik(idPolaznik, ime, prezime, email, uzrast);
             }
-
             return p;
-
         } catch (SQLException ex) {
             System.err.println("Greška prilikom obrade podataka iz ResultSet-a kod vraćanja polaznika: " + ex.getMessage());
             return null;
         }
     }
-
 }
