@@ -1,43 +1,65 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package so.instruktor;
 
-import so.OpstaSO;
 import java.util.ArrayList;
 import java.util.List;
 import model.Instruktor;
+import so.OpstaSO;
 
 /**
+ * Sistemska operacija za prijavu instruktora na sistem.
+ * Proverava da li instruktor sa prosledjenim korisnickim imenom i sifrom
+ * postoji u bazi podataka i vraca odgovarajuci objekat instruktora.
  *
  * @author Tijana
+ * @version 1.0
+ * @see Instruktor
+ * @see OpstaSO
  */
 public class PrijaviInstruktorSO extends OpstaSO {
 
+    /** Instruktor koji je uspesno prijavljen na sistem, ili null ako prijava nije uspela. */
     private Instruktor instruktor = null;
 
+    /**
+     * Vraca instruktora koji je uspesno prijavljen na sistem.
+     *
+     * @return prijavljen instruktor, ili null ako prijava nije uspela
+     */
     public Instruktor getInstruktor() {
         return instruktor;
     }
 
+    /**
+     * Proverava preduslove pre prijave instruktora.
+     * Proverava da li je prosleden parametar odgovarajuceg tipa.
+     *
+     * @param parametar objekat tipa {@link Instruktor} koji se prijavljuje
+     * @throws Exception ako parametar nije odgovarajuceg tipa
+     */
     @Override
     protected void preduslovi(Object parametar) throws Exception {
-
         if (parametar == null || !(parametar instanceof Instruktor)) {
             throw new Exception("Nije prosleđen parametar odgovarajućeg tipa.");
         }
-
     }
 
+    /**
+     * Izvrsava prijavu instruktora na sistem.
+     * Ucitava sve instruktore iz baze i pronalazi onoga cije se korisnicko
+     * ime i sifra poklapaju sa prosledjenim parametrom.
+     * Ako instruktor nije pronadjen, postavlja vrednost na null.
+     *
+     * @param parametar objekat tipa {@link Instruktor} sa korisnickim imenom i sifrom
+     * @param uslov uslov koji se koristi pri izvrsavanju operacije
+     * @throws Exception ako dodje do greske pri radu sa bazom podataka
+     */
     @Override
     protected void izvrsi(Object parametar, Object uslov) throws Exception {
-
         List<Instruktor> listaInstruktora = new ArrayList<>();
-
         listaInstruktora = broker.vratiSve((Instruktor) parametar);
         for (Instruktor i : listaInstruktora) {
-            if (i.getKorisnickoIme().equals(((Instruktor) parametar).getKorisnickoIme()) && i.getSifra().equals(((Instruktor) parametar).getSifra())) {
+            if (i.getKorisnickoIme().equals(((Instruktor) parametar).getKorisnickoIme())
+                    && i.getSifra().equals(((Instruktor) parametar).getSifra())) {
                 instruktor = i;
                 return;
             }
