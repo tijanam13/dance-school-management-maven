@@ -118,7 +118,6 @@ public class Upisnica extends OpstiDomenskiObjekat {
         } else {
             this.datumUpisa = datumUpisa;
         }
-        this.datumUpisa = datumUpisa;
     }
 
     /**
