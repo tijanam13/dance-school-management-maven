@@ -33,8 +33,13 @@ public class StavkaUpisnice extends OpstiDomenskiObjekat {
     /** Vrsta plesa na koju se stavka odnosi. */
     private VrstaPlesa vrstaPlesa;
 
-    /** Upisnica kojoj ova stavka pripada. */
-    private Upisnica upisnica;
+    /**
+     * Upisnica kojoj ova stavka pripada.
+     * Polje je transient da bi Gson izbegao kruznu referencu
+     * (Upisnica sadrzi listu StavkaUpisnice, a StavkaUpisnice referencu na Upisnicu),
+     * jer bi inace serijalizacija u JSON izazvala StackOverflowError.
+     */
+    private transient Upisnica upisnica;
 
     /**
      * Podrazumevani konstruktor bez parametara.

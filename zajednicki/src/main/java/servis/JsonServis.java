@@ -13,13 +13,16 @@ import model.Polaznik;
 import model.Upisnica;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -46,7 +49,7 @@ public class JsonServis {
      */
     public void serijalizujInstruktore(List<Instruktor> instruktori, String putanja) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        try (FileWriter writer = new FileWriter(putanja)) {
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(putanja), StandardCharsets.UTF_8)) {
             writer.write(gson.toJson(instruktori));
         }
     }
@@ -61,7 +64,7 @@ public class JsonServis {
     public List<Instruktor> deserijalizujInstruktore(String putanja) throws IOException {
         Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<List<Instruktor>>(){}.getType();
-        try (FileReader reader = new FileReader(putanja)) {
+        try (InputStreamReader reader = new InputStreamReader(new FileInputStream(putanja), StandardCharsets.UTF_8)) {
             return gson.fromJson(reader, listType);
         }
     }
@@ -76,7 +79,7 @@ public class JsonServis {
      */
     public void serijalizujPolaznike(List<Polaznik> polaznici, String putanja) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        try (FileWriter writer = new FileWriter(putanja)) {
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(putanja), StandardCharsets.UTF_8)) {
             writer.write(gson.toJson(polaznici));
         }
     }
@@ -91,7 +94,7 @@ public class JsonServis {
     public List<Polaznik> deserijalizujPolaznike(String putanja) throws IOException {
         Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<List<Polaznik>>(){}.getType();
-        try (FileReader reader = new FileReader(putanja)) {
+        try (InputStreamReader reader = new InputStreamReader(new FileInputStream(putanja), StandardCharsets.UTF_8)) {
             return gson.fromJson(reader, listType);
         }
     }
@@ -106,7 +109,7 @@ public class JsonServis {
      */
     public void serijalizujUpisnice(List<Upisnica> upisnice, String putanja) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        try (FileWriter writer = new FileWriter(putanja)) {
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(putanja), StandardCharsets.UTF_8)) {
             writer.write(gson.toJson(upisnice));
         }
     }
@@ -121,7 +124,7 @@ public class JsonServis {
     public List<Upisnica> deserijalizujUpisnice(String putanja) throws IOException {
         Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<List<Upisnica>>(){}.getType();
-        try (FileReader reader = new FileReader(putanja)) {
+        try (InputStreamReader reader = new InputStreamReader(new FileInputStream(putanja), StandardCharsets.UTF_8)) {
             return gson.fromJson(reader, listType);
         }
     }
@@ -158,7 +161,7 @@ public class JsonServis {
             niz.add(obj);
         }
 
-        try (FileWriter writer = new FileWriter(putanja)) {
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(putanja), StandardCharsets.UTF_8)) {
             writer.write(new GsonBuilder().setPrettyPrinting().create().toJson(niz));
         }
     }
@@ -176,7 +179,7 @@ public class JsonServis {
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
 
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
         StringBuilder response = new StringBuilder();
         String inputLine;
         while ((inputLine = in.readLine()) != null) {
