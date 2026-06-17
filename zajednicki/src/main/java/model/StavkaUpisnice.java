@@ -21,7 +21,14 @@ public class StavkaUpisnice extends OpstiDomenskiObjekat {
     private double cena;
     private double clanarina;
     private VrstaPlesa vrstaPlesa;
-    private Upisnica upisnica;
+
+    /**
+     * Upisnica kojoj ova stavka pripada.
+     * Polje je transient da bi Gson izbegao kruznu referencu
+     * (Upisnica sadrzi listu StavkaUpisnice, a StavkaUpisnice referencu na Upisnicu),
+     * jer bi inace serijalizacija u JSON izazvala StackOverflowError.
+     */
+    private transient Upisnica upisnica;
 
     public StavkaUpisnice() {
     }
