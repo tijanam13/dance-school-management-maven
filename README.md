@@ -2,7 +2,7 @@
 
 This repository contains an upgraded version of the Dance School Management System, originally developed for the **Software Engineering** course at the Faculty of Organizational Sciences (FON), University of Belgrade.
 
-The original project can be found here: [Projektovanje-softvera](https://github.com/tijanam13/Projektovanje-softvera)
+The original project can be found here: [dance-school-management](https://github.com/tijanam13/dance-school-management)
 
 The upgrade was done for the **Software Tools** (Softverski alati) course and introduces Maven, JUnit testing, JavaDoc documentation, JSON handling, and additional modern Java technologies.
 
