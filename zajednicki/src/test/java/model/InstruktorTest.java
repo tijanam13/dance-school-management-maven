@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class InstruktorTest extends OpstiDomenskiObjekatTest {
 
     private Instruktor instruktor;
-    
+
     @Override
     protected OpstiDomenskiObjekat getInstance() {
         return new Instruktor(1, "tijana", "tijana*13", "Tijana", "Milosavljevic", "tijana@gmail.com");
@@ -88,7 +88,8 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
     }
 
     /**
-     * Test podrazumevanog konstruktora bez parametara.
+     * Test Lombok @NoArgsConstructor - podrazumevani konstruktor bez parametara
+     * generisan od strane Lombok biblioteke.
      */
     @Test
     public void testPodrazumevaniKonstruktor() {
@@ -97,7 +98,7 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
     }
 
     /**
-     * Test setIdInstruktor sa razlicitim vrednostima.
+     * Test Lombok @Setter i @Getter - setIdInstruktor sa razlicitim vrednostima.
      */
     @ParameterizedTest
     @CsvSource({"1", "100", "999"})
@@ -107,7 +108,7 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
     }
 
     /**
-     * Test setKorisnickoIme sa razlicitim vrednostima.
+     * Test Lombok @Setter i @Getter - setKorisnickoIme sa razlicitim vrednostima.
      */
     @ParameterizedTest
     @CsvSource({"korisnik1", "ana", "test_korisnik"})
@@ -117,7 +118,7 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
     }
 
     /**
-     * Test setSifra.
+     * Test Lombok @Setter i @Getter - setSifra.
      */
     @Test
     public void testSetSifra() {
@@ -126,7 +127,7 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
     }
 
     /**
-     * Test setIme sa razlicitim vrednostima.
+     * Test Lombok @Setter i @Getter - setIme sa razlicitim vrednostima.
      */
     @ParameterizedTest
     @CsvSource({"Ana", "Marko", "Jovana"})
@@ -136,7 +137,7 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
     }
 
     /**
-     * Test setPrezime sa razlicitim vrednostima.
+     * Test Lombok @Setter i @Getter - setPrezime sa razlicitim vrednostima.
      */
     @ParameterizedTest
     @CsvSource({"Anić", "Marković", "Jovanović"})
@@ -146,7 +147,7 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
     }
 
     /**
-     * Test setEmail.
+     * Test Lombok @Setter i @Getter - setEmail.
      */
     @Test
     public void testSetEmail() {

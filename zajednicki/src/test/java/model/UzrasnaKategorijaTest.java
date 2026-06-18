@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 1.0
  */
 @DisplayName("Testovi za domensku klasu UzrasnaKategorija")
-public class UzrasnaKategorijaTest extends OpstiDomenskiObjekatTest{
+public class UzrasnaKategorijaTest extends OpstiDomenskiObjekatTest {
 
     private UzrasnaKategorija uzrasnaKategorija;
-    
+
     @Override
     protected OpstiDomenskiObjekat getInstance() {
         return new UzrasnaKategorija(1, "7-12", "deca");
@@ -60,7 +60,8 @@ public class UzrasnaKategorijaTest extends OpstiDomenskiObjekatTest{
     }
 
     /**
-     * Test podrazumevanog konstruktora.
+     * Test Lombok @NoArgsConstructor - podrazumevani konstruktor bez parametara
+     * generisan od strane Lombok biblioteke.
      */
     @Test
     public void testPodrazumevaniKonstruktor() {
@@ -69,7 +70,19 @@ public class UzrasnaKategorijaTest extends OpstiDomenskiObjekatTest{
     }
 
     /**
-     * Test setIdUzrast sa razlicitim vrednostima.
+     * Test Lombok @AllArgsConstructor - konstruktor sa svim parametrima
+     * generisan od strane Lombok biblioteke.
+     */
+    @Test
+    public void testAllArgsKonstruktor() {
+        UzrasnaKategorija uk = new UzrasnaKategorija(5, "19-30", "odrasli");
+        assertEquals(5, uk.getIdUzrast());
+        assertEquals("19-30", uk.getOpsegGodina());
+        assertEquals("odrasli", uk.getNaziv());
+    }
+
+    /**
+     * Test Lombok @Setter i @Getter - setIdUzrast sa razlicitim vrednostima.
      */
     @ParameterizedTest
     @CsvSource({"1", "5", "20"})
@@ -79,7 +92,7 @@ public class UzrasnaKategorijaTest extends OpstiDomenskiObjekatTest{
     }
 
     /**
-     * Test setOpsegGodina sa razlicitim vrednostima.
+     * Test Lombok @Setter i @Getter - setOpsegGodina sa razlicitim vrednostima.
      */
     @ParameterizedTest
     @CsvSource({"7-12", "13-18", "18-25"})
@@ -89,7 +102,7 @@ public class UzrasnaKategorijaTest extends OpstiDomenskiObjekatTest{
     }
 
     /**
-     * Test setNaziv sa razlicitim vrednostima.
+     * Test Lombok @Setter i @Getter - setNaziv sa razlicitim vrednostima.
      */
     @ParameterizedTest
     @CsvSource({"deca", "juniori", "odrasli"})
@@ -131,7 +144,7 @@ public class UzrasnaKategorijaTest extends OpstiDomenskiObjekatTest{
     public void testEqualsSamSaSobom() {
         assertEquals(uzrasnaKategorija, uzrasnaKategorija);
     }
-    
+
     /**
      * Test equals - poredjenje sa objektom drugog tipa => nisu jednaki.
      */

@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 1.0
  */
 @DisplayName("Testovi za domensku klasu VrstaPlesa")
-public class VrstaPlesaTest extends OpstiDomenskiObjekatTest{
+public class VrstaPlesaTest extends OpstiDomenskiObjekatTest {
 
     private VrstaPlesa vrstaPlesa;
-    
+
     @Override
     protected OpstiDomenskiObjekat getInstance() {
         return new VrstaPlesa(1, "Tango", "Latinoamericki", 1500.0);
@@ -72,7 +72,8 @@ public class VrstaPlesaTest extends OpstiDomenskiObjekatTest{
     }
 
     /**
-     * Test podrazumevanog konstruktora.
+     * Test Lombok @NoArgsConstructor - podrazumevani konstruktor bez parametara
+     * generisan od strane Lombok biblioteke.
      */
     @Test
     public void testPodrazumevaniKonstruktor() {
@@ -81,7 +82,20 @@ public class VrstaPlesaTest extends OpstiDomenskiObjekatTest{
     }
 
     /**
-     * Test setIdVrstaPlesa sa razlicitim vrednostima.
+     * Test Lombok @AllArgsConstructor - konstruktor sa svim parametrima
+     * generisan od strane Lombok biblioteke.
+     */
+    @Test
+    public void testAllArgsKonstruktor() {
+        VrstaPlesa vp = new VrstaPlesa(3, "Samba", "Latinoamerički", 1800.0);
+        assertEquals(3, vp.getIdVrstaPlesa());
+        assertEquals("Samba", vp.getNaziv());
+        assertEquals("Latinoamerički", vp.getKategorija());
+        assertEquals(1800.0, vp.getCenaCasa());
+    }
+
+    /**
+     * Test Lombok @Setter i @Getter - setIdVrstaPlesa sa razlicitim vrednostima.
      */
     @ParameterizedTest
     @CsvSource({"1", "10", "99"})
@@ -91,7 +105,7 @@ public class VrstaPlesaTest extends OpstiDomenskiObjekatTest{
     }
 
     /**
-     * Test setNaziv sa razlicitim vrednostima.
+     * Test Lombok @Setter i @Getter - setNaziv sa razlicitim vrednostima.
      */
     @ParameterizedTest
     @CsvSource({"Tango", "Valcer", "Samba"})
@@ -101,7 +115,7 @@ public class VrstaPlesaTest extends OpstiDomenskiObjekatTest{
     }
 
     /**
-     * Test setKategorija sa razlicitim vrednostima.
+     * Test Lombok @Setter i @Getter - setKategorija sa razlicitim vrednostima.
      */
     @ParameterizedTest
     @CsvSource({"Latinoamerički", "Standardni", "Hip-hop"})
@@ -111,7 +125,7 @@ public class VrstaPlesaTest extends OpstiDomenskiObjekatTest{
     }
 
     /**
-     * Test setCenaCasa sa razlicitim vrednostima.
+     * Test Lombok @Setter i @Getter - setCenaCasa sa razlicitim vrednostima.
      */
     @ParameterizedTest
     @CsvSource({"1000.0", "1500.0", "2000.0"})
@@ -179,7 +193,7 @@ public class VrstaPlesaTest extends OpstiDomenskiObjekatTest{
     public void testEqualsDrugiTip() {
         assertNotEquals("string", vrstaPlesa);
     }
-    
+
     /**
      * Test toString.
      */

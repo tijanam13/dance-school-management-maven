@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Predstavlja vrstu plesa koja se izvodi u skoli plesa.
  * Svaka vrsta plesa ima naziv, kategoriju i cenu casa.
@@ -15,6 +20,10 @@ import java.util.Objects;
  * @see StavkaUpisnice
  * @see OpstiDomenskiObjekat
  */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class VrstaPlesa extends OpstiDomenskiObjekat {
 
     /** Jedinstveni identifikator vrste plesa u bazi podataka. */
@@ -28,27 +37,6 @@ public class VrstaPlesa extends OpstiDomenskiObjekat {
 
     /** Cena jednog casa te vrste plesa. */
     private double cenaCasa;
-
-    /**
-     * Podrazumevani konstruktor bez parametara.
-     */
-    public VrstaPlesa() {
-    }
-
-    /**
-     * Konstruktor koji inicijalizuje sve atribute vrste plesa ukljucujuci i ID.
-     *
-     * @param idVrstaPlesa jedinstveni identifikator vrste plesa
-     * @param naziv naziv vrste plesa
-     * @param kategorija kategorija vrste plesa
-     * @param cenaCasa cena jednog casa
-     */
-    public VrstaPlesa(int idVrstaPlesa, String naziv, String kategorija, double cenaCasa) {
-        this.idVrstaPlesa = idVrstaPlesa;
-        this.naziv = naziv;
-        this.kategorija = kategorija;
-        this.cenaCasa = cenaCasa;
-    }
 
     /**
      * Konstruktor koji inicijalizuje atribute vrste plesa bez ID-a.
@@ -74,78 +62,6 @@ public class VrstaPlesa extends OpstiDomenskiObjekat {
     public VrstaPlesa(String naziv, String kategorija) {
         this.naziv = naziv;
         this.kategorija = kategorija;
-    }
-
-    /**
-     * Vraca jedinstveni identifikator vrste plesa.
-     *
-     * @return jedinstveni identifikator vrste plesa
-     */
-    public int getIdVrstaPlesa() {
-        return idVrstaPlesa;
-    }
-
-    /**
-     * Postavlja jedinstveni identifikator vrste plesa.
-     *
-     * @param idVrstaPlesa jedinstveni identifikator koji se postavlja
-     */
-    public void setIdVrstaPlesa(int idVrstaPlesa) {
-        this.idVrstaPlesa = idVrstaPlesa;
-    }
-
-    /**
-     * Vraca naziv vrste plesa.
-     *
-     * @return naziv vrste plesa
-     */
-    public String getNaziv() {
-        return naziv;
-    }
-
-    /**
-     * Postavlja naziv vrste plesa.
-     *
-     * @param naziv naziv koji se postavlja
-     */
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
-    }
-
-    /**
-     * Vraca kategoriju vrste plesa.
-     *
-     * @return kategorija vrste plesa
-     */
-    public String getKategorija() {
-        return kategorija;
-    }
-
-    /**
-     * Postavlja kategoriju vrste plesa.
-     *
-     * @param kategorija kategorija koja se postavlja
-     */
-    public void setKategorija(String kategorija) {
-        this.kategorija = kategorija;
-    }
-
-    /**
-     * Vraca cenu jednog casa te vrste plesa.
-     *
-     * @return cena jednog casa
-     */
-    public double getCenaCasa() {
-        return cenaCasa;
-    }
-
-    /**
-     * Postavlja cenu jednog casa te vrste plesa.
-     *
-     * @param cenaCasa cena koja se postavlja
-     */
-    public void setCenaCasa(double cenaCasa) {
-        this.cenaCasa = cenaCasa;
     }
 
     /**

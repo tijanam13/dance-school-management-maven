@@ -5,6 +5,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Predstavlja uzrasnu kategoriju kojoj polaznik moze da pripada u skoli plesa.
  * Uzrasna kategorija definise opseg godina i naziv koji opisuje grupu polaznika.
@@ -14,6 +19,10 @@ import java.util.List;
  * @see Polaznik
  * @see OpstiDomenskiObjekat
  */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UzrasnaKategorija extends OpstiDomenskiObjekat {
 
     /** Jedinstveni identifikator uzrasne kategorije u bazi podataka. */
@@ -26,25 +35,6 @@ public class UzrasnaKategorija extends OpstiDomenskiObjekat {
     private String naziv;
 
     /**
-     * Podrazumevani konstruktor bez parametara.
-     */
-    public UzrasnaKategorija() {
-    }
-
-    /**
-     * Konstruktor koji inicijalizuje sve atribute uzrasne kategorije ukljucujuci i ID.
-     *
-     * @param idUzrast jedinstveni identifikator uzrasne kategorije
-     * @param opsegGodina opseg godina koji definise kategoriju
-     * @param naziv naziv uzrasne kategorije
-     */
-    public UzrasnaKategorija(int idUzrast, String opsegGodina, String naziv) {
-        this.idUzrast = idUzrast;
-        this.opsegGodina = opsegGodina;
-        this.naziv = naziv;
-    }
-
-    /**
      * Konstruktor koji inicijalizuje atribute uzrasne kategorije bez ID-a.
      * Koristi se prilikom kreiranja nove uzrasne kategorije pre unosa u bazu podataka.
      *
@@ -53,60 +43,6 @@ public class UzrasnaKategorija extends OpstiDomenskiObjekat {
      */
     public UzrasnaKategorija(String opsegGodina, String naziv) {
         this.opsegGodina = opsegGodina;
-        this.naziv = naziv;
-    }
-
-    /**
-     * Vraca jedinstveni identifikator uzrasne kategorije.
-     *
-     * @return jedinstveni identifikator uzrasne kategorije
-     */
-    public int getIdUzrast() {
-        return idUzrast;
-    }
-
-    /**
-     * Postavlja jedinstveni identifikator uzrasne kategorije.
-     *
-     * @param idUzrast jedinstveni identifikator koji se postavlja
-     */
-    public void setIdUzrast(int idUzrast) {
-        this.idUzrast = idUzrast;
-    }
-
-    /**
-     * Vraca opseg godina koji definise uzrasnu kategoriju.
-     *
-     * @return opseg godina uzrasne kategorije
-     */
-    public String getOpsegGodina() {
-        return opsegGodina;
-    }
-
-    /**
-     * Postavlja opseg godina koji definise uzrasnu kategoriju.
-     *
-     * @param opsegGodina opseg godina koji se postavlja
-     */
-    public void setOpsegGodina(String opsegGodina) {
-        this.opsegGodina = opsegGodina;
-    }
-
-    /**
-     * Vraca naziv uzrasne kategorije.
-     *
-     * @return naziv uzrasne kategorije
-     */
-    public String getNaziv() {
-        return naziv;
-    }
-
-    /**
-     * Postavlja naziv uzrasne kategorije.
-     *
-     * @param naziv naziv koji se postavlja
-     */
-    public void setNaziv(String naziv) {
         this.naziv = naziv;
     }
 
