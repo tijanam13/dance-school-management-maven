@@ -63,12 +63,17 @@ public class VratiListuSviUpisnicaSO extends OpstaSO {
                 + " JOIN polaznik ON upisnica.idPolaznik=polaznik.idPolaznik"
                 + " JOIN uzrasna_kategorija ON uzrasna_kategorija.idUzrast = polaznik.idUzrast";
         List<Upisnica> lista = broker.vratiSve((Upisnica) parametar, upit1);
-        for (Upisnica upisnica : lista) {
+        // Lambda izraz prosledjen forEach metodi Stream API-ja umesto for petlje.
+        lista.forEach(upisnica -> {
             String upit2 = " JOIN vrsta_plesa ON vrsta_plesa.idVrstaPlesa=stavka_upisnice.idVrstaPlesa"
                     + " WHERE idUpisnica=" + upisnica.getIdUpisnica();
-            List<StavkaUpisnice> stavke = broker.vratiSve(new StavkaUpisnice(), upit2);
-            upisnica.setListaStavke(stavke);
-        }
+            try {
+                List<StavkaUpisnice> stavke = broker.vratiSve(new StavkaUpisnice(), upit2);
+                upisnica.setListaStavke(stavke);
+            } catch (Exception e) {
+                throw new RuntimeException("Greška pri učitavanju stavki upisnice.", e);
+            }
+        });
         this.lista = lista;
 
         JsonServis jsonServis = new JsonServis();

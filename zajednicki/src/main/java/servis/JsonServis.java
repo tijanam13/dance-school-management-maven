@@ -133,6 +133,9 @@ public class JsonServis {
      * Serijalizuje listu instruktora u JSON fajl rucnim kreiranjem JSON objekata,
      * bez automatskog mapiranja ka klasi. Svaki instruktor se upisuje sa imenom,
      * prezimenom, emailom i listom kvalifikacija.
+     * Lista instruktora i lista kvalifikacija svakog instruktora se transformisu
+     * u JSON objekte preko Stream API-ja (stream, map, lambda izrazi) umesto
+     * ugnjezdenih for petlji.
      *
      * @param instruktori lista instruktora koja se serijalizuje
      * @param putanja putanja do JSON fajla u koji se upisuju podaci
@@ -141,29 +144,51 @@ public class JsonServis {
     public void serijalizujInstruktoreRucno(List<Instruktor> instruktori, String putanja) throws IOException {
         JsonArray niz = new JsonArray();
 
-        for (Instruktor i : instruktori) {
-            JsonObject obj = new JsonObject();
-            obj.addProperty("ime", i.getIme());
-            obj.addProperty("prezime", i.getPrezime());
-            obj.addProperty("email", i.getEmail());
-
-            JsonArray kvalifikacije = new JsonArray();
-            if (i.getInstruktorKvalifikacije() != null) {
-                for (InstruktorKvalifikacija ik : i.getInstruktorKvalifikacije()) {
-                    JsonObject kvalObj = new JsonObject();
-                    kvalObj.addProperty("tip", ik.getKvalifikacija().getTip());
-                    kvalObj.addProperty("organizacija", ik.getKvalifikacija().getOrganizacija());
-                    kvalObj.addProperty("nivo", ik.getNivo().toString());
-                    kvalifikacije.add(kvalObj);
-                }
-            }
-            obj.add("kvalifikacije", kvalifikacije);
-            niz.add(obj);
-        }
+        instruktori.stream()
+                .map(this::instruktorUJson)
+                .forEach(niz::add);
 
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(putanja), StandardCharsets.UTF_8)) {
             writer.write(new GsonBuilder().setPrettyPrinting().create().toJson(niz));
         }
+    }
+
+    /**
+     * Pomocna metoda koja od jednog instruktora pravi odgovarajuci JsonObject,
+     * ukljucujuci i niz njegovih kvalifikacija (dobijen preko Stream API-ja).
+     *
+     * @param i instruktor koji se pretvara u JSON objekat
+     * @return JsonObject koji predstavlja instruktora
+     */
+    private JsonObject instruktorUJson(Instruktor i) {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("ime", i.getIme());
+        obj.addProperty("prezime", i.getPrezime());
+        obj.addProperty("email", i.getEmail());
+
+        JsonArray kvalifikacije = new JsonArray();
+        if (i.getInstruktorKvalifikacije() != null) {
+            i.getInstruktorKvalifikacije().stream()
+                    .map(this::kvalifikacijaUJson)
+                    .forEach(kvalifikacije::add);
+        }
+        obj.add("kvalifikacije", kvalifikacije);
+        return obj;
+    }
+
+    /**
+     * Pomocna metoda koja od jedne instruktorske kvalifikacije pravi
+     * odgovarajuci JsonObject sa tipom, organizacijom i nivoom.
+     *
+     * @param ik instruktorska kvalifikacija koja se pretvara u JSON objekat
+     * @return JsonObject koji predstavlja kvalifikaciju
+     */
+    private JsonObject kvalifikacijaUJson(InstruktorKvalifikacija ik) {
+        JsonObject kvalObj = new JsonObject();
+        kvalObj.addProperty("tip", ik.getKvalifikacija().getTip());
+        kvalObj.addProperty("organizacija", ik.getKvalifikacija().getOrganizacija());
+        kvalObj.addProperty("nivo", ik.getNivo().toString());
+        return kvalObj;
     }
 
     /**

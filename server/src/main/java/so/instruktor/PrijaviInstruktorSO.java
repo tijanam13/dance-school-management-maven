@@ -1,7 +1,7 @@
 package so.instruktor;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import model.Instruktor;
 import so.OpstaSO;
 
@@ -45,9 +45,9 @@ public class PrijaviInstruktorSO extends OpstaSO {
 
     /**
      * Izvrsava prijavu instruktora na sistem.
-     * Ucitava sve instruktore iz baze i pronalazi onoga cije se korisnicko
-     * ime i sifra poklapaju sa prosledjenim parametrom.
-     * Ako instruktor nije pronadjen, postavlja vrednost na null.
+     * Ucitava sve instruktore iz baze i preko Stream API-ja (filter, findFirst)
+     * pronalazi onoga cije se korisnicko ime i sifra poklapaju sa prosledjenim
+     * parametrom. Ako instruktor nije pronadjen, postavlja vrednost na null.
      *
      * @param parametar objekat tipa {@link Instruktor} sa korisnickim imenom i sifrom
      * @param uslov uslov koji se koristi pri izvrsavanju operacije
@@ -55,15 +55,15 @@ public class PrijaviInstruktorSO extends OpstaSO {
      */
     @Override
     protected void izvrsi(Object parametar, Object uslov) throws Exception {
-        List<Instruktor> listaInstruktora = new ArrayList<>();
-        listaInstruktora = broker.vratiSve((Instruktor) parametar);
-        for (Instruktor i : listaInstruktora) {
-            if (i.getKorisnickoIme().equals(((Instruktor) parametar).getKorisnickoIme())
-                    && i.getSifra().equals(((Instruktor) parametar).getSifra())) {
-                instruktor = i;
-                return;
-            }
-        }
-        instruktor = null;
+        List<Instruktor> listaInstruktora = broker.vratiSve((Instruktor) parametar);
+        Instruktor trazeni = (Instruktor) parametar;
+
+        // Lambda izraz
+        Optional<Instruktor> pronadjen = listaInstruktora.stream()
+                .filter(i -> i.getKorisnickoIme().equals(trazeni.getKorisnickoIme())
+                        && i.getSifra().equals(trazeni.getSifra()))
+                .findFirst();
+
+        instruktor = pronadjen.orElse(null);
     }
 }
