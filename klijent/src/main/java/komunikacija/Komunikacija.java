@@ -108,7 +108,7 @@ public class Komunikacija {
         if (so == null) {
             throw new Exception("Server nije u funkciji.");
         }
-        Instruktor instruktor = (Instruktor) so.getOdgovor();
+        Instruktor instruktor = (Instruktor) so.odgovor();
         return instruktor;
     }
 
@@ -120,7 +120,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
 
     }
@@ -133,7 +133,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Instruktor> lista = (List<Instruktor>) so.getOdgovor();
+        List<Instruktor> lista = (List<Instruktor>) so.odgovor();
         return lista;
 
     }
@@ -146,7 +146,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Polaznik> lista = (List<Polaznik>) so.getOdgovor();
+        List<Polaznik> lista = (List<Polaznik>) so.odgovor();
         return lista;
     }
 
@@ -158,7 +158,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<VrstaPlesa> lista = (List<VrstaPlesa>) so.getOdgovor();
+        List<VrstaPlesa> lista = (List<VrstaPlesa>) so.odgovor();
         return lista;
     }
 
@@ -170,7 +170,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -183,7 +183,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Upisnica> lista = (List<Upisnica>) so.getOdgovor();
+        List<Upisnica> lista = (List<Upisnica>) so.odgovor();
         return lista;
     }
 
@@ -195,7 +195,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Upisnica> lista = (List<Upisnica>) so.getOdgovor();
+        List<Upisnica> lista = (List<Upisnica>) so.odgovor();
         return lista;
     }
 
@@ -207,7 +207,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Upisnica> lista = (List<Upisnica>) so.getOdgovor();
+        List<Upisnica> lista = (List<Upisnica>) so.odgovor();
         return lista;
     }
 
@@ -219,7 +219,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Upisnica> lista = (List<Upisnica>) so.getOdgovor();
+        List<Upisnica> lista = (List<Upisnica>) so.odgovor();
         return lista;
     }
 
@@ -231,7 +231,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Upisnica> lista = (List<Upisnica>) so.getOdgovor();
+        List<Upisnica> lista = (List<Upisnica>) so.odgovor();
         return lista;
     }
 
@@ -243,7 +243,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
 
     }
@@ -256,7 +256,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -268,7 +268,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<UzrasnaKategorija> lista = (List<UzrasnaKategorija>) so.getOdgovor();
+        List<UzrasnaKategorija> lista = (List<UzrasnaKategorija>) so.odgovor();
         return lista;
     }
 
@@ -280,7 +280,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Polaznik> lista = (List<Polaznik>) so.getOdgovor();
+        List<Polaznik> lista = (List<Polaznik>) so.odgovor();
         return lista;
     }
 
@@ -292,7 +292,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Polaznik> lista = (List<Polaznik>) so.getOdgovor();
+        List<Polaznik> lista = (List<Polaznik>) so.odgovor();
         return lista;
     }
 
@@ -304,7 +304,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -316,7 +316,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -328,7 +328,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -340,7 +340,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -352,7 +352,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Kvalifikacija> lista = (List<Kvalifikacija>) so.getOdgovor();
+        List<Kvalifikacija> lista = (List<Kvalifikacija>) so.odgovor();
         return lista;
     }
 
@@ -364,7 +364,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Instruktor> lista = (List<Instruktor>) so.getOdgovor();
+        List<Instruktor> lista = (List<Instruktor>) so.odgovor();
         return lista;
     }
 
@@ -376,7 +376,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Instruktor> lista = (List<Instruktor>) so.getOdgovor();
+        List<Instruktor> lista = (List<Instruktor>) so.odgovor();
         return lista;
     }
 
@@ -388,7 +388,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -400,7 +400,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -412,7 +412,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -424,7 +424,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Kvalifikacija> lista = (List<Kvalifikacija>) so.getOdgovor();
+        List<Kvalifikacija> lista = (List<Kvalifikacija>) so.odgovor();
         return lista;
     }
 
@@ -436,7 +436,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -448,7 +448,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -460,7 +460,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -472,7 +472,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<VrstaPlesa> lista = (List<VrstaPlesa>) so.getOdgovor();
+        List<VrstaPlesa> lista = (List<VrstaPlesa>) so.odgovor();
         return lista;
     }
 
@@ -484,7 +484,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -496,7 +496,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -508,7 +508,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -520,7 +520,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<UzrasnaKategorija> lista = (List<UzrasnaKategorija>) so.getOdgovor();
+        List<UzrasnaKategorija> lista = (List<UzrasnaKategorija>) so.odgovor();
         return lista;
     }
 
@@ -533,7 +533,7 @@ public class Komunikacija {
 
             return false;
         }
-        return (boolean) so.getOdgovor();
+        return (boolean) so.odgovor();
 
     }
 
@@ -546,7 +546,7 @@ public class Komunikacija {
 
             return null;
         }
-        return (Upisnica) so.getOdgovor();
+        return (Upisnica) so.odgovor();
     }
 
     public Instruktor pretraziInstruktor(Instruktor instruktor) {
@@ -558,7 +558,7 @@ public class Komunikacija {
 
             return null;
         }
-        return (Instruktor) so.getOdgovor();
+        return (Instruktor) so.odgovor();
     }
 
     public Kvalifikacija pretraziKvalifikacija(Kvalifikacija kvalifikacija) {
@@ -570,7 +570,7 @@ public class Komunikacija {
 
             return null;
         }
-        return (Kvalifikacija) so.getOdgovor();
+        return (Kvalifikacija) so.odgovor();
     }
 
     public Polaznik pretraziPolaznik(Polaznik polaznik) {
@@ -582,7 +582,7 @@ public class Komunikacija {
 
             return null;
         }
-        return (Polaznik) so.getOdgovor();
+        return (Polaznik) so.odgovor();
     }
 
     public UzrasnaKategorija pretraziUzrasnaKategorija(UzrasnaKategorija uz) {
@@ -594,7 +594,7 @@ public class Komunikacija {
 
             return null;
         }
-        return (UzrasnaKategorija) so.getOdgovor();
+        return (UzrasnaKategorija) so.odgovor();
     }
 
     public VrstaPlesa pretraziVrstaPlesa(VrstaPlesa vp) {
@@ -606,7 +606,7 @@ public class Komunikacija {
 
             return null;
         }
-        return (VrstaPlesa) so.getOdgovor();
+        return (VrstaPlesa) so.odgovor();
     }
     
     public boolean kreirajSertifikat(Sertifikat sertifikat) {
@@ -617,7 +617,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -629,7 +629,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -641,7 +641,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        boolean uspesno = (boolean) so.getOdgovor();
+        boolean uspesno = (boolean) so.odgovor();
         return uspesno;
     }
 
@@ -653,7 +653,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        return (Sertifikat) so.getOdgovor();
+        return (Sertifikat) so.odgovor();
     }
 
     public List<Sertifikat> vratiListuSviSertifikat() {
@@ -664,7 +664,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Sertifikat> lista = (List<Sertifikat>) so.getOdgovor();
+        List<Sertifikat> lista = (List<Sertifikat>) so.odgovor();
         return lista;
     }
 
@@ -676,7 +676,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Sertifikat> lista = (List<Sertifikat>) so.getOdgovor();
+        List<Sertifikat> lista = (List<Sertifikat>) so.odgovor();
         return lista;
     }
 
@@ -688,7 +688,7 @@ public class Komunikacija {
             JOptionPane.showMessageDialog(null, "Server nije u funkciji.", "Greška", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        List<Sertifikat> lista = (List<Sertifikat>) so.getOdgovor();
+        List<Sertifikat> lista = (List<Sertifikat>) so.odgovor();
         return lista;
     }
 

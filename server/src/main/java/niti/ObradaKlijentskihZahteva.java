@@ -14,7 +14,6 @@ import model.Sertifikat;
 import model.Upisnica;
 import model.UzrasnaKategorija;
 import model.VrstaPlesa;
-import static komunikacija.Operacije.VRATI_LISTU_KVALIFIKACIJA_KVALIFIKACIJA;
 import komunikacija.Posiljalac;
 import komunikacija.Primalac;
 import transfer.Zahtev;
@@ -96,360 +95,268 @@ public class ObradaKlijentskihZahteva extends Thread {
 
     @Override
     public void run() {
-        Odgovor so = new Odgovor();
 
         while (s != null && !s.isClosed()) {
             try {
 
                 Zahtev kz = (Zahtev) primalac.primi();
                 if (kz != null) {
-                    switch (kz.getOperacija()) {
+                    switch (kz.operacija()) {
                         case PRIJAVI_INSTRUKTOR:
 
-                            Instruktor i = (Instruktor) kz.getParam();
+                            Instruktor i = (Instruktor) kz.param();
                             Instruktor instruktor = ServerKontroler.getInstance().prijaviInstruktor(i);
-                            so.setOdgovor(instruktor);
-                            
-                            posiljalac.posalji(so);
+                            posiljalac.posalji(new Odgovor(instruktor));
                             break;
 
                         case KREIRAJ_UPISNICA:
 
-                            boolean uspesnoUpisnica = ServerKontroler.getInstance().kreirajUpisnica((Upisnica) kz.getParam());
-                            so.setOdgovor(uspesnoUpisnica);
-
-                            posiljalac.posalji(so);
+                            boolean uspesnoUpisnica = ServerKontroler.getInstance().kreirajUpisnica((Upisnica) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoUpisnica));
                             break;
 
                         case PROMENI_UPISNICA:
-                            boolean uspesnoPromeniUpisnica = ServerKontroler.getInstance().promeniUpisnica((Upisnica) kz.getParam());
-                            so.setOdgovor(uspesnoPromeniUpisnica);
-                            
-                            posiljalac.posalji(so);
+                            boolean uspesnoPromeniUpisnica = ServerKontroler.getInstance().promeniUpisnica((Upisnica) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoPromeniUpisnica));
                             break;
 
                         case VRATI_LISTU_SVI_INSTRUKTOR:
 
                             List<Instruktor> listaInstruktora = ServerKontroler.getInstance().vratiListuSviInstruktor();
-                            so.setOdgovor(listaInstruktora);
-                            
-                            posiljalac.posalji(so);
+                            posiljalac.posalji(new Odgovor(listaInstruktora));
                             break;
 
                         case VRATI_LISTU_SVI_POLAZNIK:
 
                             List<Polaznik> listaPolaznika = ServerKontroler.getInstance().vratiListuSviPolaznik();
-                            so.setOdgovor(listaPolaznika);
-
-                            posiljalac.posalji(so);
+                            posiljalac.posalji(new Odgovor(listaPolaznika));
                             break;
 
                         case VRATI_LISTU_SVI_VRSTA_PLESA:
 
                             List<VrstaPlesa> listaVP = ServerKontroler.getInstance().vratiListuSviVrstaPlesa();
-                            so.setOdgovor(listaVP);
-
-                            posiljalac.posalji(so);
+                            posiljalac.posalji(new Odgovor(listaVP));
                             break;
 
                         case VRATI_LISTU_UPISNICA_UPISNICA:
-                            List<Upisnica> listaUpisnicaID = ServerKontroler.getInstance().vratiListuUpisnicaUpisnica((int) kz.getParam());
-                            so.setOdgovor(listaUpisnicaID);
-                            
-                            posiljalac.posalji(so);
+                            List<Upisnica> listaUpisnicaID = ServerKontroler.getInstance().vratiListuUpisnicaUpisnica((int) kz.param());
+                            posiljalac.posalji(new Odgovor(listaUpisnicaID));
                             break;
 
                         case VRATI_LISTU_UPISNICA_INSTRUKTOR:
-                            List<Upisnica> listaUpisnicaInstruktor = ServerKontroler.getInstance().vratiListuUpisnicaInstruktor((String) kz.getParam());
-                            so.setOdgovor(listaUpisnicaInstruktor);
-
-                            posiljalac.posalji(so);
+                            List<Upisnica> listaUpisnicaInstruktor = ServerKontroler.getInstance().vratiListuUpisnicaInstruktor((String) kz.param());
+                            posiljalac.posalji(new Odgovor(listaUpisnicaInstruktor));
                             break;
 
                         case VRATI_LISTU_UPISNICA_POLAZNIK:
-                            List<Upisnica> listaUpisnicaPolaznik = ServerKontroler.getInstance().vratiListuUpisnicaPolaznik((String) kz.getParam());
-                            so.setOdgovor(listaUpisnicaPolaznik);
-                            
-                            posiljalac.posalji(so);
+                            List<Upisnica> listaUpisnicaPolaznik = ServerKontroler.getInstance().vratiListuUpisnicaPolaznik((String) kz.param());
+                            posiljalac.posalji(new Odgovor(listaUpisnicaPolaznik));
                             break;
 
                         case VRATI_LISTU_UPISNICA_VRSTA_PLESA:
-                            List<Upisnica> listaUpisnicaVrstaPlesa = ServerKontroler.getInstance().vratiListuUpisnicaVrstaPlesa((VrstaPlesa) kz.getParam());
-                            so.setOdgovor(listaUpisnicaVrstaPlesa);
-                            
-                            posiljalac.posalji(so);
+                            List<Upisnica> listaUpisnicaVrstaPlesa = ServerKontroler.getInstance().vratiListuUpisnicaVrstaPlesa((VrstaPlesa) kz.param());
+                            posiljalac.posalji(new Odgovor(listaUpisnicaVrstaPlesa));
                             break;
 
                         case VRATI_LISTU_SVI_UPISNICA:
                             List<Upisnica> listaSvihUpisnica = ServerKontroler.getInstance().vratiListuSviUpisnica();
-                            so.setOdgovor(listaSvihUpisnica);
-                            
-                            posiljalac.posalji(so);
+                            posiljalac.posalji(new Odgovor(listaSvihUpisnica));
                             break;
 
                         case DODAJ_PRIJAVLJENOG:
-                            boolean prijavljen = ServerKontroler.getInstance().dodajPrijavljenog((Instruktor) kz.getParam());
-                            so.setOdgovor(prijavljen);
-                            
-                            posiljalac.posalji(so);
+                            boolean prijavljen = ServerKontroler.getInstance().dodajPrijavljenog((Instruktor) kz.param());
+                            posiljalac.posalji(new Odgovor(prijavljen));
                             break;
 
                         case ODJAVI_SE:
 
-                            ServerKontroler.getInstance().odjaviSe((Instruktor) kz.getParam());
+                            ServerKontroler.getInstance().odjaviSe((Instruktor) kz.param());
 
                             break;
 
                         case KREIRAJ_POLAZNIK:
-                            boolean uspesnoPolaznik = ServerKontroler.getInstance().kreirajPolaznik((Polaznik) kz.getParam());
-                            so.setOdgovor(uspesnoPolaznik);
-                            
-                            posiljalac.posalji(so);
+                            boolean uspesnoPolaznik = ServerKontroler.getInstance().kreirajPolaznik((Polaznik) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoPolaznik));
                             break;
 
                         case PROMENI_POLAZNIK:
-                            boolean uspesnoPromeniPolaznik = ServerKontroler.getInstance().promeniPolaznik((Polaznik) kz.getParam());
-                            so.setOdgovor(uspesnoPromeniPolaznik);
-                            
-                            posiljalac.posalji(so);
+                            boolean uspesnoPromeniPolaznik = ServerKontroler.getInstance().promeniPolaznik((Polaznik) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoPromeniPolaznik));
                             break;
 
                         case OBRISI_POLAZNIK:
-                            boolean uspesnoObrisiPolaznik = ServerKontroler.getInstance().obrisiPolaznik((Polaznik) kz.getParam());
-                            so.setOdgovor(uspesnoObrisiPolaznik);
-                            
-                            posiljalac.posalji(so);
+                            boolean uspesnoObrisiPolaznik = ServerKontroler.getInstance().obrisiPolaznik((Polaznik) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoObrisiPolaznik));
                             break;
 
                         case VRATI_LISTU_SVI_UZRASNA_KATEGORIJA:
                             List<UzrasnaKategorija> listaUzrasnihKategorija = ServerKontroler.getInstance().vratiListuSviUzrasnaKategorija();
-                            so.setOdgovor(listaUzrasnihKategorija);
-                            
-                            posiljalac.posalji(so);
+                            posiljalac.posalji(new Odgovor(listaUzrasnihKategorija));
                             break;
 
                         case VRATI_LISTU_POLAZNIK_POLAZNIK:
-                            List<Polaznik> listaPolaznikaPolaznik = ServerKontroler.getInstance().vratiListuPolaznikPolaznik((String) kz.getParam());
-                            so.setOdgovor(listaPolaznikaPolaznik);
-                            
-                            posiljalac.posalji(so);
+                            List<Polaznik> listaPolaznikaPolaznik = ServerKontroler.getInstance().vratiListuPolaznikPolaznik((String) kz.param());
+                            posiljalac.posalji(new Odgovor(listaPolaznikaPolaznik));
                             break;
 
                         case VRATI_LISTU_POLAZNIK_UZRASNA_KATEGORIJA:
-                            List<Polaznik> listaPolaznikaUzrasnaKategorija = ServerKontroler.getInstance().vratiListuPolaznikUzrasnaKategorija((String) kz.getParam());
-                            so.setOdgovor(listaPolaznikaUzrasnaKategorija);
-                            
-                            posiljalac.posalji(so);
+                            List<Polaznik> listaPolaznikaUzrasnaKategorija = ServerKontroler.getInstance().vratiListuPolaznikUzrasnaKategorija((String) kz.param());
+                            posiljalac.posalji(new Odgovor(listaPolaznikaUzrasnaKategorija));
                             break;
 
                         case PROMENI_INSTRUKTOR:
-                            boolean uspesnoPromeniInstruktor = ServerKontroler.getInstance().promeniInstruktor((Instruktor) kz.getParam());
-                            so.setOdgovor(uspesnoPromeniInstruktor);
-                            
-                            posiljalac.posalji(so);
+                            boolean uspesnoPromeniInstruktor = ServerKontroler.getInstance().promeniInstruktor((Instruktor) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoPromeniInstruktor));
                             break;
 
                         case KREIRAJ_INSTRUKTOR:
-                            boolean uspesnoInstruktor = ServerKontroler.getInstance().kreirajInstruktor((Instruktor) kz.getParam());
-                            so.setOdgovor(uspesnoInstruktor);
-                            
-                            posiljalac.posalji(so);
+                            boolean uspesnoInstruktor = ServerKontroler.getInstance().kreirajInstruktor((Instruktor) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoInstruktor));
                             break;
 
                         case OBRISI_INSTRUKTOR:
-                            boolean uspesnoObrisiInstruktor = ServerKontroler.getInstance().obrisiInstruktor((Instruktor) kz.getParam());
-                            so.setOdgovor(uspesnoObrisiInstruktor);
-                            
-                            posiljalac.posalji(so);
+                            boolean uspesnoObrisiInstruktor = ServerKontroler.getInstance().obrisiInstruktor((Instruktor) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoObrisiInstruktor));
                             break;
 
                         case VRATI_LISTU_INSTRUKTOR_INSTRUKTOR:
-                            List<Instruktor> listaInstruktoraInstruktor = ServerKontroler.getInstance().vratiListuInstruktorInstruktor((String) kz.getParam());
-                            so.setOdgovor(listaInstruktoraInstruktor);
-                            
-                            posiljalac.posalji(so);
+                            List<Instruktor> listaInstruktoraInstruktor = ServerKontroler.getInstance().vratiListuInstruktorInstruktor((String) kz.param());
+                            posiljalac.posalji(new Odgovor(listaInstruktoraInstruktor));
                             break;
 
                         case VRATI_LISTU_INSTRUKTOR_KVALIFIKACIJA:
-                            List<Instruktor> listaInstruktoraKvalifikacija = ServerKontroler.getInstance().vratiListuInstruktorKvalifikacija((Kvalifikacija) kz.getParam());
-                            so.setOdgovor(listaInstruktoraKvalifikacija);
-
-                            posiljalac.posalji(so);
+                            List<Instruktor> listaInstruktoraKvalifikacija = ServerKontroler.getInstance().vratiListuInstruktorKvalifikacija((Kvalifikacija) kz.param());
+                            posiljalac.posalji(new Odgovor(listaInstruktoraKvalifikacija));
                             break;
 
                         case VRATI_LISTU_SVI_KVALIFIKACIJA:
                             List<Kvalifikacija> listaInstruktorKvalifikacija = ServerKontroler.getInstance().vratiListuSviKvalifikacija();
-                            so.setOdgovor(listaInstruktorKvalifikacija);
-                            
-                            posiljalac.posalji(so);
+                            posiljalac.posalji(new Odgovor(listaInstruktorKvalifikacija));
                             break;
 
                         case KREIRAJ_UZRASNA_KATEGORIJA:
-                            boolean uspesnoUk = ServerKontroler.getInstance().kreirajUzrasnaKategorija((UzrasnaKategorija) kz.getParam());
-                            so.setOdgovor(uspesnoUk);
-                            
-                            posiljalac.posalji(so);
+                            boolean uspesnoUk = ServerKontroler.getInstance().kreirajUzrasnaKategorija((UzrasnaKategorija) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoUk));
                             break;
 
                         case PROMENI_UZRASNA_KATEGORIJA:
-                            boolean uspesnoPromeniUk = ServerKontroler.getInstance().promeniUzrasnaKategorija((UzrasnaKategorija) kz.getParam());
-                            so.setOdgovor(uspesnoPromeniUk);
-                            
-                            posiljalac.posalji(so);
+                            boolean uspesnoPromeniUk = ServerKontroler.getInstance().promeniUzrasnaKategorija((UzrasnaKategorija) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoPromeniUk));
                             break;
 
                         case OBRISI_UZRASNA_KATEGORIJA:
-                            boolean uspesnoObrisiUk = ServerKontroler.getInstance().obrisiUzrasnaKategorija((UzrasnaKategorija) kz.getParam());
-                            so.setOdgovor(uspesnoObrisiUk);
-                            
-                            posiljalac.posalji(so);
+                            boolean uspesnoObrisiUk = ServerKontroler.getInstance().obrisiUzrasnaKategorija((UzrasnaKategorija) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoObrisiUk));
                             break;
 
                         case VRATI_LISTU_UZRASNA_KATEGORIJA_UZRASNA_KATEGORIJA:
-                            List<UzrasnaKategorija> listaUkID = ServerKontroler.getInstance().vratiListuUzrasnaKategorijaUzrasnaKategorija((UzrasnaKategorija) kz.getParam());
-                            so.setOdgovor(listaUkID);
-                            
-                            posiljalac.posalji(so);
+                            List<UzrasnaKategorija> listaUkID = ServerKontroler.getInstance().vratiListuUzrasnaKategorijaUzrasnaKategorija((UzrasnaKategorija) kz.param());
+                            posiljalac.posalji(new Odgovor(listaUkID));
                             break;
 
                         case OBRISI_VRSTA_PLESA:
-                            boolean uspesnoObrisiVrstaPlesa = ServerKontroler.getInstance().obrisiVrstaPlesa((VrstaPlesa) kz.getParam());
-                            so.setOdgovor(uspesnoObrisiVrstaPlesa);
-                            
-                            posiljalac.posalji(so);
+                            boolean uspesnoObrisiVrstaPlesa = ServerKontroler.getInstance().obrisiVrstaPlesa((VrstaPlesa) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoObrisiVrstaPlesa));
                             break;
 
                         case PROMENI_VRSTA_PLESA:
-                            boolean uspesnoPromeniVrstaPleaa = ServerKontroler.getInstance().promeniVrstaPlesa((VrstaPlesa) kz.getParam());
-                            so.setOdgovor(uspesnoPromeniVrstaPleaa);
-                            
-                            posiljalac.posalji(so);
+                            boolean uspesnoPromeniVrstaPleaa = ServerKontroler.getInstance().promeniVrstaPlesa((VrstaPlesa) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoPromeniVrstaPleaa));
                             break;
 
                         case KREIRAJ_VRSTA_PLESA:
-                            boolean uspesnoVrstaPlesa = ServerKontroler.getInstance().kreirajVrstaPlesa((VrstaPlesa) kz.getParam());
-                            so.setOdgovor(uspesnoVrstaPlesa);
-
-                            posiljalac.posalji(so);
+                            boolean uspesnoVrstaPlesa = ServerKontroler.getInstance().kreirajVrstaPlesa((VrstaPlesa) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoVrstaPlesa));
                             break;
 
                         case VRATI_LISTU_VRSTA_PLESA_VRSTA_PLESA:
-                            List<VrstaPlesa> listaVrstaPlesaID = ServerKontroler.getInstance().vratiListuVrstaPlesaVrstaPlesa((VrstaPlesa) kz.getParam());
-                            so.setOdgovor(listaVrstaPlesaID);
-                            
-                            posiljalac.posalji(so);
+                            List<VrstaPlesa> listaVrstaPlesaID = ServerKontroler.getInstance().vratiListuVrstaPlesaVrstaPlesa((VrstaPlesa) kz.param());
+                            posiljalac.posalji(new Odgovor(listaVrstaPlesaID));
                             break;
 
                         case OBRISI_KVALIFIKACIJA:
-                            boolean uspesnoObrisiKvalifikacija = ServerKontroler.getInstance().obrisiKvalifikacija((Kvalifikacija) kz.getParam());
-                            so.setOdgovor(uspesnoObrisiKvalifikacija);
-                            
-                            posiljalac.posalji(so);
+                            boolean uspesnoObrisiKvalifikacija = ServerKontroler.getInstance().obrisiKvalifikacija((Kvalifikacija) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoObrisiKvalifikacija));
                             break;
 
                         case PROMENI_KVALIFIKACIJA:
-                            boolean uspesnoPromeniKvalifikacija = ServerKontroler.getInstance().promeniKvalifikacija((Kvalifikacija) kz.getParam());
-                            so.setOdgovor(uspesnoPromeniKvalifikacija);
-
-                            posiljalac.posalji(so);
+                            boolean uspesnoPromeniKvalifikacija = ServerKontroler.getInstance().promeniKvalifikacija((Kvalifikacija) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoPromeniKvalifikacija));
                             break;
 
                         case UBACI_KVALIFIKACIJA:
-                            boolean uspesnoKvalifikacija = ServerKontroler.getInstance().ubaciKvalifikacija((Kvalifikacija) kz.getParam());
-                            so.setOdgovor(uspesnoKvalifikacija);
-
-                            posiljalac.posalji(so);
+                            boolean uspesnoKvalifikacija = ServerKontroler.getInstance().ubaciKvalifikacija((Kvalifikacija) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoKvalifikacija));
                             break;
 
                         case VRATI_LISTU_KVALIFIKACIJA_KVALIFIKACIJA:
-                            List<Kvalifikacija> listaKvalifikacijaID = ServerKontroler.getInstance().vratiListuKvalifikacijaKvalifikacija((Kvalifikacija) kz.getParam());
-                            so.setOdgovor(listaKvalifikacijaID);
-                            
-                            posiljalac.posalji(so);
+                            List<Kvalifikacija> listaKvalifikacijaID = ServerKontroler.getInstance().vratiListuKvalifikacijaKvalifikacija((Kvalifikacija) kz.param());
+                            posiljalac.posalji(new Odgovor(listaKvalifikacijaID));
                             break;
 
                         case PRETRAZI_UPISNICA:
-                            Upisnica upisnica = ServerKontroler.getInstance().pretraziUpisnica((Upisnica) kz.getParam());
-                            so.setOdgovor(upisnica);
-
-                            posiljalac.posalji(so);
+                            Upisnica upisnica = ServerKontroler.getInstance().pretraziUpisnica((Upisnica) kz.param());
+                            posiljalac.posalji(new Odgovor(upisnica));
                             break;
 
                         case PRETRAZI_POLAZNIK:
-                            Polaznik polaznik = ServerKontroler.getInstance().pretraziPolaznik((Polaznik) kz.getParam());
-                            so.setOdgovor(polaznik);
-
-                            posiljalac.posalji(so);
+                            Polaznik polaznik = ServerKontroler.getInstance().pretraziPolaznik((Polaznik) kz.param());
+                            posiljalac.posalji(new Odgovor(polaznik));
                             break;
 
                         case PRETRAZI_INSTRUKTOR:
-                            Instruktor inst = ServerKontroler.getInstance().pretraziInstruktor((Instruktor) kz.getParam());
-                            so.setOdgovor(inst);
-
-                            posiljalac.posalji(so);
+                            Instruktor inst = ServerKontroler.getInstance().pretraziInstruktor((Instruktor) kz.param());
+                            posiljalac.posalji(new Odgovor(inst));
                             break;
 
                         case PRETRAZI_UZRASNA_KATEGORIJA:
-                            UzrasnaKategorija uz = ServerKontroler.getInstance().pretraziUzrasnaKategorija((UzrasnaKategorija) kz.getParam());
-                            so.setOdgovor(uz);
-
-                            posiljalac.posalji(so);
+                            UzrasnaKategorija uz = ServerKontroler.getInstance().pretraziUzrasnaKategorija((UzrasnaKategorija) kz.param());
+                            posiljalac.posalji(new Odgovor(uz));
                             break;
 
                         case PRETRAZI_VRSTA_PLESA:
-                            VrstaPlesa vp = ServerKontroler.getInstance().pretraziVrstaPlesa((VrstaPlesa) kz.getParam());
-                            so.setOdgovor(vp);
-
-                            posiljalac.posalji(so);
+                            VrstaPlesa vp = ServerKontroler.getInstance().pretraziVrstaPlesa((VrstaPlesa) kz.param());
+                            posiljalac.posalji(new Odgovor(vp));
                             break;
 
                         case PRETRAZI_KVALIFIKACIJA:
-                            Kvalifikacija kv = ServerKontroler.getInstance().pretraziKvalifikacija((Kvalifikacija) kz.getParam());
-                            so.setOdgovor(kv);
-
-                            posiljalac.posalji(so);
+                            Kvalifikacija kv = ServerKontroler.getInstance().pretraziKvalifikacija((Kvalifikacija) kz.param());
+                            posiljalac.posalji(new Odgovor(kv));
                             break;
                             
                         case KREIRAJ_SERTIFIKAT:
-                            boolean uspesnoSertifikat = ServerKontroler.getInstance().kreirajSertifikat((Sertifikat) kz.getParam());
-                            so.setOdgovor(uspesnoSertifikat);
-                            posiljalac.posalji(so);
+                            boolean uspesnoSertifikat = ServerKontroler.getInstance().kreirajSertifikat((Sertifikat) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoSertifikat));
                             break;
 
                         case OBRISI_SERTIFIKAT:
-                            boolean uspesnoObrisiSertifikat = ServerKontroler.getInstance().obrisiSertifikat((Sertifikat) kz.getParam());
-                            so.setOdgovor(uspesnoObrisiSertifikat);
-                            posiljalac.posalji(so);
+                            boolean uspesnoObrisiSertifikat = ServerKontroler.getInstance().obrisiSertifikat((Sertifikat) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoObrisiSertifikat));
                             break;
 
                         case PROMENI_SERTIFIKAT:
-                            boolean uspesnoPromeniSertifikat = ServerKontroler.getInstance().promeniSertifikat((Sertifikat) kz.getParam());
-                            so.setOdgovor(uspesnoPromeniSertifikat);
-                            posiljalac.posalji(so);
+                            boolean uspesnoPromeniSertifikat = ServerKontroler.getInstance().promeniSertifikat((Sertifikat) kz.param());
+                            posiljalac.posalji(new Odgovor(uspesnoPromeniSertifikat));
                             break;
 
                         case PRETRAZI_SERTIFIKAT:
-                            Sertifikat sertifikat = ServerKontroler.getInstance().pretraziSertifikat((Sertifikat) kz.getParam());
-                            so.setOdgovor(sertifikat);
-                            posiljalac.posalji(so);
+                            Sertifikat sertifikat = ServerKontroler.getInstance().pretraziSertifikat((Sertifikat) kz.param());
+                            posiljalac.posalji(new Odgovor(sertifikat));
                             break;
 
                         case VRATI_LISTU_SVI_SERTIFIKAT:
                             List<Sertifikat> listaSvihSertifikata = ServerKontroler.getInstance().vratiListuSviSertifikat();
-                            so.setOdgovor(listaSvihSertifikata);
-                            posiljalac.posalji(so);
+                            posiljalac.posalji(new Odgovor(listaSvihSertifikata));
                             break;
 
                         case VRATI_LISTU_SERTIFIKAT_POLAZNIK:
-                            List<Sertifikat> listaSertifikatPolaznik = ServerKontroler.getInstance().vratiListuSertifikatPolaznik((Sertifikat) kz.getParam());
-                            so.setOdgovor(listaSertifikatPolaznik);
-                            posiljalac.posalji(so);
+                            List<Sertifikat> listaSertifikatPolaznik = ServerKontroler.getInstance().vratiListuSertifikatPolaznik((Sertifikat) kz.param());
+                            posiljalac.posalji(new Odgovor(listaSertifikatPolaznik));
                             break;
 
                         case VRATI_LISTU_SERTIFIKAT_VRSTA_PLESA:
-                            List<Sertifikat> listaSertifikatVrstaPlesa = ServerKontroler.getInstance().vratiListuSertifikatVrstaPlesa((Sertifikat) kz.getParam());
-                            so.setOdgovor(listaSertifikatVrstaPlesa);
-                            posiljalac.posalji(so);
+                            List<Sertifikat> listaSertifikatVrstaPlesa = ServerKontroler.getInstance().vratiListuSertifikatVrstaPlesa((Sertifikat) kz.param());
+                            posiljalac.posalji(new Odgovor(listaSertifikatVrstaPlesa));
                             break;
 
                         default:
