@@ -57,19 +57,19 @@ mvn clean install
 
 The project was developed in phases, each on a separate branch merged into `main`:
 
-| Tag | Branch | Description |
-|-----|--------|-------------|
-| v1.0 | `json_deo` | Initial JSON serialization. |
-| v1.1 | `javadoc` | Complete JSON implementation and service integration. |
-| v1.2 | `junit` | JavaDoc documentation for domain classes and system operations. |
-| v1.3 | `lombok` | Complete JUnit tests with JavaDoc comments. |
-| v1.4 | `records` | Added Lombok to domain classes. |
-| v1.5 | `lambda-stream-api` | Added Java Records. |
-| v1.6 | `lambda-stream-api` | Added Lambda expressions and Stream API. |
+|  Tag  | Description |
+|-------|-------------|
+| v1.0  | Initial JSON serialization. |
+| v1.1  | Complete JSON implementation and service integration. |
+| v1.2  | JavaDoc documentation for domain classes and system operations. |
+| v1.3  | Complete JUnit tests with JavaDoc comments. |
+| v1.4  | Added Lombok to domain classes. |
+| v1.5  | Added Java Records. |
+| v1.6  | Added Lambda expressions and Stream API. |
 
 ---
 
 ## Course Information
 - **Subject**: Software Tools (Softverski alati)
 - **Faculty**: Faculty of Organizational Sciences, University of Belgrade
-- **Year**: 4rd year undergraduate
+- **Year**: 4th year undergraduate
