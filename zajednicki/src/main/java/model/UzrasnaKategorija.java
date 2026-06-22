@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,10 +29,14 @@ public class UzrasnaKategorija extends OpstiDomenskiObjekat {
     /** Jedinstveni identifikator uzrasne kategorije u bazi podataka. */
     private int idUzrast;
 
-    /** Opseg godina koji definise uzrasnu kategoriju, npr. "7-12". */
+    /** Opseg godina koji definise uzrasnu kategoriju, npr. "7-12".
+     * Ne sme biti null niti prazan string. */
+    @NotBlank(message = "Opseg godina ne sme biti null niti prazan.")
     private String opsegGodina;
 
-    /** Naziv uzrasne kategorije, npr. "deca". */
+    /** Naziv uzrasne kategorije, npr. "deca".
+     * Ne sme biti null niti prazan string. */
+    @NotBlank(message = "Naziv uzrasne kategorije ne sme biti null niti prazan.")
     private String naziv;
 
     /**

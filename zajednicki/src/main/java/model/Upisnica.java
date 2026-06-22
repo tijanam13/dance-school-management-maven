@@ -53,13 +53,16 @@ public class Upisnica extends OpstiDomenskiObjekat {
      * @param ukupnaClanarina ukupna clanarina za sve stavke upisnice
      * @param instruktor instruktor koji vodi polaznika
      * @param polaznik polaznik koji je upisan
+     * @throws Exception ako je datum upisa u buducnosti
+     * @throws IllegalArgumentException ako su instruktor ili polaznik null,
+     *                                  ili ako je ukupnaClanarina manja od ili jednaka nuli
      */
-    public Upisnica(int idUpisnica, Date datumUpisa, double ukupnaClanarina, Instruktor instruktor, Polaznik polaznik) {
-        this.idUpisnica = idUpisnica;
-        this.datumUpisa = datumUpisa;
-        this.ukupnaClanarina = ukupnaClanarina;
-        this.instruktor = instruktor;
-        this.polaznik = polaznik;
+    public Upisnica(int idUpisnica, Date datumUpisa, double ukupnaClanarina, Instruktor instruktor, Polaznik polaznik) throws Exception {
+        setIdUpisnica(idUpisnica);
+        setDatumUpisa(datumUpisa);
+        setUkupnaClanarina(ukupnaClanarina);
+        setInstruktor(instruktor);
+        setPolaznik(polaznik);
     }
 
     /**
@@ -70,13 +73,17 @@ public class Upisnica extends OpstiDomenskiObjekat {
      * @param ukupnaClanarina ukupna clanarina za sve stavke upisnice
      * @param instruktor instruktor koji vodi polaznika
      * @param polaznik polaznik koji je upisan
+     * @throws Exception ako je datum upisa u buducnosti
+     * @throws IllegalArgumentException ako su instruktor ili polaznik null,
+     *                                  ili ako je ukupnaClanarina manja od ili jednaka nuli
      */
-    public Upisnica(Date datumUpisa, double ukupnaClanarina, Instruktor instruktor, Polaznik polaznik) {
-        this.datumUpisa = datumUpisa;
-        this.ukupnaClanarina = ukupnaClanarina;
-        this.instruktor = instruktor;
-        this.polaznik = polaznik;
+    public Upisnica(Date datumUpisa, double ukupnaClanarina, Instruktor instruktor, Polaznik polaznik) throws Exception {
+        setDatumUpisa(datumUpisa);
+        setUkupnaClanarina(ukupnaClanarina);
+        setInstruktor(instruktor);
+        setPolaznik(polaznik);
     }
+
 
     /**
      * Vraca jedinstveni identifikator upisnice.
@@ -131,10 +138,15 @@ public class Upisnica extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja ukupnu clanarinu za sve stavke upisnice.
+     * Ukupna clanarina mora biti pozitivna vrednost.
      *
      * @param ukupnaClanarina ukupna clanarina koja se postavlja
+     * @throws IllegalArgumentException ako je ukupnaClanarina manja od ili jednaka nuli
      */
     public void setUkupnaClanarina(double ukupnaClanarina) {
+        if (ukupnaClanarina <= 0) {
+            throw new IllegalArgumentException("Ukupna članarina mora biti pozitivna vrednost.");
+        }
         this.ukupnaClanarina = ukupnaClanarina;
     }
 
@@ -167,10 +179,15 @@ public class Upisnica extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja instruktora koji vodi polaznika.
+     * Instruktor ne sme biti null.
      *
      * @param instruktor instruktor koji se postavlja
+     * @throws IllegalArgumentException ako je instruktor null
      */
     public void setInstruktor(Instruktor instruktor) {
+        if (instruktor == null) {
+            throw new IllegalArgumentException("Instruktor koji se odnosi na datu upisnicu ne sme biti null.");
+        }
         this.instruktor = instruktor;
     }
 
@@ -185,10 +202,15 @@ public class Upisnica extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja polaznika koji je upisan.
+     * Polaznik ne sme biti null.
      *
      * @param polaznik polaznik koji se postavlja
+     * @throws IllegalArgumentException ako je polaznik null
      */
     public void setPolaznik(Polaznik polaznik) {
+        if (polaznik == null) {
+            throw new IllegalArgumentException("Polaznik koji se odnosi na datu upisnicu ne sme biti null.");
+        }
         this.polaznik = polaznik;
     }
 
@@ -296,7 +318,7 @@ public class Upisnica extends OpstiDomenskiObjekat {
                 lista.add(upisnica);
             }
             return lista;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Greška prilikom obrade podataka iz ResultSet-a kod vraćanja liste upisnica: " + e.getMessage());
             return null;
         }
@@ -378,7 +400,7 @@ public class Upisnica extends OpstiDomenskiObjekat {
                 u = new Upisnica(idUpisnica, datumUpisa, ukupnaClanarina, i, p);
             }
             return u;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Greška prilikom obrade podataka iz ResultSet-a kod vraćanja upisnice: " + e.getMessage());
             return null;
         }

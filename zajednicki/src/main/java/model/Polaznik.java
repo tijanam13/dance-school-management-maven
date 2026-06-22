@@ -45,13 +45,16 @@ public class Polaznik extends OpstiDomenskiObjekat {
      * @param prezime prezime polaznika
      * @param email email adresa polaznika
      * @param uzrasnaKategorija uzrasna kategorija kojoj polaznik pripada
+     * @throws IllegalArgumentException ako su ime, prezime ili email null ili prazni,
+     *                                  ako email ne sadrzi karakter '@',
+     *                                  ili ako je uzrasnaKategorija null
      */
     public Polaznik(int idPolaznik, String ime, String prezime, String email, UzrasnaKategorija uzrasnaKategorija) {
-        this.idPolaznik = idPolaznik;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.email = email;
-        this.uzrasnaKategorija = uzrasnaKategorija;
+        setIdPolaznik(idPolaznik);
+        setIme(ime);
+        setPrezime(prezime);
+        setEmail(email);
+        setUzrasnaKategorija(uzrasnaKategorija);
     }
 
     /**
@@ -62,12 +65,15 @@ public class Polaznik extends OpstiDomenskiObjekat {
      * @param prezime prezime polaznika
      * @param email email adresa polaznika
      * @param uzrasnaKategorija uzrasna kategorija kojoj polaznik pripada
+     * @throws IllegalArgumentException ako su ime, prezime ili email null ili prazni,
+     *                                  ako email ne sadrzi karakter '@',
+     *                                  ili ako je uzrasnaKategorija null
      */
     public Polaznik(String ime, String prezime, String email, UzrasnaKategorija uzrasnaKategorija) {
-        this.ime = ime;
-        this.prezime = prezime;
-        this.email = email;
-        this.uzrasnaKategorija = uzrasnaKategorija;
+        setIme(ime);
+        setPrezime(prezime);
+        setEmail(email);
+        setUzrasnaKategorija(uzrasnaKategorija);
     }
 
     /**
@@ -99,10 +105,15 @@ public class Polaznik extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja ime polaznika.
+     * Ime ne sme biti null niti prazan string.
      *
      * @param ime ime koje se postavlja
+     * @throws IllegalArgumentException ako je ime null ili prazno
      */
     public void setIme(String ime) {
+        if (ime == null || ime.trim().isEmpty()) {
+            throw new IllegalArgumentException("Ime polaznika ne sme biti null niti prazan string.");
+        }
         this.ime = ime;
     }
 
@@ -117,10 +128,15 @@ public class Polaznik extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja prezime polaznika.
+     * Prezime ne sme biti null niti prazan string.
      *
      * @param prezime prezime koje se postavlja
+     * @throws IllegalArgumentException ako je prezime null ili prazno
      */
     public void setPrezime(String prezime) {
+        if (prezime == null || prezime.trim().isEmpty()) {
+            throw new IllegalArgumentException("Prezime polaznika ne sme biti null niti prazan string.");
+        }
         this.prezime = prezime;
     }
 
@@ -135,10 +151,18 @@ public class Polaznik extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja email adresu polaznika.
+     * Email ne sme biti null niti prazan string, i mora sadrzati karakter '@'.
      *
      * @param email email adresa koja se postavlja
+     * @throws IllegalArgumentException ako je email null, prazan ili ne sadrzi '@'
      */
     public void setEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            throw new IllegalArgumentException("Email polaznika ne sme biti null niti prazan string.");
+        }
+        if (!email.contains("@")) {
+            throw new IllegalArgumentException("Email polaznika mora sadržati karakter '@'.");
+        }
         this.email = email;
     }
 
@@ -153,10 +177,15 @@ public class Polaznik extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja uzrasnu kategoriju kojoj polaznik pripada.
+     * Uzrasna kategorija ne sme biti null.
      *
      * @param uzrasnaKategorija uzrasna kategorija koja se postavlja
+     * @throws IllegalArgumentException ako je uzrasnaKategorija null
      */
     public void setUzrasnaKategorija(UzrasnaKategorija uzrasnaKategorija) {
+        if (uzrasnaKategorija == null) {
+            throw new IllegalArgumentException("Uzrasna kategorija polaznika ne sme biti null.");
+        }
         this.uzrasnaKategorija = uzrasnaKategorija;
     }
 

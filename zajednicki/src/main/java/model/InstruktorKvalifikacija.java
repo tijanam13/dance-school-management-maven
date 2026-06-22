@@ -44,12 +44,14 @@ public class InstruktorKvalifikacija extends OpstiDomenskiObjekat {
      * @param kvalifikacija kvalifikacija koju instruktor poseduje
      * @param datumSticanja datum kada je instruktor stekao kvalifikaciju
      * @param nivo nivo kvalifikacije
+     * @throws IllegalArgumentException ako su instruktor, kvalifikacija, datumSticanja ili nivo null,
+     *                                  ili ako je datum sticanja u buducnosti
      */
     public InstruktorKvalifikacija(Instruktor instruktor, Kvalifikacija kvalifikacija, Date datumSticanja, Nivo nivo) {
-        this.instruktor = instruktor;
-        this.kvalifikacija = kvalifikacija;
-        this.datumSticanja = datumSticanja;
-        this.nivo = nivo;
+        setInstruktor(instruktor);
+        setKvalifikacija(kvalifikacija);
+        setDatumSticanja(datumSticanja);
+        setNivo(nivo);
     }
 
     /**
@@ -63,10 +65,15 @@ public class InstruktorKvalifikacija extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja instruktora koji poseduje kvalifikaciju.
+     * Instruktor ne sme biti null.
      *
      * @param instruktor instruktor koji se postavlja
+     * @throws IllegalArgumentException ako je instruktor null
      */
     public void setInstruktor(Instruktor instruktor) {
+        if (instruktor == null) {
+            throw new IllegalArgumentException("Instruktor ne sme biti null.");
+        }
         this.instruktor = instruktor;
     }
 
@@ -81,10 +88,15 @@ public class InstruktorKvalifikacija extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja kvalifikaciju instruktora.
+     * Kvalifikacija ne sme biti null.
      *
      * @param kvalifikacija kvalifikacija koja se postavlja
+     * @throws IllegalArgumentException ako je kvalifikacija null
      */
     public void setKvalifikacija(Kvalifikacija kvalifikacija) {
+        if (kvalifikacija == null) {
+            throw new IllegalArgumentException("Kvalifikacija ne sme biti null.");
+        }
         this.kvalifikacija = kvalifikacija;
     }
 
@@ -99,10 +111,18 @@ public class InstruktorKvalifikacija extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja datum sticanja kvalifikacije.
+     * Datum ne sme biti null niti u buducnosti.
      *
      * @param datumSticanja datum koji se postavlja
+     * @throws IllegalArgumentException ako je datum null ili u buducnosti
      */
     public void setDatumSticanja(Date datumSticanja) {
+        if (datumSticanja == null) {
+            throw new IllegalArgumentException("Datum sticanja kvalifikacije ne sme biti null.");
+        }
+        if (datumSticanja.after(new Date())) {
+            throw new IllegalArgumentException("Datum sticanja kvalifikacije ne sme biti u budućnosti.");
+        }
         this.datumSticanja = datumSticanja;
     }
 
@@ -117,10 +137,15 @@ public class InstruktorKvalifikacija extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja nivo kvalifikacije instruktora.
+     * Nivo ne sme biti null.
      *
      * @param nivo nivo koji se postavlja
+     * @throws IllegalArgumentException ako je nivo null
      */
     public void setNivo(Nivo nivo) {
+        if (nivo == null) {
+            throw new IllegalArgumentException("Nivo kvalifikacije ne sme biti null.");
+        }
         this.nivo = nivo;
     }
 

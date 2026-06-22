@@ -1,6 +1,10 @@
 package model;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
+
 import java.sql.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -78,6 +82,54 @@ public class InstruktorKvalifikacijaTest extends OpstiDomenskiObjekatTest {
         ik.setInstruktor(noviInstruktor);
         assertEquals(noviInstruktor, ik.getInstruktor());
     }
+    
+    /**
+     * Test setInstruktor sa null vrednoscu.
+     */
+    @Test
+    public void testSetInstruktorNull() {
+        assertThrows(IllegalArgumentException.class, () -> ik.setInstruktor(null));
+    }
+    
+    /**
+     * Test konstruktora sa null instruktorom.
+     */
+    @Test
+    public void testKonstruktorNullInstruktor() {
+        assertThrows(IllegalArgumentException.class, () -> new InstruktorKvalifikacija(null, kvalifikacija, datum, Nivo.osnovni));
+    }
+
+    /**
+     * Test konstruktora sa null kvalifikacijom.
+     */
+    @Test
+    public void testKonstruktorNullKvalifikacija() {
+        assertThrows(IllegalArgumentException.class, () -> new InstruktorKvalifikacija(instruktor, null, datum, Nivo.osnovni));
+    }
+
+    /**
+     * Test konstruktora sa null datumom.
+     */
+    @Test
+    public void testKonstruktorNullDatum() {
+        assertThrows(IllegalArgumentException.class, () -> new InstruktorKvalifikacija(instruktor, kvalifikacija, null, Nivo.osnovni));
+    }
+
+    /**
+     * Test konstruktora sa datumom u buducnosti.
+     */
+    @Test
+    public void testKonstruktorDatumBuducnost() {
+        assertThrows(IllegalArgumentException.class, () -> new InstruktorKvalifikacija(instruktor, kvalifikacija, Date.valueOf("2099-01-01"), Nivo.osnovni));
+    }
+
+    /**
+     * Test konstruktora sa null nivoom.
+     */
+    @Test
+    public void testKonstruktorNullNivo() {
+        assertThrows(IllegalArgumentException.class, () -> new InstruktorKvalifikacija(instruktor, kvalifikacija, datum, null));
+    }
 
     /**
      * Test setKvalifikacija.
@@ -88,24 +140,58 @@ public class InstruktorKvalifikacijaTest extends OpstiDomenskiObjekatTest {
         ik.setKvalifikacija(novaKval);
         assertEquals(novaKval, ik.getKvalifikacija());
     }
-
+    
     /**
-     * Test setDatumSticanja.
+     * Test setKvalifikacija sa null vrednoscu.
      */
     @Test
-    public void testSetDatumSticanja() {
-        Date noviDatum = Date.valueOf("2025-01-01");
-        ik.setDatumSticanja(noviDatum);
-        assertEquals(noviDatum, ik.getDatumSticanja());
+    public void testSetKvalifikacijaNull() {
+        assertThrows(IllegalArgumentException.class, () -> ik.setKvalifikacija(null));
     }
 
     /**
-     * Test setNivo.
+     * Test setDatumSticanja sa razlicitim vrednostima.
+     */
+    @ParameterizedTest
+    @CsvSource({"2020-01-01", "2021-06-15", "2023-05-10"})
+    public void testSetDatumSticanja(String datumString) {
+        Date noviDatum = Date.valueOf(datumString);
+        ik.setDatumSticanja(noviDatum);
+        assertEquals(noviDatum, ik.getDatumSticanja());
+    }
+    
+    /**
+     * Test setDatumSticanja sa null vrednoscu.
      */
     @Test
-    public void testSetNivo() {
-        ik.setNivo(Nivo.napredni);
-        assertEquals(Nivo.napredni, ik.getNivo());
+    public void testSetDatumSticanjaNull() {
+        assertThrows(IllegalArgumentException.class, () -> ik.setDatumSticanja(null));
+    }
+
+    /**
+     * Test setDatumSticanja sa datumom u buducnosti.
+     */
+    @Test
+    public void testSetDatumSticanjaBuducnost() {
+        assertThrows(IllegalArgumentException.class, () -> ik.setDatumSticanja(Date.valueOf("2099-01-01")));
+    }
+
+    /**
+     * Test setNivo sa razlicitim vrednostima.
+     */
+    @ParameterizedTest
+    @EnumSource(Nivo.class)
+    public void testSetNivo(Nivo nivo) {
+        ik.setNivo(nivo);
+        assertEquals(nivo, ik.getNivo());
+    }
+    
+    /**
+     * Test setNivo sa null vrednoscu.
+     */
+    @Test
+    public void testSetNivoNull() {
+        assertThrows(IllegalArgumentException.class, () -> ik.setNivo(null));
     }
 
     /**
@@ -113,7 +199,7 @@ public class InstruktorKvalifikacijaTest extends OpstiDomenskiObjekatTest {
      */
     @Test
     public void testEqualsIsti() {
-        InstruktorKvalifikacija ik2 = new InstruktorKvalifikacija(instruktor, kvalifikacija, null, Nivo.osnovni);
+        InstruktorKvalifikacija ik2 = new InstruktorKvalifikacija(instruktor, kvalifikacija, datum, Nivo.osnovni);
         assertEquals(ik, ik2);
     }
 

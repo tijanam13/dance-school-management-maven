@@ -10,6 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
+
 /**
  * Predstavlja instruktora u skoli plesa.
  * Instruktor moze da ima vise {@link InstruktorKvalifikacija} i moze da vodi vise upisnica.
@@ -28,19 +31,31 @@ public class Instruktor extends OpstiDomenskiObjekat {
     /** Jedinstveni identifikator instruktora u bazi podataka. */
     private int idInstruktor;
 
-    /** Korisnicko ime instruktora koje se koristi za prijavu na sistem. */
+
+    /** Korisnicko ime instruktora koje se koristi za prijavu na sistem.
+     * Ne sme biti null niti prazan string. */
+    @NotBlank(message = "Korisničko ime ne sme biti null niti prazno.")
     private String korisnickoIme;
 
-    /** Sifra instruktora koja se koristi za prijavu na sistem. */
+    /** Sifra instruktora koja se koristi za prijavu na sistem.
+     * Ne sme biti null niti prazan string. */
+    @NotBlank(message = "Šifra ne sme biti null niti prazna.")
     private String sifra;
 
-    /** Ime instruktora. */
+    /** Ime instruktora.
+     * Ne sme biti null niti prazan string. */
+    @NotBlank(message = "Ime instruktora ne sme biti null niti prazno.")
     private String ime;
 
-    /** Prezime instruktora. */
+    /** Prezime instruktora.
+     * Ne sme biti null niti prazan string. */
+    @NotBlank(message = "Prezime instruktora ne sme biti null niti prazno.")
     private String prezime;
 
-    /** Email adresa instruktora. */
+    /** Email adresa instruktora.
+     * Ne sme biti null niti prazna, i mora biti ispravnog formata. */
+    @NotBlank(message = "Email instruktora ne sme biti null niti prazan.")
+    @Email(message = "Email instruktora mora biti ispravnog formata.")
     private String email;
 
     /** Lista kvalifikacija koje instruktor poseduje. */

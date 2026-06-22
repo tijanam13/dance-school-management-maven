@@ -57,15 +57,20 @@ public class Sertifikat extends OpstiDomenskiObjekat {
      * @param napomena napomena vezana za sertifikat
      * @param polaznik polaznik koji je dobio sertifikat
      * @param vrstaPlesa vrsta plesa za koju je sertifikat izdat
+     * @throws IllegalArgumentException ako je datumIzdavanja null ili u buducnosti,
+     *                                  ako je mestoIzdavanja null ili prazno,
+     *                                  ako je nivo null,
+     *                                  ako je polaznik null,
+     *                                  ili ako je vrstaPlesa null
      */
     public Sertifikat(int idSertifikat, Date datumIzdavanja, String mestoIzdavanja, Nivo nivo, String napomena, Polaznik polaznik, VrstaPlesa vrstaPlesa) {
-        this.idSertifikat = idSertifikat;
-        this.datumIzdavanja = datumIzdavanja;
-        this.mestoIzdavanja = mestoIzdavanja;
-        this.nivo = nivo;
-        this.napomena = napomena;
-        this.polaznik = polaznik;
-        this.vrstaPlesa = vrstaPlesa;
+        setIdSertifikat(idSertifikat);
+        setDatumIzdavanja(datumIzdavanja);
+        setMestoIzdavanja(mestoIzdavanja);
+        setNivo(nivo);
+        setNapomena(napomena);
+        setPolaznik(polaznik);
+        setVrstaPlesa(vrstaPlesa);
     }
 
     /**
@@ -78,14 +83,19 @@ public class Sertifikat extends OpstiDomenskiObjekat {
      * @param napomena napomena vezana za sertifikat
      * @param polaznik polaznik koji je dobio sertifikat
      * @param vrstaPlesa vrsta plesa za koju je sertifikat izdat
+     * @throws IllegalArgumentException ako je datumIzdavanja null ili u buducnosti,
+     *                                  ako je mestoIzdavanja null ili prazno,
+     *                                  ako je nivo null,
+     *                                  ako je polaznik null,
+     *                                  ili ako je vrstaPlesa null
      */
     public Sertifikat(Date datumIzdavanja, String mestoIzdavanja, Nivo nivo, String napomena, Polaznik polaznik, VrstaPlesa vrstaPlesa) {
-        this.datumIzdavanja = datumIzdavanja;
-        this.mestoIzdavanja = mestoIzdavanja;
-        this.nivo = nivo;
-        this.napomena = napomena;
-        this.polaznik = polaznik;
-        this.vrstaPlesa = vrstaPlesa;
+        setDatumIzdavanja(datumIzdavanja);
+        setMestoIzdavanja(mestoIzdavanja);
+        setNivo(nivo);
+        setNapomena(napomena);
+        setPolaznik(polaznik);
+        setVrstaPlesa(vrstaPlesa);
     }
 
     /**
@@ -117,10 +127,18 @@ public class Sertifikat extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja datum izdavanja sertifikata.
+     * Datum ne sme biti null niti u buducnosti.
      *
      * @param datumIzdavanja datum koji se postavlja
+     * @throws IllegalArgumentException ako je datum null ili u buducnosti
      */
     public void setDatumIzdavanja(Date datumIzdavanja) {
+        if (datumIzdavanja == null) {
+            throw new IllegalArgumentException("Datum izdavanja sertifikata ne sme biti null.");
+        }
+        if (datumIzdavanja.after(new Date())) {
+            throw new IllegalArgumentException("Datum izdavanja sertifikata ne sme biti u budućnosti.");
+        }
         this.datumIzdavanja = datumIzdavanja;
     }
 
@@ -135,10 +153,15 @@ public class Sertifikat extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja mesto izdavanja sertifikata.
+     * Mesto ne sme biti null niti prazan string.
      *
      * @param mestoIzdavanja mesto koje se postavlja
+     * @throws IllegalArgumentException ako je mestoIzdavanja null ili prazno
      */
     public void setMestoIzdavanja(String mestoIzdavanja) {
+        if (mestoIzdavanja == null || mestoIzdavanja.trim().isEmpty()) {
+            throw new IllegalArgumentException("Mesto izdavanja sertifikata ne sme biti null niti prazan string.");
+        }
         this.mestoIzdavanja = mestoIzdavanja;
     }
 
@@ -153,10 +176,15 @@ public class Sertifikat extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja nivo sertifikata.
+     * Nivo ne sme biti null.
      *
      * @param nivo nivo koji se postavlja
+     * @throws IllegalArgumentException ako je nivo null
      */
     public void setNivo(Nivo nivo) {
+        if (nivo == null) {
+            throw new IllegalArgumentException("Nivo sertifikata ne sme biti null.");
+        }
         this.nivo = nivo;
     }
 
@@ -171,6 +199,7 @@ public class Sertifikat extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja napomenu vezanu za sertifikat.
+     * Napomena moze biti prazna ili null (opciono polje).
      *
      * @param napomena napomena koja se postavlja
      */
@@ -189,10 +218,15 @@ public class Sertifikat extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja polaznika koji je dobio sertifikat.
+     * Polaznik ne sme biti null.
      *
      * @param polaznik polaznik koji se postavlja
+     * @throws IllegalArgumentException ako je polaznik null
      */
     public void setPolaznik(Polaznik polaznik) {
+        if (polaznik == null) {
+            throw new IllegalArgumentException("Polaznik koji se odnosi na dati sertifikat ne sme biti null.");
+        }
         this.polaznik = polaznik;
     }
 
@@ -207,10 +241,15 @@ public class Sertifikat extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja vrstu plesa za koju je sertifikat izdat.
+     * Vrsta plesa ne sme biti null.
      *
      * @param vrstaPlesa vrsta plesa koja se postavlja
+     * @throws IllegalArgumentException ako je vrstaPlesa null
      */
     public void setVrstaPlesa(VrstaPlesa vrstaPlesa) {
+        if (vrstaPlesa == null) {
+            throw new IllegalArgumentException("Vrsta plesa koja se odnosi na dati sertifikat ne sme biti null.");
+        }
         this.vrstaPlesa = vrstaPlesa;
     }
 

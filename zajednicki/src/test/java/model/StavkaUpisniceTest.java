@@ -27,8 +27,12 @@ public class StavkaUpisniceTest extends OpstiDomenskiObjekatTest {
         Instruktor i = new Instruktor(1, "tijana", "tijana*13", "Tijana", "Milosavljevic", "tijana@gmail.com");
         UzrasnaKategorija uk = new UzrasnaKategorija(1, "7-12", "deca");
         Polaznik p = new Polaznik(1, "Mila", "Milic", "mila@gmail.com", uk);
-        Upisnica u = new Upisnica(1, new Date(System.currentTimeMillis() - 86400000), 3000.0, i, p);
-        return new StavkaUpisnice(1, 10, 1500.0, 15000.0, vp, u);
+        try {
+            Upisnica u = new Upisnica(1, new Date(System.currentTimeMillis() - 86400000), 3000.0, i, p);
+            return new StavkaUpisnice(1, 10, 1500.0, 15000.0, vp, u);
+        } catch (Exception e) {
+            throw new RuntimeException("Greška prilikom kreiranja test instance StavkaUpisnice: " + e.getMessage());
+        }
     }
 
     /**
@@ -40,8 +44,12 @@ public class StavkaUpisniceTest extends OpstiDomenskiObjekatTest {
         Instruktor instruktor = new Instruktor(1, "tijana", "tijana*13", "Tijana", "Milosavljević", "tijana@gmail.com");
         UzrasnaKategorija uk = new UzrasnaKategorija(1, "7-12", "deca");
         Polaznik polaznik = new Polaznik(1, "Mila", "Milić", "mila@gmail.com", uk);
-        upisnica = new Upisnica(1, new Date(System.currentTimeMillis() - 86400000), 3000.0, instruktor, polaznik);
-        stavka = new StavkaUpisnice(1, 10, 1500.0, 15000.0, vrstaPlesa, upisnica);
+        try {
+            upisnica = new Upisnica(1, new Date(System.currentTimeMillis() - 86400000), 3000.0, instruktor, polaznik);
+            stavka = new StavkaUpisnice(1, 10, 1500.0, 15000.0, vrstaPlesa, upisnica);
+        } catch (Exception e) {
+            fail("Greška prilikom inicijalizacije testnih podataka za StavkaUpisnice: " + e.getMessage());
+        }
     }
 
     /**
@@ -75,6 +83,38 @@ public class StavkaUpisniceTest extends OpstiDomenskiObjekatTest {
         StavkaUpisnice s = new StavkaUpisnice();
         assertNotNull(s);
     }
+    
+    /**
+     * Test konstruktora sa neispravnim brojem casova.
+     */
+    @Test
+    public void testKonstruktorNeispravniBrCasova() {
+        assertThrows(IllegalArgumentException.class, () -> new StavkaUpisnice(1, 0, 1500.0, 15000.0, vrstaPlesa, upisnica));
+    }
+
+    /**
+     * Test konstruktora sa neispravnom cenom.
+     */
+    @Test
+    public void testKonstruktorNeispravnaCena() {
+        assertThrows(IllegalArgumentException.class, () -> new StavkaUpisnice(1, 10, 0, 15000.0, vrstaPlesa, upisnica));
+    }
+
+    /**
+     * Test konstruktora sa neispravnom clanarinom.
+     */
+    @Test
+    public void testKonstruktorNeispravnaClanarina() {
+        assertThrows(IllegalArgumentException.class, () -> new StavkaUpisnice(1, 10, 1500.0, 0, vrstaPlesa, upisnica));
+    }
+
+    /**
+     * Test konstruktora sa null vrstom plesa.
+     */
+    @Test
+    public void testKonstruktorNullVrstaPlesa() {
+        assertThrows(IllegalArgumentException.class, () -> new StavkaUpisnice(1, 10, 1500.0, 15000.0, null, upisnica));
+    }
 
     /**
      * Test setRb sa razlicitim vrednostima.
@@ -84,6 +124,22 @@ public class StavkaUpisniceTest extends OpstiDomenskiObjekatTest {
     public void testSetRb(int rb) {
         stavka.setRb(rb);
         assertEquals(rb, stavka.getRb());
+    }
+    
+    /**
+     * Test setRb sa vrednoscu jednakom nuli.
+     */
+    @Test
+    public void testSetRbNula() {
+        assertThrows(IllegalArgumentException.class, () -> stavka.setRb(0));
+    }
+
+    /**
+     * Test setRb sa negativnom vrednoscu.
+     */
+    @Test
+    public void testSetRbNegativno() {
+        assertThrows(IllegalArgumentException.class, () -> stavka.setRb(-2));
     }
 
     /**
@@ -95,6 +151,22 @@ public class StavkaUpisniceTest extends OpstiDomenskiObjekatTest {
         stavka.setBrCasova(brCasova);
         assertEquals(brCasova, stavka.getBrCasova());
     }
+    
+    /**
+     * Test setBrCasova sa vrednoscu jednakom nuli.
+     */
+    @Test
+    public void testSetBrCasovaNeispravno() {
+        assertThrows(IllegalArgumentException.class, () -> stavka.setBrCasova(0));
+    }
+
+    /**
+     * Test setBrCasova sa negativnom vrednoscu.
+     */
+    @Test
+    public void testSetBrCasovaNegativan() {
+        assertThrows(IllegalArgumentException.class, () -> stavka.setBrCasova(-5));
+    }
 
     /**
      * Test setCena sa razlicitim vrednostima.
@@ -105,6 +177,22 @@ public class StavkaUpisniceTest extends OpstiDomenskiObjekatTest {
         stavka.setCena(cena);
         assertEquals(cena, stavka.getCena());
     }
+    
+    /**
+     * Test setCena sa vrednoscu jednakom nuli.
+     */
+    @Test
+    public void testSetCenaNula() {
+        assertThrows(IllegalArgumentException.class, () -> stavka.setCena(0));
+    }
+
+    /**
+     * Test setCena sa negativnom vrednoscu.
+     */
+    @Test
+    public void testSetCenaNegativna() {
+        assertThrows(IllegalArgumentException.class, () -> stavka.setCena(-100.5));
+    }
 
     /**
      * Test setClanarina sa razlicitim vrednostima.
@@ -114,6 +202,22 @@ public class StavkaUpisniceTest extends OpstiDomenskiObjekatTest {
     public void testSetClanarina(double clanarina) {
         stavka.setClanarina(clanarina);
         assertEquals(clanarina, stavka.getClanarina());
+    }
+    
+    /**
+     * Test setClanarina sa vrednoscu jednakom nuli.
+     */
+    @Test
+    public void testSetClanaraNula() {
+        assertThrows(IllegalArgumentException.class, () -> stavka.setClanarina(0));
+    }
+
+    /**
+     * Test setClanarina sa negativnom vrednoscu.
+     */
+    @Test
+    public void testSetClanaraNegativna() {
+        assertThrows(IllegalArgumentException.class, () -> stavka.setClanarina(-520.0));
     }
 
     /**
@@ -127,6 +231,14 @@ public class StavkaUpisniceTest extends OpstiDomenskiObjekatTest {
     }
 
     /**
+     * Test setVrstaPlesa sa null vrednoscu.
+     */
+    @Test
+    public void testSetVrstaPlesaNull() {
+        assertThrows(IllegalArgumentException.class, () -> stavka.setVrstaPlesa(null));
+    }
+    
+    /**
      * Test setUpisnica.
      */
     @Test
@@ -134,9 +246,13 @@ public class StavkaUpisniceTest extends OpstiDomenskiObjekatTest {
         Instruktor noviInstruktor = new Instruktor(2, "marko", "marko123", "Marko", "Marković", "marko@gmail.com");
         UzrasnaKategorija uk = new UzrasnaKategorija(2, "13-18", "juniori");
         Polaznik noviPolaznik = new Polaznik(2, "Ana", "Anić", "ana@gmail.com", uk);
-        Upisnica novaUpisnica = new Upisnica(2, new Date(System.currentTimeMillis() - 86400000), 5000.0, noviInstruktor, noviPolaznik);
-        stavka.setUpisnica(novaUpisnica);
-        assertEquals(novaUpisnica, stavka.getUpisnica());
+        try {
+            Upisnica novaUpisnica = new Upisnica(2, new Date(System.currentTimeMillis() - 86400000), 5000.0, noviInstruktor, noviPolaznik);
+            stavka.setUpisnica(novaUpisnica);
+            assertEquals(novaUpisnica, stavka.getUpisnica());
+        } catch (Exception e) {
+            fail("Greška prilikom kreiranja nove upisnice u testu setUpisnica: " + e.getMessage());
+        }
     }
 
     /**

@@ -56,14 +56,16 @@ public class StavkaUpisnice extends OpstiDomenskiObjekat {
      * @param clanarina ukupna clanarina za ovu stavku
      * @param vrstaPlesa vrsta plesa na koju se stavka odnosi
      * @param upisnica upisnica kojoj stavka pripada
+     * @throws IllegalArgumentException ako su brCasova, cena ili clanarina manji od ili jednaki nuli,
+     *                                  ili ako je vrstaPlesa null
      */
     public StavkaUpisnice(int rb, int brCasova, double cena, double clanarina, VrstaPlesa vrstaPlesa, Upisnica upisnica) {
-        this.rb = rb;
-        this.brCasova = brCasova;
-        this.cena = cena;
-        this.clanarina = clanarina;
-        this.vrstaPlesa = vrstaPlesa;
-        this.upisnica = upisnica;
+        setRb(rb);
+        setBrCasova(brCasova);
+        setCena(cena);
+        setClanarina(clanarina);
+        setVrstaPlesa(vrstaPlesa);
+        setUpisnica(upisnica);
     }
 
     /**
@@ -77,10 +79,15 @@ public class StavkaUpisnice extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja redni broj stavke upisnice.
+     * Redni broj mora biti pozitivan broj.
      *
      * @param rb redni broj koji se postavlja
+     * @throws IllegalArgumentException ako je rb manji od ili jednak nuli
      */
     public void setRb(int rb) {
+        if (rb <= 0) {
+            throw new IllegalArgumentException("Redni broj stavke upisnice mora biti pozitivan broj.");
+        }
         this.rb = rb;
     }
 
@@ -95,10 +102,15 @@ public class StavkaUpisnice extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja broj casova ugovorenih stavkom upisnice.
+     * Broj casova mora biti pozitivan.
      *
      * @param brCasova broj casova koji se postavlja
+     * @throws IllegalArgumentException ako je brCasova manji od ili jednak nuli
      */
     public void setBrCasova(int brCasova) {
+        if (brCasova <= 0) {
+            throw new IllegalArgumentException("Broj časova mora biti pozitivan broj.");
+        }
         this.brCasova = brCasova;
     }
 
@@ -113,10 +125,15 @@ public class StavkaUpisnice extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja cenu jednog casa.
+     * Cena mora biti pozitivna vrednost.
      *
      * @param cena cena koja se postavlja
+     * @throws IllegalArgumentException ako je cena manja od ili jednaka nuli
      */
     public void setCena(double cena) {
+        if (cena <= 0) {
+            throw new IllegalArgumentException("Cena časa mora biti pozitivna vrednost.");
+        }
         this.cena = cena;
     }
 
@@ -131,10 +148,15 @@ public class StavkaUpisnice extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja ukupnu clanarinu za ovu stavku upisnice.
+     * Clanarina mora biti pozitivna vrednost.
      *
      * @param clanarina clanarina koja se postavlja
+     * @throws IllegalArgumentException ako je clanarina manja od ili jednaka nuli
      */
     public void setClanarina(double clanarina) {
+        if (clanarina <= 0) {
+            throw new IllegalArgumentException("Članarina mora biti pozitivna vrednost.");
+        }
         this.clanarina = clanarina;
     }
 
@@ -149,10 +171,15 @@ public class StavkaUpisnice extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja vrstu plesa na koju se stavka odnosi.
+     * Vrsta plesa ne sme biti null.
      *
      * @param vrstaPlesa vrsta plesa koja se postavlja
+     * @throws IllegalArgumentException ako je vrstaPlesa null
      */
     public void setVrstaPlesa(VrstaPlesa vrstaPlesa) {
+        if (vrstaPlesa == null) {
+            throw new IllegalArgumentException("Vrsta plesa stavke upisnice ne sme biti null.");
+        }
         this.vrstaPlesa = vrstaPlesa;
     }
 
@@ -167,6 +194,7 @@ public class StavkaUpisnice extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja upisnicu kojoj ova stavka pripada.
+     * Upisnica moze biti null (npr. prilikom citanja iz baze bez join-a na upisnicu).
      *
      * @param upisnica upisnica koja se postavlja
      */

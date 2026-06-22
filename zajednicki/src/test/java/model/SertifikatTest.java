@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import java.sql.Date;
 import static org.junit.jupiter.api.Assertions.*;
@@ -91,6 +92,54 @@ public class SertifikatTest extends OpstiDomenskiObjekatTest{
         Sertifikat s = new Sertifikat();
         assertNotNull(s);
     }
+    
+    /**
+     * Test konstruktora sa null datumom.
+     */
+    @Test
+    public void testKonstruktorNullDatum() {
+        assertThrows(IllegalArgumentException.class, () -> new Sertifikat(1, null, "Beograd", Nivo.osnovni, "Napomena", polaznik, vrstaPlesa));
+    }
+
+    /**
+     * Test konstruktora sa datumom u buducnosti.
+     */
+    @Test
+    public void testKonstruktorDatumBuducnost() {
+        assertThrows(IllegalArgumentException.class, () -> new Sertifikat(1, Date.valueOf("2099-01-01"), "Beograd", Nivo.osnovni, "Napomena", polaznik, vrstaPlesa));
+    }
+
+    /**
+     * Test konstruktora sa null mestom izdavanja.
+     */
+    @Test
+    public void testKonstruktorNullMesto() {
+        assertThrows(IllegalArgumentException.class, () -> new Sertifikat(1, datum, null, Nivo.osnovni, "Napomena", polaznik, vrstaPlesa));
+    }
+
+    /**
+     * Test konstruktora sa null nivoom.
+     */
+    @Test
+    public void testKonstruktorNullNivo() {
+        assertThrows(IllegalArgumentException.class, () -> new Sertifikat(1, datum, "Beograd", null, "Napomena", polaznik, vrstaPlesa));
+    }
+
+    /**
+     * Test konstruktora sa null polaznikom.
+     */
+    @Test
+    public void testKonstruktorNullPolaznik() {
+        assertThrows(IllegalArgumentException.class, () -> new Sertifikat(1, datum, "Beograd", Nivo.osnovni, "Napomena", null, vrstaPlesa));
+    }
+
+    /**
+     * Test konstruktora sa null vrstom plesa.
+     */
+    @Test
+    public void testKonstruktorNullVrstaPlesa() {
+        assertThrows(IllegalArgumentException.class, () -> new Sertifikat(1, datum, "Beograd", Nivo.osnovni, "Napomena", polaznik, null));
+    }
 
     /**
      * Test setIdSertifikat sa razlicitim vrednostima.
@@ -103,15 +152,32 @@ public class SertifikatTest extends OpstiDomenskiObjekatTest{
     }
 
     /**
-     * Test setDatumIzdavanja.
+     * Test setDatumIzdavanja sa razlicitim vrednostima.
      */
-    @Test
-    public void testSetDatumIzdavanja() {
-        Date noviDatum = Date.valueOf("2025-06-01");
+    @ParameterizedTest
+    @CsvSource({"2020-01-01", "2021-06-15", "2023-05-10"})
+    public void testSetDatumIzdavanja(String datumString) {
+        Date noviDatum = Date.valueOf(datumString);
         sertifikat.setDatumIzdavanja(noviDatum);
         assertEquals(noviDatum, sertifikat.getDatumIzdavanja());
     }
 
+    /**
+     * Test setDatumIzdavanja sa null vrednoscu.
+     */
+    @Test
+    public void testSetDatumIzdavanjaNull() {
+        assertThrows(IllegalArgumentException.class, () -> sertifikat.setDatumIzdavanja(null));
+    }
+
+    /**
+     * Test setDatumIzdavanja sa datumom u buducnosti.
+     */
+    @Test
+    public void testSetDatumIzdavanjaBuducnost() {
+        assertThrows(IllegalArgumentException.class, () -> sertifikat.setDatumIzdavanja(Date.valueOf("2099-01-01")));
+    }
+    
     /**
      * Test setMestoIzdavanja sa razlicitim vrednostima.
      */
@@ -123,14 +189,47 @@ public class SertifikatTest extends OpstiDomenskiObjekatTest{
     }
 
     /**
-     * Test setNivo.
+     * Test setMestoIzdavanja sa null vrednoscu.
      */
     @Test
-    public void testSetNivo() {
-        sertifikat.setNivo(Nivo.napredni);
-        assertEquals(Nivo.napredni, sertifikat.getNivo());
+    public void testSetMestoIzdavanjaNull() {
+        assertThrows(IllegalArgumentException.class, () -> sertifikat.setMestoIzdavanja(null));
     }
 
+    /**
+     * Test setMestoIzdavanja sa praznim stringom.
+     */
+    @Test
+    public void testSetMestoIzdavanjaPrazno() {
+        assertThrows(IllegalArgumentException.class, () -> sertifikat.setMestoIzdavanja(""));
+    }
+
+    /**
+     * Test setMestoIzdavanja sa stringom koji sadrzi samo razmake.
+     */
+    @Test
+    public void testSetMestoIzdavanjaSamoRazmaci() {
+        assertThrows(IllegalArgumentException.class, () -> sertifikat.setMestoIzdavanja("   "));
+    }
+    
+    /**
+     * Test setNivo sa razlicitim vrednostima.
+     */
+    @ParameterizedTest
+    @EnumSource(Nivo.class)
+    public void testSetNivo(Nivo nivo) {
+        sertifikat.setNivo(nivo);
+        assertEquals(nivo, sertifikat.getNivo());
+    }
+
+    /**
+     * Test setNivo sa null vrednoscu.
+     */
+    @Test
+    public void testSetNivoNull() {
+        assertThrows(IllegalArgumentException.class, () -> sertifikat.setNivo(null));
+    }
+    
     /**
      * Test setNapomena.
      */
@@ -150,6 +249,14 @@ public class SertifikatTest extends OpstiDomenskiObjekatTest{
         sertifikat.setPolaznik(noviPolaznik);
         assertEquals(noviPolaznik, sertifikat.getPolaznik());
     }
+    
+    /**
+     * Test setPolaznik sa null vrednoscu.
+     */
+    @Test
+    public void testSetPolaznikNull() {
+        assertThrows(IllegalArgumentException.class, () -> sertifikat.setPolaznik(null));
+    }
 
     /**
      * Test setVrstaPlesa.
@@ -159,6 +266,14 @@ public class SertifikatTest extends OpstiDomenskiObjekatTest{
         VrstaPlesa novaVrsta = new VrstaPlesa(2, "Valcer", "Standardni", 1200.0);
         sertifikat.setVrstaPlesa(novaVrsta);
         assertEquals(novaVrsta, sertifikat.getVrstaPlesa());
+    }
+    
+    /**
+     * Test setVrstaPlesa sa null vrednoscu.
+     */
+    @Test
+    public void testSetVrstaPlesaNull() {
+        assertThrows(IllegalArgumentException.class, () -> sertifikat.setVrstaPlesa(null));
     }
 
     /**

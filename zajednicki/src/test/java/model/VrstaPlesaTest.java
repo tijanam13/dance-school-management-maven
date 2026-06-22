@@ -5,6 +5,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.*;
 
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.ConstraintViolation;
+import java.util.Set;
+
 /**
  * Test klasa za domensku klasu {@link VrstaPlesa}.
  * Testiraju se konstruktori, set metode, equals, toString
@@ -17,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class VrstaPlesaTest extends OpstiDomenskiObjekatTest {
 
     private VrstaPlesa vrstaPlesa;
+    private Validator validator;
 
     @Override
     protected OpstiDomenskiObjekat getInstance() {
@@ -29,6 +36,8 @@ public class VrstaPlesaTest extends OpstiDomenskiObjekatTest {
     @BeforeEach
     public void setUp() {
         vrstaPlesa = new VrstaPlesa(1, "Tango", "Latinoamerički", 1500.0);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
     }
 
     /**
@@ -37,6 +46,7 @@ public class VrstaPlesaTest extends OpstiDomenskiObjekatTest {
     @AfterEach
     public void tearDown() {
         vrstaPlesa = null;
+        validator = null;
     }
 
     /**
@@ -80,6 +90,15 @@ public class VrstaPlesaTest extends OpstiDomenskiObjekatTest {
         VrstaPlesa vp = new VrstaPlesa();
         assertNotNull(vp);
     }
+    
+    /**
+     * Test validacije - objekat sa ispravnim vrednostima nema gresaka.
+     */
+    @Test
+    public void testValidnaVrstaPlesa() {
+        Set<ConstraintViolation<VrstaPlesa>> violations = validator.validate(vrstaPlesa);
+        assertTrue(violations.isEmpty());
+    }
 
     /**
      * Test Lombok @AllArgsConstructor - konstruktor sa svim parametrima
@@ -113,6 +132,26 @@ public class VrstaPlesaTest extends OpstiDomenskiObjekatTest {
         vrstaPlesa.setNaziv(naziv);
         assertEquals(naziv, vrstaPlesa.getNaziv());
     }
+    
+    /**
+     * Test validacije - naziv ne sme biti null.
+     */
+    @Test
+    public void testNazivNull() {
+        vrstaPlesa.setNaziv(null);
+        Set<ConstraintViolation<VrstaPlesa>> violations = validator.validate(vrstaPlesa);
+        assertFalse(violations.isEmpty());
+    }
+
+    /**
+     * Test validacije - naziv ne sme biti prazan.
+     */
+    @Test
+    public void testNazivPrazan() {
+        vrstaPlesa.setNaziv("");
+        Set<ConstraintViolation<VrstaPlesa>> violations = validator.validate(vrstaPlesa);
+        assertFalse(violations.isEmpty());
+    }
 
     /**
      * Test Lombok @Setter i @Getter - setKategorija sa razlicitim vrednostima.
@@ -125,6 +164,26 @@ public class VrstaPlesaTest extends OpstiDomenskiObjekatTest {
     }
 
     /**
+     * Test validacije - kategorija ne sme biti null.
+     */
+    @Test
+    public void testKategorijaNNull() {
+    	vrstaPlesa.setKategorija(null);
+    	Set<ConstraintViolation<VrstaPlesa>> violations = validator.validate(vrstaPlesa);
+    	assertFalse(violations.isEmpty());
+    }
+
+    /**
+     * Test validacije - kategorija ne sme biti prazna.
+     */
+    @Test
+    public void testKategorijaPrazna() {
+    	vrstaPlesa.setKategorija("");
+    	Set<ConstraintViolation<VrstaPlesa>> violations = validator.validate(vrstaPlesa);
+    	assertFalse(violations.isEmpty());
+    }
+
+    /**
      * Test Lombok @Setter i @Getter - setCenaCasa sa razlicitim vrednostima.
      */
     @ParameterizedTest
@@ -132,6 +191,26 @@ public class VrstaPlesaTest extends OpstiDomenskiObjekatTest {
     public void testSetCenaCasa(double cena) {
         vrstaPlesa.setCenaCasa(cena);
         assertEquals(cena, vrstaPlesa.getCenaCasa());
+    } 
+
+    /**
+     * Test validacije - cena casa mora biti pozitivna.
+     */
+    @Test
+    public void testCenaCasaNula() {
+    	vrstaPlesa.setCenaCasa(0);
+    	Set<ConstraintViolation<VrstaPlesa>> violations = validator.validate(vrstaPlesa);
+    	assertFalse(violations.isEmpty());
+    }
+
+    /**
+     * Test validacije - cena casa ne sme biti negativna.
+     */
+    @Test
+    public void testCenaCasaNegativna() {
+    	vrstaPlesa.setCenaCasa(-100.0);
+    	Set<ConstraintViolation<VrstaPlesa>> violations = validator.validate(vrstaPlesa);
+    	assertFalse(violations.isEmpty());
     }
 
     /**

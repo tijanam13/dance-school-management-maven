@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,13 +31,20 @@ public class VrstaPlesa extends OpstiDomenskiObjekat {
     /** Jedinstveni identifikator vrste plesa u bazi podataka. */
     private int idVrstaPlesa;
 
-    /** Naziv vrste plesa. */
+
+    /** Naziv vrste plesa.
+     * Ne sme biti null niti prazan string. */
+    @NotBlank(message = "Naziv vrste plesa ne sme biti null niti prazan.")
     private String naziv;
 
-    /** Kategorija kojoj vrsta plesa pripada. */
+    /** Kategorija kojoj vrsta plesa pripada.
+     * Ne sme biti null niti prazan string. */
+    @NotBlank(message = "Kategorija vrste plesa ne sme biti null niti prazna.")
     private String kategorija;
 
-    /** Cena jednog casa te vrste plesa. */
+    /** Cena jednog casa te vrste plesa.
+     * Mora biti pozitivna vrednost. */
+    @Positive(message = "Cena časa mora biti pozitivna vrednost.")
     private double cenaCasa;
 
     /**

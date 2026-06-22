@@ -47,8 +47,12 @@ public class VratiListuUpisnicaPolaznikSOTest {
         instruktor = new Instruktor(1, "ana", "ana123", "Ana", "Anić", "ana@gmail.com");
         UzrasnaKategorija uk = new UzrasnaKategorija(1, "7-12", "deca");
         polaznik = new Polaznik(1, "Mila", "Milić", "mila@gmail.com", uk);
-        parametar = new Upisnica(1, new Date(System.currentTimeMillis() - 86400000),
-                3000.0, instruktor, polaznik);
+        try {
+            parametar = new Upisnica(1, new Date(System.currentTimeMillis() - 86400000),
+                    3000.0, instruktor, polaznik);
+        } catch (Exception e) {
+            fail("Greška prilikom kreiranja upisnice u setUp: " + e.getMessage());
+        }
     }
 
     /**

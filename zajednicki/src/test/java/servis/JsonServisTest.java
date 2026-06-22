@@ -165,8 +165,11 @@ public class JsonServisTest {
         UzrasnaKategorija uk = new UzrasnaKategorija(1, "7-12", "deca");
         Polaznik polaznik = new Polaznik(1, "Mila", "Milić", "mila@gmail.com", uk);
         List<Upisnica> lista = new ArrayList<>();
-        lista.add(new Upisnica(new Date(System.currentTimeMillis() - 86400000), 3000.0, instruktor, polaznik));
-
+        try {
+            lista.add(new Upisnica(new Date(System.currentTimeMillis() - 86400000), 3000.0, instruktor, polaznik));
+        } catch (Exception e) {
+            fail("Greška prilikom kreiranja upisnice: " + e.getMessage());
+        }
         servis.serijalizujUpisnice(lista, TEST_PUTANJA_UPISNICE);
         List<Upisnica> rezultat = servis.deserijalizujUpisnice(TEST_PUTANJA_UPISNICE);
 
@@ -236,7 +239,7 @@ public class JsonServisTest {
         Instruktor instruktor = new Instruktor(1, "korisnik1", "sifra1", "Ana", "Anić", "ana@gmail.com");
         Kvalifikacija k = new Kvalifikacija(1, "Kvalifikacija za izvođenje i podučavanje klasičnog baleta", "Plesni savez Srbije");
         instruktor.getInstruktorKvalifikacije().add(
-                new InstruktorKvalifikacija(instruktor, k, null, Nivo.osnovni));
+                new InstruktorKvalifikacija(instruktor, k, new Date(System.currentTimeMillis() - 86400000), Nivo.osnovni));
 
         List<Instruktor> lista = new ArrayList<>();
         lista.add(instruktor);

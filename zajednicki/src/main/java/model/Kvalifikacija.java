@@ -38,11 +38,12 @@ public class Kvalifikacija extends OpstiDomenskiObjekat {
      * @param idKvalifikacija jedinstveni identifikator kvalifikacije
      * @param tip tip kvalifikacije
      * @param organizacija naziv organizacije koja je izdala kvalifikaciju
+     * @throws IllegalArgumentException ako su tip ili organizacija null ili prazni
      */
     public Kvalifikacija(int idKvalifikacija, String tip, String organizacija) {
-        this.idKvalifikacija = idKvalifikacija;
-        this.tip = tip;
-        this.organizacija = organizacija;
+    	setIdKvalifikacija(idKvalifikacija);
+        setTip(tip);
+        setOrganizacija(organizacija);
     }
 
     /**
@@ -50,11 +51,11 @@ public class Kvalifikacija extends OpstiDomenskiObjekat {
      * Koristi se prilikom kreiranja nove kvalifikacije pre unosa u bazu podataka.
      *
      * @param tip tip kvalifikacije
-     * @param organizacija naziv organizacije koja je izdala kvalifikaciju
+     * @throws IllegalArgumentException ako su tip ili organizacija null ili prazni
      */
     public Kvalifikacija(String tip, String organizacija) {
-        this.tip = tip;
-        this.organizacija = organizacija;
+    	  setTip(tip);
+          setOrganizacija(organizacija);
     }
 
     /**
@@ -68,10 +69,16 @@ public class Kvalifikacija extends OpstiDomenskiObjekat {
 
     /**
      * Postavlja naziv organizacije koja je izdala kvalifikaciju.
+     * Organizacija ne sme biti null niti prazan string.
      *
      * @param organizacija naziv organizacije koji se postavlja
+     * @throws IllegalArgumentException ako je organizacija null ili prazna
      */
+
     public void setOrganizacija(String organizacija) {
+        if (organizacija == null || organizacija.trim().isEmpty()) {
+            throw new IllegalArgumentException("Organizacija ne sme biti null niti prazan string.");
+        }
         this.organizacija = organizacija;
     }
 
@@ -101,13 +108,18 @@ public class Kvalifikacija extends OpstiDomenskiObjekat {
     public String getTip() {
         return tip;
     }
-
+    
     /**
      * Postavlja tip kvalifikacije.
+     * Tip ne sme biti null niti prazan string.
      *
      * @param tip tip koji se postavlja
+     * @throws IllegalArgumentException ako je tip null ili prazan
      */
     public void setTip(String tip) {
+        if (tip == null || tip.trim().isEmpty()) {
+            throw new IllegalArgumentException("Tip kvalifikacije ne sme biti null niti prazan string.");
+        }
         this.tip = tip;
     }
 

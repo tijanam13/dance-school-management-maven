@@ -27,10 +27,14 @@ public class UpisnicaTest extends OpstiDomenskiObjekatTest {
     
     @Override
     protected OpstiDomenskiObjekat getInstance() {
-        Instruktor i = new Instruktor(1, "tijana", "tijana*13", "Tijana", "Milosavljevic", "tijana@gmail.com");
+        Instruktor i = new Instruktor(1, "tijana", "tijana*13", "Tijana", "Milosavljević", "tijana@gmail.com");
         UzrasnaKategorija uk = new UzrasnaKategorija(1, "7-12", "deca");
-        Polaznik p = new Polaznik(1, "Mila", "Milic", "mila@gmail.com", uk);
-        return new Upisnica(1, new Date(System.currentTimeMillis() - 86400000), 3000.0, i, p);
+        Polaznik p = new Polaznik(1, "Mila", "Milić", "mila@gmail.com", uk);
+        try {
+            return new Upisnica(1, new Date(System.currentTimeMillis() - 86400000), 3000.0, i, p);
+        } catch (Exception e) {
+            throw new RuntimeException("Greška prilikom kreiranja test instance Upisnica: " + e.getMessage());
+        }
     }
 
     /**
@@ -42,7 +46,11 @@ public class UpisnicaTest extends OpstiDomenskiObjekatTest {
         UzrasnaKategorija uk = new UzrasnaKategorija(1, "7-12", "deca");
         polaznik = new Polaznik(1, "Mila", "Milić", "mila@gmail.com", uk);
         datum = new Date(System.currentTimeMillis() - 86400000);
-        upisnica = new Upisnica(1, datum, 3000.0, instruktor, polaznik);
+        try {
+            upisnica = new Upisnica(1, datum, 3000.0, instruktor, polaznik);
+        } catch (Exception e) {
+            fail("Greška prilikom inicijalizacije testnih podataka za Upisnica: " + e.getMessage());
+        }
     }
 
     /**
@@ -76,12 +84,16 @@ public class UpisnicaTest extends OpstiDomenskiObjekatTest {
      */
     @Test
     public void testKonstruktorBezId() {
-        Upisnica u = new Upisnica(datum, 2000.0, instruktor, polaznik);
-        assertEquals(datum, u.getDatumUpisa());
-        assertEquals(2000.0, u.getUkupnaClanarina());
-        assertEquals(instruktor, u.getInstruktor());
-        assertEquals(polaznik, u.getPolaznik());
-        assertNotNull(u.getListaStavke());
+        try {
+            Upisnica u = new Upisnica(datum, 2000.0, instruktor, polaznik);
+            assertEquals(datum, u.getDatumUpisa());
+            assertEquals(2000.0, u.getUkupnaClanarina());
+            assertEquals(instruktor, u.getInstruktor());
+            assertEquals(polaznik, u.getPolaznik());
+            assertNotNull(u.getListaStavke());
+        } catch (Exception e) {
+            fail("Greška prilikom kreiranja upisnice bez ID-a: " + e.getMessage());
+        }
     }
 
     /**
@@ -92,6 +104,38 @@ public class UpisnicaTest extends OpstiDomenskiObjekatTest {
     public void testPodrazumevaniKonstruktor() {
         Upisnica u = new Upisnica();
         assertNotNull(u);
+    }
+    
+    /**
+     * Test konstruktora sa datumom u buducnosti - ocekuje se izuzetak.
+     */
+    @Test
+    public void testKonstruktorDatumBuducnost() {
+        assertThrows(Exception.class, () -> new Upisnica(1, new Date(System.currentTimeMillis() + 86400000), 3000.0, instruktor, polaznik));
+    }
+
+    /**
+     * Test konstruktora sa null instruktorom - ocekuje se izuzetak.
+     */
+    @Test
+    public void testKonstruktorNullInstruktor() {
+        assertThrows(IllegalArgumentException.class, () -> new Upisnica(1, datum, 3000.0, null, polaznik));
+    }
+
+    /**
+     * Test konstruktora sa null polaznikom - ocekuje se izuzetak.
+     */
+    @Test
+    public void testKonstruktorNullPolaznik() {
+        assertThrows(IllegalArgumentException.class, () -> new Upisnica(1, datum, 3000.0, instruktor, null));
+    }
+
+    /**
+     * Test konstruktora sa neispravnom clanarinom - ocekuje se izuzetak.
+     */
+    @Test
+    public void testKonstruktorNeispravnaClanarina() {
+        assertThrows(IllegalArgumentException.class, () -> new Upisnica(1, datum, 0, instruktor, polaznik));
     }
 
     /**
@@ -164,6 +208,22 @@ public class UpisnicaTest extends OpstiDomenskiObjekatTest {
     }
 
     /**
+     * Test setUkupnaClanarina sa vrednoscu jednakom nuli - ocekuje se izuzetak.
+     */
+    @Test
+    public void testSetUkupnaClanarínaNula() {
+        assertThrows(IllegalArgumentException.class, () -> upisnica.setUkupnaClanarina(0));
+    }
+
+    /**
+     * Test setUkupnaClanarina sa negativnom vrednoscu - ocekuje se izuzetak.
+     */
+    @Test
+    public void testSetUkupnaClanarínaNegativna() {
+        assertThrows(IllegalArgumentException.class, () -> upisnica.setUkupnaClanarina(-100.0));
+    }
+    
+    /**
      * Test setInstruktor sa ispravnim instruktorom.
      */
     @Test
@@ -173,6 +233,14 @@ public class UpisnicaTest extends OpstiDomenskiObjekatTest {
         assertEquals(noviInstruktor, upisnica.getInstruktor());
     }
 
+    /**
+     * Test setInstruktor sa null vrednoscu - ocekuje se izuzetak.
+     */
+    @Test
+    public void testSetInstruktorNull() {
+        assertThrows(IllegalArgumentException.class, () -> upisnica.setInstruktor(null));
+    }
+    
     /**
      * Test setPolaznik sa ispravnim polaznikom.
      */
@@ -184,6 +252,14 @@ public class UpisnicaTest extends OpstiDomenskiObjekatTest {
         assertEquals(noviPolaznik, upisnica.getPolaznik());
     }
 
+    /**
+     * Test setPolaznik sa null vrednoscu - ocekuje se izuzetak.
+     */
+    @Test
+    public void testSetPolaznikNull() {
+        assertThrows(IllegalArgumentException.class, () -> upisnica.setPolaznik(null));
+    }
+    
     /**
      * Test setListaStavke sa nepraznom listom.
      * Proverava velicinu liste i sadrzaj.
@@ -224,8 +300,12 @@ public class UpisnicaTest extends OpstiDomenskiObjekatTest {
      */
     @Test
     public void testEqualsIsti() {
-        Upisnica u2 = new Upisnica(1, datum, 5000.0, instruktor, polaznik);
-        assertEquals(upisnica, u2);
+        try {
+            Upisnica u2 = new Upisnica(1, datum, 5000.0, instruktor, polaznik);
+            assertEquals(upisnica, u2);
+        } catch (Exception e) {
+            fail("Greška prilikom kreiranja upisnice u testEqualsIsti: " + e.getMessage());
+        }
     }
 
     /**
@@ -233,8 +313,12 @@ public class UpisnicaTest extends OpstiDomenskiObjekatTest {
      */
     @Test
     public void testEqualsRazlicitId() {
-        Upisnica u2 = new Upisnica(2, datum, 3000.0, instruktor, polaznik);
-        assertNotEquals(upisnica, u2);
+        try {
+            Upisnica u2 = new Upisnica(2, datum, 3000.0, instruktor, polaznik);
+            assertNotEquals(upisnica, u2);
+        } catch (Exception e) {
+            fail("Greška prilikom kreiranja upisnice u testEqualsRazlicitId: " + e.getMessage());
+        }
     }
 
     /**
@@ -242,9 +326,13 @@ public class UpisnicaTest extends OpstiDomenskiObjekatTest {
      */
     @Test
     public void testEqualsRazlicitDatum() {
-        Date drugiDatum = new Date(datum.getTime() - 86400000);
-        Upisnica u2 = new Upisnica(1, drugiDatum, 3000.0, instruktor, polaznik);
-        assertNotEquals(upisnica, u2);
+        try {
+            Date drugiDatum = new Date(datum.getTime() - 86400000);
+            Upisnica u2 = new Upisnica(1, drugiDatum, 3000.0, instruktor, polaznik);
+            assertNotEquals(upisnica, u2);
+        } catch (Exception e) {
+            fail("Greška prilikom kreiranja upisnice u testEqualsRazlicitDatum: " + e.getMessage());
+        }
     }
 
     /**
@@ -281,8 +369,12 @@ public class UpisnicaTest extends OpstiDomenskiObjekatTest {
             "2, false"
     })
     public void testEqualsRazlicitiIdParametrizovano(int id, boolean ocekivano) {
-        Upisnica u2 = new Upisnica(id, datum, 3000.0, instruktor, polaznik);
-        assertEquals(ocekivano, upisnica.equals(u2));
+        try {
+            Upisnica u2 = new Upisnica(id, datum, 3000.0, instruktor, polaznik);
+            assertEquals(ocekivano, upisnica.equals(u2));
+        } catch (Exception e) {
+            fail("Greška prilikom kreiranja upisnice u testEqualsRazlicitiIdParametrizovano: " + e.getMessage());
+        }
     }
 
     /**
@@ -308,24 +400,21 @@ public class UpisnicaTest extends OpstiDomenskiObjekatTest {
      */
     @Test
     public void testToStringSaStavkama() {
-        List<StavkaUpisnice> lista = new ArrayList<>();
-        lista.add(new StavkaUpisnice(1, 10, 1500.0, 15000.0,
-                new VrstaPlesa(1, "Tango", "Latinoamerički", 1500.0), upisnica));
-        upisnica.setListaStavke(lista);
-        String rezultat = upisnica.toString();
-
-        assertTrue(rezultat.contains(datum.toString()),
-                "toString mora sadržati datum upisa");
-        assertTrue(rezultat.contains("3000.0"),
-                "toString mora sadržati ukupnu članarinu upisnice");
-        assertTrue(rezultat.contains("Tango"),
-                "toString mora sadržati naziv vrste plesa");
-        assertTrue(rezultat.contains("10"),
-                "toString mora sadržati broj časova");
-        assertTrue(rezultat.contains("1500.0"),
-                "toString mora sadržati cenu jednog časa");
-        assertTrue(rezultat.contains("15000.0"),
-                "toString mora sadržati članarinu stavke");
+        try {
+            List<StavkaUpisnice> lista = new ArrayList<>();
+            lista.add(new StavkaUpisnice(1, 10, 1500.0, 15000.0,
+                    new VrstaPlesa(1, "Tango", "Latinoamerički", 1500.0), upisnica));
+            upisnica.setListaStavke(lista);
+            String rezultat = upisnica.toString();
+            assertTrue(rezultat.contains(datum.toString()));
+            assertTrue(rezultat.contains("3000.0"));
+            assertTrue(rezultat.contains("Tango"));
+            assertTrue(rezultat.contains("10"));
+            assertTrue(rezultat.contains("1500.0"));
+            assertTrue(rezultat.contains("15000.0"));
+        } catch (Exception e) {
+            fail("Greška u testToStringSaStavkama: " + e.getMessage());
+        }
     }
 
     /**
@@ -334,22 +423,21 @@ public class UpisnicaTest extends OpstiDomenskiObjekatTest {
      */
     @Test
     public void testToStringViseStavki() {
-        List<StavkaUpisnice> lista = new ArrayList<>();
-        lista.add(new StavkaUpisnice(1, 10, 1500.0, 15000.0,
-                new VrstaPlesa(1, "Tango", "Latinoamericki", 1500.0), upisnica));
-        lista.add(new StavkaUpisnice(2, 5, 2000.0, 10000.0,
-                new VrstaPlesa(2, "Valcer", "Standardni", 2000.0), upisnica));
-        upisnica.setListaStavke(lista);
-        String rezultat = upisnica.toString();
-
-        assertTrue(rezultat.contains("Tango"),
-                "toString mora sadržati prvu vrstu plesa");
-        assertTrue(rezultat.contains("Valcer"),
-                "toString mora sadržati drugu vrstu plesa");
-        assertTrue(rezultat.contains("15000.0"),
-                "toString mora sadržati članarinu prve stavke");
-        assertTrue(rezultat.contains("10000.0"),
-                "toString mora sadržati članarinu druge stavke");
+        try {
+            List<StavkaUpisnice> lista = new ArrayList<>();
+            lista.add(new StavkaUpisnice(1, 10, 1500.0, 15000.0,
+                    new VrstaPlesa(1, "Tango", "Latinoamerički", 1500.0), upisnica));
+            lista.add(new StavkaUpisnice(2, 5, 2000.0, 10000.0,
+                    new VrstaPlesa(2, "Valcer", "Standardni", 2000.0), upisnica));
+            upisnica.setListaStavke(lista);
+            String rezultat = upisnica.toString();
+            assertTrue(rezultat.contains("Tango"));
+            assertTrue(rezultat.contains("Valcer"));
+            assertTrue(rezultat.contains("15000.0"));
+            assertTrue(rezultat.contains("10000.0"));
+        } catch (Exception e) {
+            fail("Greška u testToStringViseStavki: " + e.getMessage());
+        }
     }
 
     /**

@@ -3,7 +3,15 @@ package model;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.ConstraintViolation;
+import java.util.Set;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class InstruktorTest extends OpstiDomenskiObjekatTest {
 
     private Instruktor instruktor;
+    private Validator validator;
 
     @Override
     protected OpstiDomenskiObjekat getInstance() {
@@ -31,6 +40,8 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
     @BeforeEach
     public void setUp() {
         instruktor = new Instruktor(1, "tijana", "tijana*13", "Tijana", "Milosavljević", "tijana@gmail.com");
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
     }
 
     /**
@@ -39,6 +50,8 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
     @AfterEach
     public void tearDown() {
         instruktor = null;
+        validator = null;
+
     }
 
     /**
@@ -96,6 +109,16 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
         Instruktor i = new Instruktor();
         assertNotNull(i);
     }
+    
+
+    /**
+     * Test validacije - objekat sa ispravnim vrednostima nema gresaka.
+     */
+    @Test
+    public void testValidanInstruktor() {
+    	Set<ConstraintViolation<Instruktor>> violations = validator.validate(instruktor);
+    	assertTrue(violations.isEmpty());
+    }
 
     /**
      * Test Lombok @Setter i @Getter - setIdInstruktor sa razlicitim vrednostima.
@@ -116,6 +139,26 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
         instruktor.setKorisnickoIme(korisnickoIme);
         assertEquals(korisnickoIme, instruktor.getKorisnickoIme());
     }
+    
+    /**
+     * Test validacije - korisnicko ime ne sme biti prazno.
+     */
+    @Test
+    public void testKorisnickoImePrazno() {
+        instruktor.setKorisnickoIme("");
+        Set<ConstraintViolation<Instruktor>> violations = validator.validate(instruktor);
+        assertFalse(violations.isEmpty());
+    }
+
+    /**
+     * Test validacije - korisnicko ime ne sme biti null.
+     */
+    @Test
+    public void testKorisnickoImeNull() {
+        instruktor.setKorisnickoIme(null);
+        Set<ConstraintViolation<Instruktor>> violations = validator.validate(instruktor);
+        assertFalse(violations.isEmpty());
+    }
 
     /**
      * Test Lombok @Setter i @Getter - setSifra.
@@ -124,6 +167,26 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
     public void testSetSifra() {
         instruktor.setSifra("novaSifra");
         assertEquals("novaSifra", instruktor.getSifra());
+    }
+    
+    /**
+     * Test validacije - sifra ne sme biti prazna.
+     */
+    @Test
+    public void testSifraPrazna() {
+        instruktor.setSifra("");
+        Set<ConstraintViolation<Instruktor>> violations = validator.validate(instruktor);
+        assertFalse(violations.isEmpty());
+    }
+
+    /**
+     * Test validacije - sifra ne sme biti null.
+     */
+    @Test
+    public void testSifraNull() {
+        instruktor.setSifra(null);
+        Set<ConstraintViolation<Instruktor>> violations = validator.validate(instruktor);
+        assertFalse(violations.isEmpty());
     }
 
     /**
@@ -134,6 +197,26 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
     public void testSetIme(String ime) {
         instruktor.setIme(ime);
         assertEquals(ime, instruktor.getIme());
+    }
+    
+    /**
+     * Test validacije - ime ne sme biti prazno.
+     */
+    @Test
+    public void testImePrazno() {
+        instruktor.setIme("");
+        Set<ConstraintViolation<Instruktor>> violations = validator.validate(instruktor);
+        assertFalse(violations.isEmpty());
+    }
+
+    /**
+     * Test validacije - ime ne sme biti null.
+     */
+    @Test
+    public void testImeNull() {
+        instruktor.setIme(null);
+        Set<ConstraintViolation<Instruktor>> violations = validator.validate(instruktor);
+        assertFalse(violations.isEmpty());
     }
 
     /**
@@ -147,12 +230,62 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
     }
 
     /**
+     * Test validacije - prezime ne sme biti prazno.
+     */
+    @Test
+    public void testPrezimePrazno() {
+        instruktor.setPrezime("");
+        Set<ConstraintViolation<Instruktor>> violations = validator.validate(instruktor);
+        assertFalse(violations.isEmpty());
+    }
+
+    /**
+     * Test validacije - prezime ne sme biti null.
+     */
+    @Test
+    public void testPrezimeNull() {
+        instruktor.setPrezime(null);
+        Set<ConstraintViolation<Instruktor>> violations = validator.validate(instruktor);
+        assertFalse(violations.isEmpty());
+    }
+    
+    /**
      * Test Lombok @Setter i @Getter - setEmail.
      */
     @Test
     public void testSetEmail() {
         instruktor.setEmail("tijana.m123@gmail.com");
         assertEquals("tijana.m123@gmail.com", instruktor.getEmail());
+    }
+    
+    /**
+     * Test validacije - email ne sme biti prazan.
+     */
+    @Test
+    public void testEmailPrazan() {
+        instruktor.setEmail("");
+        Set<ConstraintViolation<Instruktor>> violations = validator.validate(instruktor);
+        assertFalse(violations.isEmpty());
+    }
+
+    /**
+     * Test validacije - email ne sme biti null.
+     */
+    @Test
+    public void testEmailNull() {
+        instruktor.setEmail(null);
+        Set<ConstraintViolation<Instruktor>> violations = validator.validate(instruktor);
+        assertFalse(violations.isEmpty());
+    }
+
+    /**
+     * Test validacije - email mora biti ispravnog formata.
+     */
+    @Test
+    public void testEmailNeispravan() {
+        instruktor.setEmail("emailbezat");
+        Set<ConstraintViolation<Instruktor>> violations = validator.validate(instruktor);
+        assertFalse(violations.isEmpty());
     }
 
     /**
@@ -162,7 +295,7 @@ public class InstruktorTest extends OpstiDomenskiObjekatTest {
     public void testSetInstruktorKvalifikacije() {
         List<InstruktorKvalifikacija> lista = new ArrayList<>();
         Kvalifikacija k = new Kvalifikacija(1, "Licencirani trener sportskog plesa", "Savez sportskog plesa Srbije");
-        lista.add(new InstruktorKvalifikacija(instruktor, k, null, Nivo.osnovni));
+        lista.add(new InstruktorKvalifikacija(instruktor, k, new Date(System.currentTimeMillis() - 86400000), Nivo.osnovni));
         instruktor.setInstruktorKvalifikacije(lista);
         assertEquals(1, instruktor.getInstruktorKvalifikacije().size());
         assertEquals(lista, instruktor.getInstruktorKvalifikacije());

@@ -75,6 +75,38 @@ public class PolaznikTest extends OpstiDomenskiObjekatTest {
         Polaznik p = new Polaznik();
         assertNotNull(p);
     }
+    
+    /**
+     * Test konstruktora sa null imenom.
+     */
+    @Test
+    public void testKonstruktorNullIme() {
+        assertThrows(IllegalArgumentException.class, () -> new Polaznik(1, null, "Milić", "mila@gmail.com", uzrasnaKategorija));
+    }
+
+    /**
+     * Test konstruktora sa null prezimenom.
+     */
+    @Test
+    public void testKonstruktorNullPrezime() {
+        assertThrows(IllegalArgumentException.class, () -> new Polaznik(1, "Mila", null, "mila@gmail.com", uzrasnaKategorija));
+    }
+
+    /**
+     * Test konstruktora sa emailom bez '@'.
+     */
+    @Test
+    public void testKonstruktorEmailBezAt() {
+        assertThrows(IllegalArgumentException.class, () -> new Polaznik(1, "Mila", "Milić", "emailbezat.com", uzrasnaKategorija));
+    }
+
+    /**
+     * Test konstruktora sa null uzrasnom kategorijom.
+     */
+    @Test
+    public void testKonstruktorNullUzrasnaKategorija() {
+        assertThrows(IllegalArgumentException.class, () -> new Polaznik(1, "Mila", "Milić", "mila@gmail.com", null));
+    }
 
     /**
      * Test setIdPolaznik sa razlicitim vrednostima.
@@ -95,6 +127,30 @@ public class PolaznikTest extends OpstiDomenskiObjekatTest {
         polaznik.setIme(ime);
         assertEquals(ime, polaznik.getIme());
     }
+    
+    /**
+     * Test setIme sa null vrednoscu.
+     */
+    @Test
+    public void testSetImeNull() {
+        assertThrows(IllegalArgumentException.class, () -> polaznik.setIme(null));
+    }
+
+    /**
+     * Test setIme sa praznim stringom.
+     */
+    @Test
+    public void testSetImePrazno() {
+        assertThrows(IllegalArgumentException.class, () -> polaznik.setIme(""));
+    }
+
+    /**
+     * Test setIme sa stringom koji sadrzi samo razmake.
+     */
+    @Test
+    public void testSetImeSamoRazmaci() {
+        assertThrows(IllegalArgumentException.class, () -> polaznik.setIme("   "));
+    }
 
     /**
      * Test setPrezime sa razlicitim vrednostima.
@@ -107,6 +163,30 @@ public class PolaznikTest extends OpstiDomenskiObjekatTest {
     }
 
     /**
+     * Test setPrezime sa null vrednoscu.
+     */
+    @Test
+    public void testSetPrezimeNull() {
+        assertThrows(IllegalArgumentException.class, () -> polaznik.setPrezime(null));
+    }
+
+    /**
+     * Test setPrezime sa praznim stringom.
+     */
+    @Test
+    public void testSetPrezimePrazno() {
+        assertThrows(IllegalArgumentException.class, () -> polaznik.setPrezime(""));
+    }
+
+    /**
+     * Test setPrezime sa stringom koji sadrzi samo razmake.
+     */
+    @Test
+    public void testSetPrezimeSamoRazmaci() {
+        assertThrows(IllegalArgumentException.class, () -> polaznik.setPrezime("   "));
+    }
+    
+    /**
      * Test setEmail.
      */
     @Test
@@ -114,7 +194,39 @@ public class PolaznikTest extends OpstiDomenskiObjekatTest {
         polaznik.setEmail("tijana13@gmail.com");
         assertEquals("tijana13@gmail.com", polaznik.getEmail());
     }
+    
+    /**
+     * Test setEmail sa null vrednoscu.
+     */
+    @Test
+    public void testSetEmailNull() {
+        assertThrows(IllegalArgumentException.class, () -> polaznik.setEmail(null));
+    }
 
+    /**
+     * Test setEmail sa praznim stringom.
+     */
+    @Test
+    public void testSetEmailPrazan() {
+    	assertThrows(IllegalArgumentException.class, () -> polaznik.setEmail(""));
+    }
+
+    /**
+     * Test setEmail sa stringom koji sadrzi samo razmake.
+     */
+    @Test
+    public void testSetEmailSamoRazmaci() {
+    	assertThrows(IllegalArgumentException.class, () -> polaznik.setEmail("   "));
+    }
+
+    /**
+     * Test setEmail sa emailom koji ne sadrzi '@'.
+     */
+    @Test
+    public void testSetEmailBezAt() {
+    	assertThrows(IllegalArgumentException.class, () -> polaznik.setEmail("emailbezat.com"));
+    }
+ 
     /**
      * Test setUzrasnaKategorija.
      */
@@ -125,6 +237,14 @@ public class PolaznikTest extends OpstiDomenskiObjekatTest {
         assertEquals(novaKat, polaznik.getUzrasnaKategorija());
     }
 
+    /**
+     * Test setUzrasnaKategorija sa null vrednoscu.
+     */
+    @Test
+    public void testSetUzrasnaKategorijaNula() {
+        assertThrows(IllegalArgumentException.class, () -> polaznik.setUzrasnaKategorija(null));
+    }
+    
     /**
      * Test equals - isti ID => jednaki.
      */

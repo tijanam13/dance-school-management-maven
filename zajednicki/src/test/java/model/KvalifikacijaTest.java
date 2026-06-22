@@ -67,6 +67,22 @@ public class KvalifikacijaTest extends OpstiDomenskiObjekatTest {
         Kvalifikacija k = new Kvalifikacija();
         assertNotNull(k);
     }
+    
+    /**
+     * Test konstruktora sa null tipom.
+     */
+    @Test
+    public void testKonstruktorNullTip() {
+        assertThrows(IllegalArgumentException.class, () -> new Kvalifikacija(1, null, "Plesni savez Srbije"));
+    }
+
+    /**
+     * Test konstruktora sa null organizacijom.
+     */
+    @Test
+    public void testKonstruktorNullOrganizacija() {
+        assertThrows(IllegalArgumentException.class, () -> new Kvalifikacija(1, "Neki tip", null));
+    }
 
     /**
      * Test setIdKvalifikacija sa razlicitim vrednostima.
@@ -87,6 +103,30 @@ public class KvalifikacijaTest extends OpstiDomenskiObjekatTest {
         kvalifikacija.setTip(tip);
         assertEquals(tip, kvalifikacija.getTip());
     }
+    
+    /**
+     * Test setTip sa null vrednoscu.
+     */
+    @Test
+    public void testSetTipNull() {
+        assertThrows(IllegalArgumentException.class, () -> kvalifikacija.setTip(null));
+    }
+    
+    /**
+     * Test setTip sa praznim stringom.
+     */
+    @Test
+    public void testSetTipPrazan() {
+        assertThrows(IllegalArgumentException.class, () -> kvalifikacija.setTip(""));
+    }
+    
+    /**
+     * Test setTip sa stringom koji sadrzi samo razmake.
+     */
+    @Test
+    public void testSetTipSamoRazmaci() {
+        assertThrows(IllegalArgumentException.class, () -> kvalifikacija.setTip("   "));
+    }
 
     /**
      * Test setOrganizacija sa razlicitim vrednostima.
@@ -96,6 +136,30 @@ public class KvalifikacijaTest extends OpstiDomenskiObjekatTest {
     public void testSetOrganizacija(String org) {
         kvalifikacija.setOrganizacija(org);
         assertEquals(org, kvalifikacija.getOrganizacija());
+    }
+    
+    /**
+     * Test setOrganizacija sa null vrednoscu.
+     */
+    @Test
+    public void testSetOrganizacijaNull() {
+        assertThrows(IllegalArgumentException.class, () -> kvalifikacija.setOrganizacija(null));
+    }
+
+    /**
+     * Test setOrganizacija sa praznim stringom.
+     */
+    @Test
+    public void testSetOrganizacijaPrazna() {
+        assertThrows(IllegalArgumentException.class, () -> kvalifikacija.setOrganizacija(""));
+    }
+
+    /**
+     * Test setOrganizacija sa stringom koji sadrzi samo razmake.
+     */
+    @Test
+    public void testSetOrganizacijaSamoRazmaci() {
+        assertThrows(IllegalArgumentException.class, () -> kvalifikacija.setOrganizacija("   "));
     }
 
     /**

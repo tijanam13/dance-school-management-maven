@@ -5,6 +5,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.*;
 
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.ConstraintViolation;
+import java.util.Set;
+
 /**
  * Test klasa za domensku klasu {@link UzrasnaKategorija}.
  * Testiraju se konstruktori, set metode, equals, toString
@@ -17,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UzrasnaKategorijaTest extends OpstiDomenskiObjekatTest {
 
     private UzrasnaKategorija uzrasnaKategorija;
+    private Validator validator;
 
     @Override
     protected OpstiDomenskiObjekat getInstance() {
@@ -29,6 +36,8 @@ public class UzrasnaKategorijaTest extends OpstiDomenskiObjekatTest {
     @BeforeEach
     public void setUp() {
         uzrasnaKategorija = new UzrasnaKategorija(1, "7-12", "deca");
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
     }
 
     /**
@@ -37,6 +46,7 @@ public class UzrasnaKategorijaTest extends OpstiDomenskiObjekatTest {
     @AfterEach
     public void tearDown() {
         uzrasnaKategorija = null;
+        validator = null;
     }
 
     /**
@@ -67,6 +77,15 @@ public class UzrasnaKategorijaTest extends OpstiDomenskiObjekatTest {
     public void testPodrazumevaniKonstruktor() {
         UzrasnaKategorija uk = new UzrasnaKategorija();
         assertNotNull(uk);
+    }
+    
+    /**
+     * Test validacije - objekat sa ispravnim vrednostima nema gresaka.
+     */
+    @Test
+    public void testValidnaUzrasnaKategorija() {
+        Set<ConstraintViolation<UzrasnaKategorija>> violations = validator.validate(uzrasnaKategorija);
+        assertTrue(violations.isEmpty());
     }
 
     /**
@@ -100,6 +119,26 @@ public class UzrasnaKategorijaTest extends OpstiDomenskiObjekatTest {
         uzrasnaKategorija.setOpsegGodina(opseg);
         assertEquals(opseg, uzrasnaKategorija.getOpsegGodina());
     }
+    
+    /**
+     * Test validacije - opseg godina ne sme biti null.
+     */
+    @Test
+    public void testOpsegGodinaNNull() {
+        uzrasnaKategorija.setOpsegGodina(null);
+        Set<ConstraintViolation<UzrasnaKategorija>> violations = validator.validate(uzrasnaKategorija);
+        assertFalse(violations.isEmpty());
+    }
+
+    /**
+     * Test validacije - opseg godina ne sme biti prazan.
+     */
+    @Test
+    public void testOpsegGodinaPrazan() {
+        uzrasnaKategorija.setOpsegGodina("");
+        Set<ConstraintViolation<UzrasnaKategorija>> violations = validator.validate(uzrasnaKategorija);
+        assertFalse(violations.isEmpty());
+    }
 
     /**
      * Test Lombok @Setter i @Getter - setNaziv sa razlicitim vrednostima.
@@ -109,6 +148,26 @@ public class UzrasnaKategorijaTest extends OpstiDomenskiObjekatTest {
     public void testSetNaziv(String naziv) {
         uzrasnaKategorija.setNaziv(naziv);
         assertEquals(naziv, uzrasnaKategorija.getNaziv());
+    }
+    
+    /**
+     * Test validacije - naziv ne sme biti null.
+     */
+    @Test
+    public void testNazivNull() {
+        uzrasnaKategorija.setNaziv(null);
+        Set<ConstraintViolation<UzrasnaKategorija>> violations = validator.validate(uzrasnaKategorija);
+        assertFalse(violations.isEmpty());
+    }
+
+    /**
+     * Test validacije - naziv ne sme biti prazan.
+     */
+    @Test
+    public void testNazivPrazan() {
+        uzrasnaKategorija.setNaziv("");
+        Set<ConstraintViolation<UzrasnaKategorija>> violations = validator.validate(uzrasnaKategorija);
+        assertFalse(violations.isEmpty());
     }
 
     /**

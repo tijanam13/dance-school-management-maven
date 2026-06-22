@@ -158,8 +158,13 @@ public class UpisnicaKontroler {
 
                 Date datumZaBazu = new java.sql.Date(datumUpisa.getTime());
 
-                Upisnica upisnica = new Upisnica(datumZaBazu, ukupnaClanarina, instruktor, polaznik);
-                for (StavkaUpisnice stavka : stavke) {
+                Upisnica upisnica = null;
+                try {
+                    upisnica = new Upisnica(datumZaBazu, ukupnaClanarina, instruktor, polaznik);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(ku, "Greška pri kreiranju upisnice.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }                for (StavkaUpisnice stavka : stavke) {
                     stavka.setUpisnica(upisnica);
 
                 }
@@ -294,8 +299,13 @@ public class UpisnicaKontroler {
 
                 Date datumZaBazu = new java.sql.Date(datumUpisa.getTime());
 
-                Upisnica u = new Upisnica(ku.getUpisnica().getIdUpisnica(), datumZaBazu, ukupnaClanarina, instruktor, polaznik);
-                u.setListaStavke(stavke);
+                Upisnica u = null;
+                try {
+                    u = new Upisnica(ku.getUpisnica().getIdUpisnica(), datumZaBazu, ukupnaClanarina, instruktor, polaznik);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(ku, "Greška pri kreiranju upisnice.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }                u.setListaStavke(stavke);
 
                 int odluka = JOptionPane.showConfirmDialog(ku, "Da li ste sigurni da želite da sačuvate unete promene?", "Potvrda", JOptionPane.YES_NO_OPTION);
                 if (odluka == 0) {
