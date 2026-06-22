@@ -57,6 +57,19 @@ public class Kvalifikacija extends OpstiDomenskiObjekat {
     	  setTip(tip);
           setOrganizacija(organizacija);
     }
+    
+    /**
+     * Konstruktor koji se koristi za pretragu kvalifikacija.
+     * Dozvoljava null vrednosti kao kriterijume pretrage.
+     *
+     * @param tip tip kvalifikacije ili null
+     * @param organizacija organizacija ili null
+     * @param zaPretragu oznaka da je konstruktor za pretragu
+     */
+    public Kvalifikacija(String tip, String organizacija, boolean zaPretragu) {
+        this.tip = tip;
+        this.organizacija = organizacija;
+    }
 
     /**
      * Vraca naziv organizacije koja je izdala kvalifikaciju.

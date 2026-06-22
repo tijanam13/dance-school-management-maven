@@ -134,8 +134,8 @@ public class VratiListuKvalifikacijaKvalifikacijaSOTest {
      */
     @Test
     public void testIzvrsiPretragaPoTipu() throws Exception {
-        Kvalifikacija parametar = new Kvalifikacija("Sertifikat za trenera modernih plesova", null);
-        Kvalifikacija uslov = new Kvalifikacija("Sertifikat za trenera modernih plesova", null);
+        Kvalifikacija parametar = new Kvalifikacija("Sertifikat za trenera modernih plesova", null, true);
+        Kvalifikacija uslov = new Kvalifikacija("Sertifikat za trenera modernih plesova", null, true);
 
         List<Kvalifikacija> ocekivanaLista = new ArrayList<>();
         ocekivanaLista.add(new Kvalifikacija(1, "Sertifikat za trenera modernih plesova", "Plesni savez Srbije"));
@@ -164,8 +164,8 @@ public class VratiListuKvalifikacijaKvalifikacijaSOTest {
      */
     @Test
     public void testIzvrsiPretragaPoOrganizaciji() throws Exception {
-        Kvalifikacija parametar = new Kvalifikacija(null, "Plesni savez Srbije");
-        Kvalifikacija uslov = new Kvalifikacija(null, "Plesni savez Srbije");
+        Kvalifikacija parametar = new Kvalifikacija(null, "Plesni savez Srbije", true);
+        Kvalifikacija uslov = new Kvalifikacija(null, "Plesni savez Srbije", true);
 
         List<Kvalifikacija> ocekivanaLista = new ArrayList<>();
         ocekivanaLista.add(new Kvalifikacija(1, "Sertifikat za trenera modernih plesova", "Plesni savez Srbije"));
@@ -194,8 +194,8 @@ public class VratiListuKvalifikacijaKvalifikacijaSOTest {
      */
     @Test
     public void testIzvrsiPretragaPoTipuIOrganizaciji() throws Exception {
-        Kvalifikacija parametar = new Kvalifikacija("Sertifikat za trenera modernih plesova", "Plesni savez Srbije");
-        Kvalifikacija uslov = new Kvalifikacija("Sertifikat za trenera modernih plesova", "Plesni savez Srbije");
+        Kvalifikacija parametar = new Kvalifikacija("Sertifikat za trenera modernih plesova", "Plesni savez Srbije", true);
+        Kvalifikacija uslov = new Kvalifikacija("Sertifikat za trenera modernih plesova", "Plesni savez Srbije", true);
 
         List<Kvalifikacija> ocekivanaLista = new ArrayList<>();
         ocekivanaLista.add(new Kvalifikacija(1, "Sertifikat za trenera modernih plesova", "Plesni savez Srbije"));
@@ -225,8 +225,8 @@ public class VratiListuKvalifikacijaKvalifikacijaSOTest {
      */
     @Test
     public void testIzvrsiPretragaBezKriterijuma() throws Exception {
-        Kvalifikacija parametar = new Kvalifikacija(null, null);
-        Kvalifikacija uslov = new Kvalifikacija(null, null);
+        Kvalifikacija parametar = new Kvalifikacija(null, null, true);
+        Kvalifikacija uslov = new Kvalifikacija(null, null, true);
 
         List<Kvalifikacija> praznaLista = new ArrayList<>();
 
